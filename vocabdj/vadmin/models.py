@@ -26,4 +26,6 @@ class Profile(models.Model):
   
     def __unicode__(self):
         return '%s %s'%(self.title, self.user)
-    
+
+#Automatically create profile if a view tries to look at profile.
+User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
