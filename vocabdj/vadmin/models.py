@@ -19,6 +19,7 @@ class Location(models.Model):
 
 
 class Profile(models.Model):
+    '''A custom profile linked to Auth system.'''
     user = models.ForeignKey(User, unique=True)
     title = models.ForeignKey(Title)
     location = models.ForeignKey(Location)
