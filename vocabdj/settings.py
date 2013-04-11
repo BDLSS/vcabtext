@@ -141,3 +141,6 @@ LOGGING = {
         },
     }
 }
+
+#See https://damssupport.bodleian.ox.ac.uk/trac/vocab/ticket/20
+AUTH_PROFILE_MODULE = "vadmin.Profile"
