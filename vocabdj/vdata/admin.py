@@ -18,8 +18,10 @@ admin.site.register(Collection, CollectionAdmin)
 
 class DocumentAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'maintainer', 'format', 'source', 'status')
+    list_display_links = ('id', 'name')
     list_filter = ('date_modified', 'status', 'maintainer', 'collection')
-    date_hierarchy = 'date_modified'
+    date_hierarchy = 'date_document'
+    readonly_fields = ('date_added', 'date_modified')
     
     raw_id_fields = ('version_extends','version_parent', 'version_related', 'version_previous', 'version_next')
     
@@ -85,6 +87,9 @@ class DocumentAdmin(admin.ModelAdmin):
                             'classes': hide,
                             'description': 'These fields are for use by library staff mainly.',
                             'fields': ('status',
+                                       'date_document',
+                                       'date_added',
+                                       'date_modified',
                                        ),
                               }),
                      
