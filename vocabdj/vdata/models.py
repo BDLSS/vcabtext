@@ -122,13 +122,13 @@ class Document(models.Model):
     # ---------------------------------------------------------------
     # The following options effect how the field text gets populated.
     h = 'Reset text from an uploaded a file.'
-    #text_upload = models.FileField(upload_to=None, blank=True, help_text=h)
+    text_upload = models.FileField(upload_to='rawtext/%Y/%m/%d', blank=True, help_text=h)
     
     h = 'Reset text by downloading from namespace uri . (CHECK IT IS SAFE)'
     text_fetch_enabled = models.BooleanField(default=False, help_text=h)
     
     h = 'Reset text from an uploaded compressed file. (accepts zip, gz, bz2)'
-    #compress_upload = models.FileField(upload_to=None, blank=True, help_text=h)
+    compress_upload = models.FileField(upload_to='compress/%Y/%m/%d', blank=True, help_text=h)
     
     h = 'If resetting by compressed file, the main file with the "includes".'
     compress_start_doc = models.CharField(max_length=30, blank=True, help_text=h)

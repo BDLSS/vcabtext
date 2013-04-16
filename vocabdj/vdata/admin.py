@@ -63,9 +63,11 @@ class DocumentAdmin(admin.ModelAdmin):
                         ('Auto text options', {
                             'classes': hide,
                             'description': 'These fields can automatically update the text field. (To be implemented)',
-                            'fields': ('text_fetch_enabled',
+                            'fields': ('text_upload',
+                                       'text_fetch_enabled',
                                        'compress_start_doc',
-                                       'compress_includes_auto_add'),
+                                       'compress_includes_auto_add',
+                                       'compress_upload')
                               }),
                      
                         ('Version linkage', {
