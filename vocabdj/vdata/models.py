@@ -209,12 +209,12 @@ class Document(models.Model):
     # ---------------------------------------------------------------
     # Fields containing dates
     # ---------------------------------------------------------------
-    date_added = models.DateField(blank=True, null=True, auto_now_add=True)
-    date_modified = models.DateField(blank=True, null=True, auto_now=True)
+    date_added = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
 
     h = 'A rough date (to year accuracy) when this document was first made public.'
     v = "Document's date"
-    date_document = models.DateField(blank=True, null=True, help_text=h, verbose_name=v)
+    date_document = models.DateTimeField(blank=True, null=True, help_text=h, verbose_name=v)
     
     def __unicode__(self):
         return '%s - %s'%(self.id, self.name)
