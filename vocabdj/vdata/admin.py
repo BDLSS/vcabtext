@@ -1,12 +1,11 @@
 from django.contrib import admin
-from vdata.models import Format, Collection, Document
+from vdata.models import Format, Collection, Document, Tag, Category
 
 ENABLE_FIELDSETS = True
 
 class FormatAdmin(admin.ModelAdmin):
     list_display = ('format', 'expanded_acronym', 'html_convert_enable', 'native_mime_type')
     
-
 admin.site.register(Format, FormatAdmin)
 
 
@@ -15,6 +14,16 @@ class CollectionAdmin(admin.ModelAdmin):
 
 admin.site.register(Collection, CollectionAdmin)
 
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('tag', 'notes')
+
+admin.site.register(Tag, TagAdmin)
+
+class CatAdmin(admin.ModelAdmin):
+    list_display = ('category', 'notes')
+
+admin.site.register(Category, CatAdmin)
+
 
 class DocumentAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'maintainer', 'format', 'source', 'status')
@@ -22,6 +31,7 @@ class DocumentAdmin(admin.ModelAdmin):
     list_filter = ('date_modified', 'status', 'maintainer', 'collection')
     date_hierarchy = 'date_document'
     readonly_fields = ('date_added', 'date_modified')
+    filter_horizontal = ('categories', 'tags')
     
     raw_id_fields = ('version_extends','version_parent', 'version_related', 'version_previous', 'version_next')
     
@@ -50,6 +60,15 @@ class DocumentAdmin(admin.ModelAdmin):
                                        'contributors',
                                        'notes'),
                               }),
+                     
+                        ('Categories and Tags', {
+                            'classes': hide,
+                            'description': 'You can assign categories and tags if you wish.',
+                            'fields': ('categories',
+                                       'tags',
+                                       ),
+                              }),
+                     
                       
                         ('HTML contents', {
                             'classes': hide,

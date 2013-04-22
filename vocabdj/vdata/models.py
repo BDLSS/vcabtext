@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+# Models the main Document model depends upon
+# =======================================================================
 class Format(models.Model):
     '''The system needs to store different types of format.'''
     h = 'The very brief way of referring to this format.'
@@ -48,6 +51,34 @@ class Collection(models.Model):
     def __unicode__(self):
         return self.collection
     
+class Tag(models.Model):
+    '''A document can have user defined tags.'''
+    h = 'A tag should ideally be a single word, (eg. keyword HTML meta tag)'
+    tag = models.CharField(max_length=30, primary_key=True, help_text=h)
+    
+    h = 'You can keep brief notes about this tag for internal use.'
+    notes = models.CharField(max_length=250, blank=True, help_text=h)
+    
+    def __unicode__(self):
+        return self.tag
+    
+class Category(models.Model):
+    '''A document can have user defined tags.'''
+    h = 'A category can be up to 50 chars long and can contain spaces.'
+    category = models.CharField(max_length=50, primary_key=True, help_text=h)
+    
+    h = 'You can keep brief notes about this category for internal use.'
+    notes = models.CharField(max_length=250, blank=True, help_text=h)
+    
+    def __unicode__(self):
+        return self.category
+    
+    class Meta():
+        verbose_name_plural = 'Categories'
+
+
+# The main model used to hold documents and their meta information.
+# =======================================================================
 class Document(models.Model):
     '''A representation of vocab document.'''
     h = 'A short name commonly used to refer to this document. e.g. "Dublin Core"'
@@ -70,6 +101,12 @@ class Document(models.Model):
     
     h = 'Documents get grouped into broad collections.'
     collection = models.ForeignKey(Collection, null=True, blank=True, help_text=h)
+    
+    h = 'You can assign categories to this document. Ask the site admin to add new choices.'
+    categories = models.ManyToManyField(Category, null=True, blank=True, help_text=h, related_name='categories')
+    
+    h = 'You can assign tags to this document and create new ones if required.'
+    tags = models.ManyToManyField(Tag, null=True, blank=True, help_text=h, related_name='tags')
     
     h = "The namespace commonly used or one you'd like users to use. e.g. 'dc' as in xmlns:dc="
     suggested_namespace = models.CharField(max_length=20, blank=True, help_text=h)
