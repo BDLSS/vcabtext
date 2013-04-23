@@ -33,3 +33,8 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# Need to ignore any json files created by the resore system.
+*.json
+*.json.on*
+
