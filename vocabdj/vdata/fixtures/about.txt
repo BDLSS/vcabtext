@@ -1,0 +1,2 @@
+This folder contains data dumped from the vocab system
+that can be loaded as a fixture.
