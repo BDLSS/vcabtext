@@ -52,6 +52,8 @@ then
 		$($DUMP auth.user > "$VADMIN/user.json")
 		$($DUMP flatpages > "$VADMIN/page.json")
 		
+		$($DUMP vdata.document > "$VDATA/document.json")
+
 		echo 'Finished dump, check the listing is as expected.'
 		echo $VDATA
 		ls $VDATA -lhtr
@@ -74,7 +76,7 @@ then
 	$($DUMP auth.user > "$VADMIN/user.json.$WHEN")
 	$($DUMP flatpages > "$VADMIN/page.json.$WHEN")
 
-	$($DUMP vdata.document > "$VADMIN/document.json.$WHEN")
+	$($DUMP vdata.document > "$VDATA/document.json.$WHEN")
 	
 	echo 'Finished backup, check the listing is as expected.'
 	echo $VDATA
