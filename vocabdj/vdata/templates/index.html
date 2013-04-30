@@ -5,7 +5,8 @@
     {% for document in document_list %}
         <h2><a href="/data/{{ document.id }}/"> {{document.name}}</a> - {{document.brief_description }}</h2>
         <p>{{document.description }}
-        (<em>Maintainer:</em> {{document.maintainer}})</p> 
+        <em>Contact:</em> {{document.maintainer}}
+        <em>Download:</em> <a href="/data/{{document.id}}/native/">{{document.name}} in {{document.format}}</p> 
     {% endfor %}
    
 {% else %}
