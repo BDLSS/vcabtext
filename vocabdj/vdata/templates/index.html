@@ -1,0 +1,14 @@
+<h1> Vocabularies available</h1>
+<p>The following items sorted into alphabetical order by name are available.
+{% if document_list %}
+
+    {% for document in document_list %}
+        <h2><a href="/data/{{ document.id }}/"> {{document.name}}</a> - {{document.brief_description }}</h2>
+        <p>{{document.description }}
+        (<em>Maintainer:</em> {{document.maintainer}})</p> 
+    {% endfor %}
+   
+{% else %}
+    <p>No docs are available.</p>
+{% endif %}
+<p><a href="/">Home</a> | Vocabularies available</p>

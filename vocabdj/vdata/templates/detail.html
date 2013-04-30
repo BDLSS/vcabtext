@@ -1,0 +1,11 @@
+<h1>{{document.name}}</h1>
+<p>{{document.description}}</p>
+<ul>
+<li>This page is maintained by: {{document.maintainer}}</li>
+{% if document.extends %}
+<li><strong>Extends:</strong> <a href="/data/{{document.extends}}">{{document.extends}}</a></li>
+{% endif %}
+
+</ul>
+
+<p><a href="/">Home</a> | <a href="/data">Vocabularies available</a></p>
