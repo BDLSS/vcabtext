@@ -10,18 +10,20 @@
     
         <h2>{{document.name}} - {{document.brief_description }}</h2>
         <p><a href="/data/{{ document.id }}/">About {{document.name}}</a>
-        | collection: {{document.collection}}
-        | maintainer: {{document.maintainer}} 
+        | <em>collection</em>: {{document.collection}}
+        | <em>maintainer</em>: <a href="/contact/">{{document.maintainer}}</a>
+		| <em>see</em>: <a href="/data/{{ document.id }}/native/">{{document.name}} in {{document.format}}</a>         
     {% endfor %}
 {% else %}
     <p>No docs are available.</p>
 {% endif %}
+
 {% endblock%}
 
 {% block bread %}
   <a href="/">Vocab</a>
   &rsaquo; <a href="/browse/">Browse</a>
-  &rsaquo; AZ list
+  &rsaquo; AZ list<a href="/admin/vdata/document/">.</a>
 
 {% endblock%}
  
