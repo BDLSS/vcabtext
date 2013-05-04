@@ -38,14 +38,14 @@ class DocumentAdmin(admin.ModelAdmin):
     if ENABLE_FIELDSETS:
         hide = ('collapse', 'wide', 'extrapretty')
         fieldsets = (
-                        (None, {'fields': ('name', )}),
+                        (None, {'fields': ('name', 'brief_description' )}),
                         
                         ('Important details', {
                               'classes': hide,
                               'description': 'These fields are needed by many non-admin page.',
                               'fields':
                               ('format', 'collection',
-                                    'brief_description', 'maintainer', 'text')
+                                    'maintainer', 'text')
                               }),
                       
                         ('Descriptors', {
