@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}HTML view of {{document.name}}{% endblock%}
+
+{% block content %}
+<h1>HTML view of {{document.name}}</h1>
+
+{% if document.html_enabled %}
+	{{document.html_doc|safe}}
+{% endif %}
+
+{% if document.html_auto_enabled %}
+
+<h2>Auto documentation</h2>
+	{% if document.html_auto_doc %}
+	  <p>The following has been automatically created from
+	  <a href="/data/{{document.id}}/native/">{{document.name}} in {{document.format}}</a>.
+	  {{document.html_auto_doc|safe}}
+	  </p>
+	{% else %}
+      <p>There is no automatic documentation available but
+      you can view
+      <a href="/data/{{document.id}}/native/">{{document.name}} in {{document.format}}</a>
+      </p>
+	{% endif %}
+
+{% endif %}
+
+{% endblock%}
+
+{% block bread %}
+
+  <a href="/">Vocab</a>
+  &rsaquo; <a href="/browse/">Browse</a>
+  &rsaquo; <a href="/data/">AZ list</a>
+  &rsaquo; <a href="/data/{{document.id}}/">{{document.name}}</a>
+  &rsaquo; HTML view of {{document.name}}
+{% endblock%}
+ 
