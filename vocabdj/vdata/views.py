@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import render
 
 from models import Document
@@ -30,3 +30,13 @@ def web(request, document_id):
     except Document.DoesNotExist:
         raise Http404 
     return render(request, 'web.html', {'document': doc})
+
+def download(request, document_id):
+    try:
+        doc = Document.objects.get(pk=document_id)
+    except Document.DoesNotExist:
+        raise Http404
+    response = HttpResponse(mimetype='application/rdf+xml')
+    response['Content-Disposition'] = 'attachment; filename=%s'%doc.name
+    response.write(doc.text)
+    return response
