@@ -3,10 +3,20 @@
 
 {% block content %}
 <h1>{{document.name}} in {{document.format}}</h1>
-<p>The {{document.format}} version should be downloading.</p>
-<h2>Contents</h2>
-<p>The downloaded file contains the following contents.</p>
-<pre>{{document.text}}</pre>
+<p>There are two ways of looking at this document.
+<h2>1. Download</h2>
+<p>You can save <a href="">{{document.name}} in {{document.format}}</a>
+to your computer.</p> 
+
+<h2>2. View online</h2>
+<p>The downloaded file contains the following which you
+can cut and paste into your favourite text editor.</p>
+<form name="native">
+ <textarea rows="15" cols="20" name="text">
+{{document.text|safe}}
+</textarea>
+</form>
+
 {% endblock%}
 
 {% block bread %}
