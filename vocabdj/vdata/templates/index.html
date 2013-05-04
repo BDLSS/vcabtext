@@ -1,7 +1,10 @@
-<p><a href="/">Home</a>
- > Vocabularies available</p>
-<h1> Vocabularies available</h1>
-<p>The following items sorted into alphabetical order by name are available.
+{% extends "base.html" %}
+{% block title %}AZ list of items{% endblock%}
+
+{% block content %}
+<h1>AZ list of items</h1>
+
+<p>The following items sorted by name are available.</p>
 {% if document_list %}
 
     {% for document in document_list %}
@@ -14,3 +17,12 @@
 {% else %}
     <p>No docs are available.</p>
 {% endif %}
+{% endblock%}
+
+{% block bread %}
+  <a href="/">Vocab</a>
+  > Browse
+  > AZ list
+
+{% endblock%}
+ 

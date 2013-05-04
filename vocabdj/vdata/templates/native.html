@@ -1,10 +1,18 @@
-<p><a href="/">Home</a>
- > <a href="/data">Vocabularies available</a>
- > <a href="/data/{{ document.id }}">{{document.name}}</a></p>
+{% extends "base.html" %}
+{% block title %}{{document.name}} in {{document.format}}{% endblock%}
 
+{% block content %}
 <h1>{{document.name}} in {{document.format}}</h1>
 <p>The {{document.format}} version should be downloading.</p>
 <h2>Contents</h2>
 <p>The downloaded file contains the following contents.</p>
 <pre>{{document.text}}</pre>
+{% endblock%}
 
+{% block bread %}
+  <a href="/">Vocab</a>
+  > <a href="/data">AZ list</a>
+  > <a href="/data/{{ document.id }}">{{document.name}}</a>
+  > {{document.name}} in {{document.format}}
+{% endblock%}
+ 
