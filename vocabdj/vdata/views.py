@@ -22,3 +22,11 @@ def native(request, document_id):
     except Document.DoesNotExist:
         raise Http404 
     return render(request, 'native.html', {'document': doc})
+
+def web(request, document_id):
+    '''Enables the downloading of a particular document.'''
+    try:
+        doc = Document.objects.get(pk=document_id)
+    except Document.DoesNotExist:
+        raise Http404 
+    return render(request, 'web.html', {'document': doc})
