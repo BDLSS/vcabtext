@@ -1,0 +1,49 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | Vocab admin{% endblock %}
+
+{% block extrastyle %}
+<style>
+
+a:link, a:visited { color:  #002147;
+	font-size: 1.2em;}
+
+a.collapse-toggle {
+font-size: 0.8em;}
+
+.module h2, .module caption, .inline-group h2 {
+    font-size: 1.3em;
+    background:  #002147;
+	}
+
+#content h1 {
+font-size: 2em}
+
+#header{ background-color:  #002147; 
+	border-bottom: solid 3px #002147;
+	}
+#header h1 {
+	font-size: 3em;
+	font-weight: bold;
+	color: white;
+	}
+
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">Vocab admin</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block footer %}
+<p>
+<img src="http://vocab.ox.ac.uk/images/oxford_logo.gif" align="left">
+Goto <a href="/">vocab.ox.ac.uk</a> for public view.<br />
+This service is provided by
+<a href="http://www.bodleian.ox.ac.uk/bdlss">Bodleian Digital Library Systems and Services</a>
+<br />for the <a href="http://www.ox.ac.uk/">University of Oxford</a>.
+</p>
+{% endblock %}
