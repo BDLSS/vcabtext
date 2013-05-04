@@ -6,14 +6,13 @@
 
 <p>The following items sorted by name are available.</p>
 {% if document_list %}
-
     {% for document in document_list %}
-        <h2><a href="/data/{{ document.id }}/"> {{document.name}}</a> - {{document.brief_description }}</h2>
-        <p>{{document.description }}
-        <em>Contact:</em> {{document.maintainer}}
-        <em>Download:</em> <a href="/data/{{document.id}}/native/">{{document.name}} in {{document.format}}</p> 
+    
+        <h2>{{document.name}} - {{document.brief_description }}</h2>
+        <p><a href="/data/{{ document.id }}/">About {{document.name}}</a>
+        | collection: {{document.collection}}
+        | maintainer: {{document.maintainer}} 
     {% endfor %}
-   
 {% else %}
     <p>No docs are available.</p>
 {% endif %}
@@ -21,8 +20,8 @@
 
 {% block bread %}
   <a href="/">Vocab</a>
-  > Browse
-  > AZ list
+  &rsaquo; <a href="/browse/">Browse</a>
+  &rsaquo; AZ list
 
 {% endblock%}
  

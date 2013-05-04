@@ -10,9 +10,11 @@
 {% endblock%}
 
 {% block bread %}
+
   <a href="/">Vocab</a>
-  > <a href="/data">AZ list</a>
-  > <a href="/data/{{ document.id }}">{{document.name}}</a>
-  > {{document.name}} in {{document.format}}
+  &rsaquo; <a href="/browse/">Browse</a>
+  &rsaquo; <a href="/data/">AZ list</a>
+  &rsaquo; <a href="/data/{{document.id}}/">{{document.name}}</a>
+  &rsaquo; {{document.name}} in {{document.format}}
 {% endblock%}
  

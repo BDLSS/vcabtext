@@ -2,7 +2,8 @@
 {% block title %}{{document.name}}{% endblock%}
  {% block content %}
 <h1>{{document.name}}</h1>
-<p>{{document.description}}</p>
+<p>{{document.brief_description}}</p>
+<p><strong>Description</strong>: {{document.description}}</p>
 <ul>
 <li>This page is maintained by: {{document.maintainer}}</li>
 <li><strong>Download:</strong> <a href="/data/{{document.id}}/native/">{{document.name}} in {{document.format}}</a></li>
@@ -13,8 +14,9 @@
 {% block bread %}
 
   <a href="/">Vocab</a>
-  > <a href="/data">AZ list</a>
-  > {{document.name}}
+  &rsaquo; <a href="/browse/">Browse</a>
+  &rsaquo; <a href="/data/">AZ list</a>
+  &rsaquo; {{document.name}}
 
 {% endblock%}
  
