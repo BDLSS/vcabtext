@@ -38,3 +38,5 @@ nosetests.xml
 *.json
 *.json.on*
 
+*.settings
+
