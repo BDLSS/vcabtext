@@ -114,6 +114,26 @@ class DocumentAdmin(admin.ModelAdmin):
                      
                       )
 
+    def save_model(self, request, obj, form, change):
+        '''Add custom save options to admin.'''
+        obj.save() # Save the model first to deal with any errors.
+        log = str()
+        
+        # Enable the setting of the text field via file upload.
+        if obj.text_fetch_enabled:
+            log += 'Auto text option used by username: %s\n'%request.user
+            uploaded = obj.text_upload # this contains the file information
+            if uploaded:
+                obj.text = uploaded.read()
+                log += 'The file uploaded was: %s\n'%uploaded
+            obj.text_fetch_enabled = False
+        
+        # Log our custom changes and save them.
+        if log:
+            obj.notes += log
+        obj.save()
+        
+        
 admin.site.register(Document, DocumentAdmin)
 
     
