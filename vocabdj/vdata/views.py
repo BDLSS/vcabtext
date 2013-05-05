@@ -4,7 +4,7 @@ from django.shortcuts import render
 from models import Document, Collection
 
 def index(request):
-    dlist = Document.objects.all()
+    dlist = Document.objects.all().filter(status=5)
     context = {'document_list' : dlist}
     return render(request, 'index.html', context)
 
