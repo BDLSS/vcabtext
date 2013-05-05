@@ -1,7 +1,7 @@
 from django.http import Http404, HttpResponse
 from django.shortcuts import render
 
-from models import Document
+from models import Document, Collection
 
 def index(request):
     dlist = Document.objects.all()
@@ -11,9 +11,12 @@ def index(request):
 def detail(request, document_id):
     try:
         doc = Document.objects.get(pk=document_id)
+        cats = doc.categories.all()
+        tags = doc.tags.all()
     except Document.DoesNotExist:
         raise Http404 
-    return render(request, 'detail.html', {'document': doc})
+    return render(request, 'detail.html', {'document': doc,
+                        'cats': cats, 'tags':tags})
 
 def native(request, document_id):
     '''Enables the downloading of a particular document.'''
