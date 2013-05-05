@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^(?P<document_id>\d+)/native/$', views.native, name='native'),
     url(r'^(?P<document_id>\d+)/web/$', views.web, name='web'),
     url(r'^(?P<document_id>\d+)/download/$', views.download, name='down'),
+    url(r'^collects/$', views.collections, name='collects'),
 )

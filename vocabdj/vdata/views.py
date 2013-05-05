@@ -43,3 +43,10 @@ def download(request, document_id):
     response['Content-Disposition'] = 'attachment; filename=%s'%doc.name
     response.write(doc.text)
     return response
+
+def collections(request):
+    '''Enable links to documents grouped by collection.'''
+    dlist = Document.objects.all()
+    clist = Collection.objects.all()
+    context = {'document_list' : dlist, 'collection_list': clist}
+    return render(request, 'collects.html', context)
