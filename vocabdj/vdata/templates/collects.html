@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Collections{% endblock%}
+
+{% block content %}
+<h1>Collections</h1>
+<p>The following collections are available.</p>
+
+{% for collection in collection_list %}
+  <h2><a name="{{collection}}"></a>{{collection.longer_name}} ({{collection}})</h2> 
+        
+  {% if collection.description %}
+    <p>{{collection.description|safe}}
+  {% endif %}
+    
+  {% if collection.url_about_collection %}
+    {% if not collection.description %}
+      <p>
+    {% endif %}
+    <a href="{{collection.url_about_collection}}">Website for {{collection}}</a></p>
+  {% endif %}
+
+  {% comment %}
+  The following works, but it is not that efficient.
+  It would work best if each collection had a subpage
+  with a filter on the document list. 
+  {% endcomment %}   
+    
+  {% if document_list %}
+    <ul>
+    {% for document in document_list %}
+      {% if document.collection.collection == collection.collection %}
+      <li><a href="/data/{{ document.id }}/">{{document.name}}</a> - {{document.brief_description }}</li>
+      {% endif %}         
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>No items are available.</p>
+  {% endif %}
+{% endfor %} {% comment %} This ends the collection loop. {% endcomment %}
+
+{% endblock%}
+
+{% block bread %}
+  <a href="/">Vocab</a>
+  &rsaquo; <a href="/browse/">Browse</a>
+  &rsaquo; Collections<a href="/admin/vdata/collection/">.</a>
+
+{% endblock%}
+ 
