@@ -51,6 +51,9 @@ class Collection(models.Model):
     def __unicode__(self):
         return self.collection
     
+    class Meta:
+        ordering = ['collection']
+    
 class Tag(models.Model):
     '''A document can have user defined tags.'''
     h = 'A tag should ideally be a single word, (eg. keyword HTML meta tag)'
