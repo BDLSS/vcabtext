@@ -46,7 +46,7 @@ def download(request, document_id):
 
 def collections(request):
     '''Enable links to documents grouped by collection.'''
-    dlist = Document.objects.all()
+    dlist = Document.objects.all().filter(status=5)
     clist = Collection.objects.all()
     context = {'document_list' : dlist, 'collection_list': clist}
     return render(request, 'collects.html', context)
