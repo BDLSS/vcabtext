@@ -1,23 +1,129 @@
 {% extends "base.html" %}
 {% block title %}{{document.name}}{% endblock%}
+{% block meta %}
+<meta name="Description" content="{{document.name}}: {{document.brief_description}}{% if cats %} - Categories: {% for cat in cats %} {{cat.category}}{% if not forloop.last %},{% endif %} {% endfor %} {% endif %}{% if tags %} - Tags: {% for t in tags %} {{t.tag}}{% if not forloop.last %},{% endif %}{% endfor %} {% endif %}">
+{% endblock%}
+
  {% block content %}
 <h1>{{document.name}}</h1>
 <p>{{document.brief_description}}</p>
-<p><strong>Description</strong>: {{document.description}}</p>
+
+<h2>See</h2>
 <ul>
-<li>This page is maintained by: {{document.maintainer}}</li>
-<li><strong>HTML:</strong> <a href="/data/{{document.id}}/web/">HTML of {{document.name}}</a></li>
-<li><strong>Download:</strong> <a href="/data/{{document.id}}/native/">{{document.name}} in {{document.format}}</a></li>
-<li><strong>Admin users:</strong> <a href="/admin/vdata/document/{{document.id}}/">Edit {{document.name}}</a></li>
+<li><a href="/data/{{document.id}}/native/">{{document.name}} in {{document.format}}</a> for downloading.</li>
+
+{% if document.html_enabled %}
+<li>Automatically created information <a href="/data/{{document.id}}/web/">in html</a></p>
+{% endif %}
+
+</ul>
+
+<h2>Notes</h2>
+<ul>
+<li><strong>Part of collection</strong>: <a href="/data/collects/#{{document.collection}}">{{document.collection}}</a></li>
+<li><strong>Page maintained by</strong>: <a href="/contact/">{{document.maintainer}}</a></li>
+
+{% if document.suggested_namespace%}
+<li><strong>Suggested namespace</strong>: {{document.suggested_namespace}}
+</li>
+{% endif %}
+
+{% if document.home_doc_url %}
+<li><strong>Home page</strong>:
+<a href="{{document.home_doc_url }}">{{document.home_doc_url }}</a></li>
+{% endif %}
+
+{% if document.creators %}
+<li><strong>Creators</strong>: {{document.creators}}</li>
+{% endif %}
+
+{% if document.contributors %}
+<li><strong>Contributors</strong>: {{document.contributors}}</li>
+{% endif %}
+
+{% if document.description %}
+<li><strong>Longer description</strong>: {{document.description}}</li>
+{% endif %}
+
+</ul>
+
+<h2>Categories and Tags</h2>
+<p>If categories (controlled by the admin team) or tags (added by a larger
+group) exist they will be shown below.</p>
+<ul>
+{% if cats %}
+<li><strong>Categories</strong>: {% for cat in cats %}
+	{{cat.category}}{% if not forloop.last %}},{% endif %}
+ {% endfor %}</li>
+ {% endif %}
+ {% if tags %}
+<li><strong>Tags</strong>: {% for t in tags %}
+	{{t.tag}} {% if not forloop.last %},{% endif %}
+ {% endfor %}
+  {% endif %}
+</li>    	
+</ul>
+
+<h2>Links between versions</h2>
+<p>If links between versions exist within <strong>vocab.ox.ac.uk</strong> they will appear
+below.</p>
+<ul>
+
+{% if document.version_current %}
+<li><strong>This is version</strong>: {{document.version_current}}</li>
+{% endif %}
+
+{% if document.version_previous %}
+<li><strong>Previous version</strong>: <a href="/data/{{document.version_previous.id}}">{{document.version_previous}}</a></li>
+{% endif %}
+
+{% if document.version_next %}
+<li><strong>Next version</strong>: <a href="/data/{{document.version_next.id}}">{{document.version_next}}</a></li>
+{% endif %}
+</ul>
+
+<h2>Other links</h2>
+<p>If a document has other links within vocab they will be shown below.</p>
+<ul>
+{% if document.version_extends %}
+<li><strong>This extends</strong>: <a href="/data/{{document.version_extends.id}}">{{document.version_extends}}</a></li>
+{% endif %}
+
+{% if document.version_related %}
+<li><strong>Related to</strong>: <a href="/data/{{document.version_related.id}}">{{document.version_related}}</a></li>
+{% endif %}
+
+{% if document.version_parent %}
+<li><strong>Child off</strong>: <a href="/data/{{document.version_parent.id}}">{{document.version_parent}}</a></li>
+{% endif %}
+
+</ul>
+
+<h2>Date</h2>
+<ul>
+{% if document.date_document %}
+<li><strong>of this version</strong>: {{document.date_document}}</li>
+{% endif %}
+
+{% if document.date_modified %}
+<li><strong>last modified</strong>: {{document.date_modified}}</li>
+{% endif %}
+
+{% if document.date_added %}
+<li><strong>added to vocab</strong>: {{document.date_added}}</li>
+{% endif %}
+
+
 </ul>
 {% endblock%}
+
 
 {% block bread %}
 
   <a href="/">Vocab</a>
   &rsaquo; <a href="/browse/">Browse</a>
   &rsaquo; <a href="/data/">AZ list</a>
-  &rsaquo; {{document.name}}
+  &rsaquo; {{document.name}}<a href="/admin/vdata/document/{{document.id}}/">.</a>
 
 {% endblock%}
  
