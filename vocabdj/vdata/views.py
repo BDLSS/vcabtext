@@ -49,7 +49,8 @@ def download(request, document_id):
     response = HttpResponse(mimetype=f.native_mime_type)
     
     # Dispatch the download.
-    response['Content-Disposition'] = 'attachment; filename=%s'%doc.name
+    response['Content-Disposition'] = 'attachment; filename=%s.%s'%(doc.name,
+                                                str(doc.format).lower())
     response.write(doc.text)
     return response
 
