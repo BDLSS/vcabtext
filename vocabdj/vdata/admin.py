@@ -122,39 +122,39 @@ class DocumentAdmin(admin.ModelAdmin):
                      
                       )
 
-    def save_model(self, request, obj, form, change):
+    def save_model(self, request, doc, form, change):
         '''Add custom save options to admin.'''
-        obj.save() # Save the model first to deal with any errors.
+        doc.save() # Save the model first to deal with any errors.
         
         # Enable the setting of the text field via file upload.
-        if obj.text_fetch_enabled:
-            self.text_fetch(request, obj)
+        if doc.text_fetch_enabled:
+            self.text_fetch(request, doc)
                 
         # Enable the setting of the html field via text.
-        if ENABLE_AUTO_HTML and obj.html_auto_enabled:
-            self.html_auto(request, obj)
+        if ENABLE_AUTO_HTML and doc.html_auto_enabled:
+            self.html_auto(request, doc)
             
     
-    def text_fetch(self, request, obj):
+    def text_fetch(self, request, doc):
         '''Load the text field from the uploaded filed.'''
         messages.warning(request, 'Trying to set text from uploaded file.')
-        uploaded = obj.text_upload # this contains the file information
+        uploaded = doc.text_upload # this contains the file information
         if uploaded:
-            obj.text = uploaded.read()
+            doc.text = uploaded.read()
             messages.success(request, 'Text successfully loaded.')
-            obj.text_fetch_enabled = False
-            obj.save()
+            doc.text_fetch_enabled = False
+            doc.save()
     
-    def html_auto(self, request, obj):
+    def html_auto(self, request, doc):
         '''Use text field to make documents in html.'''
         messages.warning(request, 'Trying to automatically create html.')
-        text = obj.text
+        text = doc.text
         if text:
             h = highlight(text, XmlLexer(), HtmlFormatter())
-            obj.html_auto_doc = h
+            doc.html_auto_doc = h
             messages.success(request, 'HTML successfully created.')
-            obj.html_auto_enabled = False
-            obj.save()
+            doc.html_auto_enabled = False
+            doc.save()
     
 admin.site.register(Document, DocumentAdmin)
 
