@@ -39,8 +39,17 @@ NOTE: if flatpages does not contain an item '/' you will get a 404 error n
 
 Production setup
 ----------------
-There is one stage. But the webserver still needs setting up.
+There is are two stages. But the webserver still needs setting up.
 
-Stage A: setup opt and sync latest git master
+Stage A: pre-setup
+- - - - - - - - - -
+1. sudo apt-get install python-django
+2. sudo apt-get install python-pygments
+3. wget https://github.com/mc7/vcabtext/raw/master/djsetup.py
+4. chmod u+x djsetup.py
+
+Stage B: setup opt and sync latest git master
 - - - - - - - - - - - - - - - - - - - - - - - -
 1. sudo ./djsetup -s
+2. do B3 and B4 from development setup
+3. if okay, do C5 to load data
