@@ -34,7 +34,7 @@ admin.site.register(Category, CatAdmin)
 
 
 class DocumentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'maintainer', 'format', 'source', 'status')
+    list_display = ('id', 'name', 'status', 'format', 'collection', 'maintainer')
     list_display_links = ('id', 'name')
     list_filter = ('date_modified', 'status', 'maintainer', 'collection')
     date_hierarchy = 'date_document'
