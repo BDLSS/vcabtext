@@ -133,9 +133,8 @@ class DocumentAdmin(admin.ModelAdmin):
             if uploaded:
                 obj.text = uploaded.read()
                 messages.success(request, 'Text successfully loaded.')
-            obj.text_fetch_enabled = False
-        
-        obj.save()
+                obj.text_fetch_enabled = False
+                obj.save()
                 
         # Enable the setting of the html field via text.
         if ENABLE_AUTO_HTML and obj.html_auto_enabled:
@@ -144,9 +143,9 @@ class DocumentAdmin(admin.ModelAdmin):
             if text:
                 h = highlight(text, XmlLexer(), HtmlFormatter())
                 obj.html_auto_doc = h
-                #obj.html_auto_enabled = False
                 messages.success(request, 'HTML successfully created.')
-            obj.save()
+                obj.html_auto_enabled = False
+                obj.save()
         
 admin.site.register(Document, DocumentAdmin)
 
