@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from vdata.models import Format, Collection, Document, Tag, Category
 
 try:
@@ -125,36 +125,28 @@ class DocumentAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         '''Add custom save options to admin.'''
         obj.save() # Save the model first to deal with any errors.
-        log = str()
         
         # Enable the setting of the text field via file upload.
         if obj.text_fetch_enabled:
-            log += 'Auto text option used by username: %s\n'%request.user
+            messages.warning(request, 'Trying to set text from uploaded file.')
             uploaded = obj.text_upload # this contains the file information
             if uploaded:
                 obj.text = uploaded.read()
-                log += 'The file uploaded was: %s\n'%uploaded
+                messages.success(request, 'Text successfully loaded.')
             obj.text_fetch_enabled = False
         
-        # Log our custom changes and save them.
-        if log:
-            obj.notes += log
         obj.save()
                 
         # Enable the setting of the html field via text.
-        log = str()
         if ENABLE_AUTO_HTML and obj.html_auto_enabled:
-            log += 'Auto html option enabled by username:%s'%request.user
+            messages.warning(request, 'Trying to automatically create html.')
             text = obj.text
             if text:
                 h = highlight(text, XmlLexer(), HtmlFormatter())
                 obj.html_auto_doc = h
-                log += 'Successfully creation.'
-                obj.html_auto_enabled = False
-            if log:
-                obj.notes += log
+                #obj.html_auto_enabled = False
+                messages.success(request, 'HTML successfully created.')
             obj.save()
-            
         
 admin.site.register(Document, DocumentAdmin)
 
