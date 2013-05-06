@@ -44,10 +44,10 @@ def download(request, document_id):
     # What is the mime type?
     try:
         f = Format.objects.get(pk=doc.format)
+        response = HttpResponse(mimetype=f.native_mime_type)
     except Format.DoesNotExist:
-        f = 'text/plain'
-    response = HttpResponse(mimetype=f.native_mime_type)
-    
+        response = HttpResponse(mimetype='text/plain')
+        
     # Dispatch the download.
     response['Content-Disposition'] = 'attachment; filename=%s.%s'%(doc.name,
                                                 str(doc.format).lower())
