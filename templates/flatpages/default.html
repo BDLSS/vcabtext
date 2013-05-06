@@ -9,8 +9,11 @@
 {% endblock%}
 
 {% block bread %}
-  <a href="/">Vocab</a>
-  &rsaquo; {{ flatpage.title }}<a href="/admin/flatpages/flatpage/{{ flatpage.id }}">.</a>
+	{% if  flatpage.title != 'Vocab' %}
+  		<a href="/">Vocab</a>
+  		&rsaquo; 
+  	{% endif %}
+  	{{ flatpage.title }}<a href="/admin/flatpages/flatpage/{{ flatpage.id }}">.</a>
   
 {% endblock%}
  
