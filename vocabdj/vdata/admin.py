@@ -133,8 +133,7 @@ class DocumentAdmin(admin.ModelAdmin):
         # Enable the setting of the html field via text.
         if ENABLE_AUTO_HTML and doc.html_auto_enabled:
             self.html_auto(request, doc)
-            
-    
+               
     def text_fetch(self, request, doc):
         '''Load the text field from the uploaded filed.'''
         messages.warning(request, 'Trying to set text from uploaded file.')
@@ -189,6 +188,7 @@ class DocumentAdmin(admin.ModelAdmin):
         if len(custom)> 1 and str(custom[1]).strip() == 'linenos':
             has_num = 'inline'
         
+        # Now we can do the task and save it.
         content = highlight(doc.text, lexer(), HtmlFormatter(linenos=has_num))  
         doc.html_auto_doc = content
         messages.success(request, 'HTML successfully created.')
