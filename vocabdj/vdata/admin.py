@@ -128,25 +128,34 @@ class DocumentAdmin(admin.ModelAdmin):
         
         # Enable the setting of the text field via file upload.
         if obj.text_fetch_enabled:
-            messages.warning(request, 'Trying to set text from uploaded file.')
-            uploaded = obj.text_upload # this contains the file information
-            if uploaded:
-                obj.text = uploaded.read()
-                messages.success(request, 'Text successfully loaded.')
-                obj.text_fetch_enabled = False
-                obj.save()
+            self.text_fetch(request, obj)
                 
         # Enable the setting of the html field via text.
         if ENABLE_AUTO_HTML and obj.html_auto_enabled:
-            messages.warning(request, 'Trying to automatically create html.')
-            text = obj.text
-            if text:
-                h = highlight(text, XmlLexer(), HtmlFormatter())
-                obj.html_auto_doc = h
-                messages.success(request, 'HTML successfully created.')
-                obj.html_auto_enabled = False
-                obj.save()
-        
+            self.html_auto(request, obj)
+            
+    
+    def text_fetch(self, request, obj):
+        '''Load the text field from the uploaded filed.'''
+        messages.warning(request, 'Trying to set text from uploaded file.')
+        uploaded = obj.text_upload # this contains the file information
+        if uploaded:
+            obj.text = uploaded.read()
+            messages.success(request, 'Text successfully loaded.')
+            obj.text_fetch_enabled = False
+            obj.save()
+    
+    def html_auto(self, request, obj):
+        '''Use text field to make documents in html.'''
+        messages.warning(request, 'Trying to automatically create html.')
+        text = obj.text
+        if text:
+            h = highlight(text, XmlLexer(), HtmlFormatter())
+            obj.html_auto_doc = h
+            messages.success(request, 'HTML successfully created.')
+            obj.html_auto_enabled = False
+            obj.save()
+    
 admin.site.register(Document, DocumentAdmin)
 
     
