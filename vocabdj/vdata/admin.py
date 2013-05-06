@@ -1,6 +1,14 @@
 from django.contrib import admin
 from vdata.models import Format, Collection, Document, Tag, Category
 
+try:
+    from pygments import highlight
+    from pygments.lexers import PythonLexer, XmlLexer
+    from pygments.formatters import HtmlFormatter
+    ENABLE_AUTO_HTML = True
+except ImportError:
+    ENABLE_AUTO_HTML = False
+            
 ENABLE_FIELDSETS = True
 
 class FormatAdmin(admin.ModelAdmin):
@@ -132,7 +140,21 @@ class DocumentAdmin(admin.ModelAdmin):
         if log:
             obj.notes += log
         obj.save()
-        
+                
+        # Enable the setting of the html field via text.
+        log = str()
+        if ENABLE_AUTO_HTML and obj.html_auto_enabled:
+            log += 'Auto html option enabled by username:%s'%request.user
+            text = obj.text
+            if text:
+                h = highlight(text, XmlLexer(), HtmlFormatter())
+                obj.html_auto_doc = h
+                log += 'Successfully creation.'
+                obj.html_auto_enabled = False
+            if log:
+                obj.notes += log
+            obj.save()
+            
         
 admin.site.register(Document, DocumentAdmin)
 
