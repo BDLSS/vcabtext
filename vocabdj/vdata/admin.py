@@ -3,7 +3,7 @@ from vdata.models import Format, Collection, Document, Tag, Category
 
 try:
     from pygments import highlight
-    from pygments.lexers import PythonLexer, XmlLexer
+    from pygments.lexers import XmlLexer
     from pygments.formatters import HtmlFormatter
     ENABLE_AUTO_HTML = True
 except ImportError:
@@ -148,14 +148,53 @@ class DocumentAdmin(admin.ModelAdmin):
     def html_auto(self, request, doc):
         '''Use text field to make documents in html.'''
         messages.warning(request, 'Trying to automatically create html.')
-        text = doc.text
-        if text:
-            h = highlight(text, XmlLexer(), HtmlFormatter())
-            doc.html_auto_doc = h
-            messages.success(request, 'HTML successfully created.')
-            doc.html_auto_enabled = False
-            doc.save()
-    
+        if doc.text:
+            # Find out how the text will be converted and suboptions.
+            try:
+                f = Format.objects.get(pk=doc.format)
+                enabled = f.html_convert_enable
+                how = f.html_convert_method
+                opts = f.html_convert_options
+            except Format.DoesNotExist:
+                messages.error(request, 'Format information is missing, auto html not available.')
+                enabled = False
+            # Before doing the task.
+            if enabled:
+                self.do_html(request, doc, how, opts)
+
+    def do_html(self, request, doc, how, opts):
+        '''Controls how the html is made and with which options.'''                        
+        if not how: how = 'pygments' # enable a default option
+        if how == 'pygments':
+            self.do_pygments(request, doc, opts)
+        else:
+            messages.error(request, 'Format has invalid html convert method.')
+
+    def do_pygments(self, request, doc, options):
+        '''Use pygments to create and save the html text.'''
+        if not options: options = 'xml, linenos' #defaults
+        custom = options.split(',')
+        
+        # The first option sets the lexer to use. For available
+        # lexers goto http://pygments.org/docs/lexers/
+        if custom[0] == 'xml': 
+            lexer = XmlLexer
+        elif custom[0] == 'xslt': 
+            lexer = XmlLexer # TODO: get xslt to works
+        elif custom[0] == 'json': 
+            lexer = XmlLexer # TODO: get json to works.
+        
+        # The second controls if line number be shown on the output?
+        has_num = False
+        if len(custom)> 1 and str(custom[1]).strip() == 'linenos':
+            has_num = 'inline'
+        
+        content = highlight(doc.text, lexer(), HtmlFormatter(linenos=has_num))  
+        doc.html_auto_doc = content
+        messages.success(request, 'HTML successfully created.')
+        doc.html_auto_enabled = False
+        doc.save()
+        
 admin.site.register(Document, DocumentAdmin)
 
     
