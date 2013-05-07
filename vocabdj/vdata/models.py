@@ -153,7 +153,7 @@ class Document(models.Model):
     html_doc = models.TextField(blank=True, help_text=h)
     
     h = 'Should HTML information be automatically maintained from the Text?'
-    html_auto_enabled = models.BooleanField(default=True, help_text=h)
+    html_auto_enabled = models.BooleanField(default=False, help_text=h)
     
     h = 'The automatic HTML documentation/representation of this document.'
     html_auto_doc = models.TextField(blank=True, help_text=h)
