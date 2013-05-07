@@ -87,7 +87,6 @@ class Document(models.Model):
     h = 'A short name commonly used to refer to this document. e.g. "Dublin Core"'
     name = models.CharField(max_length=50, help_text=h)
     
-    
     statuses = (('1', 'New'), ('3', 'Review'),
                 ('5', 'Public'), ('7', 'Hidden'),
                 ('9', 'Delete'))
@@ -97,7 +96,6 @@ class Document(models.Model):
     sources = (('1', 'Internal'), ('2', 'External'), ('3', 'Mixture'))
     h = 'Where did this file originate?'
     source = models.CharField(max_length=5, blank=True, help_text=h, choices=sources)
-    
     
     h = 'What format is this document.'
     format = models.ForeignKey(Format, null=True, blank=True, help_text=h)
@@ -138,7 +136,10 @@ class Document(models.Model):
     h = 'A comma separated list of people or organisations who contributed to the document.'
     contributors = models.CharField(max_length=250, blank=True, help_text=h)
     
-        
+    h = 'Can this item be accessed via a persistent url?'
+    persistent_url1 = models.URLField(blank=True, help_text=h)
+    persistent_url2 = models.URLField(blank=True, help_text=h)
+      
     # ---------------------------------------------------------------
     # Fields that hold the native documents, the 1st is V.IMPORTANT
     # ---------------------------------------------------------------   
@@ -176,6 +177,12 @@ class Document(models.Model):
     
     h = 'In addition to the main file, automatically add the included files as documents.'
     compress_includes_auto_add = models.BooleanField(default=True, help_text=h)
+    
+    h = 'Enable the downloading of text from a url.'
+    auto_get_enabled = models.BooleanField(default=False, help_text=h)
+    
+    h = 'This URL should be the raw file, so tools like wget work.'
+    auto_get_url = models.URLField(blank=True, help_text=h)
     
     # ---------------------------------------------------------------
     # Fields that link between different version.
