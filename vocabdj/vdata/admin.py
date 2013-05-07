@@ -66,7 +66,10 @@ class DocumentAdmin(admin.ModelAdmin):
                                        'home_doc_url',
                                        'creators',
                                        'contributors',
-                                       'notes'),
+                                       'notes',
+                                       'persistent_url1',
+                                       'persistent_url2',
+                                       ),
                               }),
                      
                         ('Categories and Tags', {
@@ -94,6 +97,8 @@ class DocumentAdmin(admin.ModelAdmin):
                             'description': 'These fields can automatically update the text field. (To be implemented)',
                             'fields': ('text_upload',
                                        'text_fetch_enabled',
+                                       'auto_get_enabled',
+                                       'auto_get_url',
                                        'compress_start_doc',
                                        'compress_includes_auto_add',
                                        'compress_upload')
