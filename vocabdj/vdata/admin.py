@@ -46,27 +46,33 @@ class DocumentAdmin(admin.ModelAdmin):
     if ENABLE_FIELDSETS:
         hide = ('collapse', 'wide', 'extrapretty')
         fieldsets = (
-                        (None, {'fields': ('name', 'brief_description' )}),
+                        (None, {'fields': ('name',  )}),
                         
                         ('Important details', {
                               'classes': hide,
                               'description': 'These fields are needed by many non-admin page.',
                               'fields':
-                              ('format', 'collection',
+                              ('brief_description', 'format', 'collection',
                                     'maintainer', 'text')
                               }),
                       
-                        ('Descriptors', {
+                        ('More details', {
                             'classes': hide,
-                            'description': 'If general fields are used less often they can appear here.',
-                            'fields': ('description',
-                                       'source',
+                            'description': 'If general fields are used less often they can be moved here.',
+                            'fields': ('source',
                                        'suggested_namespace',
-                                       'namespace_uri',
-                                       'home_doc_url',
                                        'creators',
                                        'contributors',
+                                       'description',
                                        'notes',
+                                       ),
+                              }),
+                     
+                        ('URL and URI', {
+                            'classes': hide,
+                            'description': 'A place to put some url and some uri',
+                            'fields': ('namespace_uri',
+                                       'home_doc_url',
                                        'persistent_url1',
                                        'persistent_url2',
                                        ),
@@ -95,8 +101,8 @@ class DocumentAdmin(admin.ModelAdmin):
                         ('Auto text options', {
                             'classes': hide,
                             'description': 'These fields can automatically update the text field. (To be implemented)',
-                            'fields': ('text_upload',
-                                       'text_fetch_enabled',
+                            'fields': ('text_fetch_enabled',
+                                       'text_upload',
                                        'auto_get_enabled',
                                        'auto_get_url',
                                        'compress_start_doc',
