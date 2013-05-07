@@ -23,6 +23,16 @@
 <li><strong>Part of collection</strong>: <a href="/data/collects/#{{document.collection}}">{{document.collection}}</a></li>
 <li><strong>Page maintained by</strong>: <a href="/contact/">{{document.maintainer}}</a></li>
 
+{% if document.persistent_url1%}
+<li><strong>Persistent url 1</strong>: <a href="{{document.persistent_url1}}">{{document.persistent_url1}}</a>
+</li>
+{% endif %}
+
+{% if document.persistent_url2%}
+<li><strong>Persistent url 2</strong>: <a href="{{document.persistent_url2}}">{{document.persistent_url2}}</a>
+</li>
+{% endif %}
+
 {% if document.suggested_namespace%}
 <li><strong>Suggested namespace</strong>: {{document.suggested_namespace}}
 </li>
