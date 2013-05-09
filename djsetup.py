@@ -27,6 +27,10 @@ class DjAdmin(object):
         self.DIR_MEDIA = os.path.join(self.DIR_ROOT, mediadir) # Upload folder.
         self.DB_FILE = os.path.join(self.DIR_OUTSIDE, dbname) # Sqlite3 db.
         
+        usr_share_pyshared_dj = "ln_contrib_admin_media"
+        self.DIR_LINKS = os.path.join(self.DIR_OUTSIDE, usr_share_pyshared_dj)
+        self.DIR_CONTRIB = '/usr/share/pyshared/django/contrib/admin'
+        
         self.OPTIONS = optparse.OptionParser()
         self.setup_options()
         
@@ -137,6 +141,14 @@ class DjAdmin(object):
             
         self.list('after', compare=before)    
         
+        # Setup and/or check the folder that store links
+        try:
+            os.makedirs(self.DIR_LINKS)
+        except OSError, e:
+            logging.debug(e)
+        if not os.path.exists(self.DIR_LINKS):
+            logging.critical('Cannot find link folder, did you run as sudo?')
+            
     def get_usergroup(self, ask_admin=True):
         '''Returns the user and group to use with option to customise defaults.'''
         user = group = ''
@@ -200,7 +212,11 @@ class DjAdmin(object):
             
     def do_esys(self):
         logging.warn('Enabling and syncing the non-django system folders.')
-        self._sync(self.DIR_OUTSIDE, self.GIT_OUTSIDE)
+        #self._sync(self.DIR_OUTSIDE, self.GIT_OUTSIDE)
+        for item in ['css', 'img', 'js']:
+            folderfrom = os.path.join(self.DIR_CONTRIB, item)
+            folderto = os.path.join(self.DIR_LINKS, item)
+            self.do_command(['ln', '-s', folderfrom, folderto])
 
     # ------------------------------------------------------------
     # Meta tasks that sequence togother the tasks above.
