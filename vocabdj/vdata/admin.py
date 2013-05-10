@@ -103,7 +103,7 @@ class DocumentAdmin(admin.ModelAdmin):
                      
                         ('Auto text options', {
                             'classes': hide,
-                            'description': 'These fields can automatically update the text field. (To be implemented)',
+                            'description': 'These fields can automatically update the text field.',
                             'fields': ('text_fetch_enabled',
                                        'text_upload',
                                        'auto_get_enabled',
@@ -136,6 +136,9 @@ class DocumentAdmin(admin.ModelAdmin):
                      
                       )
 
+    # ---------------------------------------------------------------
+    # Custom save handler and best method of fetching text.
+    # ---------------------------------------------------------------
     def save_model(self, request, doc, form, change):
         '''Add custom save options to admin.'''
         doc.save() # Save the model first to deal with any errors.
@@ -201,6 +204,9 @@ class DocumentAdmin(admin.ModelAdmin):
             return False
         return response.read()
     
+    # ---------------------------------------------------------------
+    # Set the html field automatically from the text field
+    # ---------------------------------------------------------------
     def html_auto(self, request, doc):
         '''Use text field to make documents in html.'''
         messages.warning(request, 'Trying to automatically create html.')
