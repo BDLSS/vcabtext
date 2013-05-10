@@ -1,5 +1,6 @@
 from django.contrib import admin, messages
 from vdata.models import Format, Collection, Document, Tag, Category
+from urllib2 import URLError
 
 try:
     from pygments import highlight
@@ -10,6 +11,8 @@ except ImportError:
     ENABLE_AUTO_HTML = False
             
 ENABLE_FIELDSETS = True
+
+import urllib2
 
 class FormatAdmin(admin.ModelAdmin):
     list_display = ('format', 'expanded_acronym', 'html_convert_enable', 'native_mime_type')
@@ -136,15 +139,19 @@ class DocumentAdmin(admin.ModelAdmin):
     def save_model(self, request, doc, form, change):
         '''Add custom save options to admin.'''
         doc.save() # Save the model first to deal with any errors.
-        
+                
         # Enable the setting of the text field via file upload.
-        if doc.text_fetch_enabled:
+        if doc.text_fetch_enabled: # This has more priority
             self.text_fetch(request, doc)
+        else:
+            # Enable the setting of the text field via a url.
+            if doc.auto_get_enabled: # This has less priority
+                self.auto_get_text(request, doc)
                 
         # Enable the setting of the html field via text.
         if ENABLE_AUTO_HTML and doc.html_auto_enabled:
             self.html_auto(request, doc)
-               
+                
     def text_fetch(self, request, doc):
         '''Load the text field from the uploaded filed.'''
         messages.warning(request, 'Trying to set text from uploaded file.')
@@ -154,6 +161,45 @@ class DocumentAdmin(admin.ModelAdmin):
             messages.success(request, 'Text successfully loaded.')
             doc.text_fetch_enabled = False
             doc.save()
+    
+    # ---------------------------------------------------------------
+    # Set the text via a URL.
+    # ---------------------------------------------------------------
+    def auto_get_text(self, request, doc):
+        '''Load the text field from the uploaded filed.'''
+        messages.warning(request, 'Trying to get text from a URL.') 
+        
+        if doc.auto_get_url:
+            messages.warning(request, 'URL: %s'%doc.auto_get_url)
+            messages.error(request, 'HAVE YOU CHECKED IT WORKS AND IS SAFE?')    
+        else:
+            messages.error(request, "Field 'Auto get url' does not contain a URL.")
+            return False
+        content = self.get_page(request, doc.auto_get_url)
+        
+        if content:
+            doc.text = content
+            doc.auto_get_enabled = False
+            if doc.status == 5:
+                doc.status = 7
+                m = 'Status changed from Public to Hidden, do a visual check.'
+                messages.warning(request, m)
+            doc.save() 
+            messages.success(request, 'Text from url loaded and saved.')
+    
+    def get_page(self, request, url):
+        '''Return the contents of the URL or False if it fails.'''
+        try:
+            response = urllib2.urlopen(url)
+        except ValueError:
+            m = 'You URL is probably missing the resource type. e.g. http://'
+            messages.error(request, m)
+            return False
+        except URLError as e:
+            messages.error(request, 'Fetch failed for the following reason.')
+            messages.error(request, e)
+            return False
+        return response.read()
     
     def html_auto(self, request, doc):
         '''Use text field to make documents in html.'''
