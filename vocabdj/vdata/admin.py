@@ -213,7 +213,12 @@ class DocumentAdmin(admin.ModelAdmin):
         if doc.text:
             # Find out how the text will be converted and suboptions.
             try:
-                f = Format.objects.get(pk=doc.format)
+                key = doc.format
+                if key == None:
+                    m = 'You forgot to set the format for this document.'
+                    messages.error(request, m)
+                    return False
+                f = Format.objects.get(pk=key)
                 enabled = f.html_convert_enable
                 how = f.html_convert_method
                 opts = f.html_convert_options
