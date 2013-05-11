@@ -103,19 +103,30 @@ class DocumentAdmin(admin.ModelAdmin):
                      
                         ('Auto text options', {
                             'classes': hide,
-                            'description': 'These fields can automatically update the text field.',
+                            'description': """WARNING WARNING If enabled these
+                            fields automatically update the text field. Text
+                            upload has priority over get url if both are ticked.
+                             WARNING WARNING.""",
                             'fields': ('text_fetch_enabled',
                                        'text_upload',
                                        'auto_get_enabled',
                                        'auto_get_url',
-                                       'compress_start_doc',
+                                       )
+                              }),
+
+                        ('Advanced auto text options', {
+                            'classes': hide,
+                            'description': """These advanced feature do not
+                            currently do anything. They are here to enable
+                            future development. """,
+                            'fields': ('compress_start_doc',
                                        'compress_includes_auto_add',
                                        'compress_upload',
                                        'auto_make_text',
                                        'auto_make_source',
                                        )
                               }),
-                     
+                                          
                         ('Version linkage', {
                             'classes': hide,
                             'description': 'These fields let you make links between documents.',
