@@ -184,7 +184,7 @@ class DocumentAdmin(admin.ModelAdmin):
             doc.text = uploaded.read()
             messages.success(request, 'Text successfully loaded.')
             doc.text_fetch_enabled = False
-            self.log_auto(request, doc, 'file=%s'%'fa')
+            self.log_auto(request, doc, 'file=%s'%doc.text_upload)
             doc.save()
     
     def log_auto(self, request, doc, message):
