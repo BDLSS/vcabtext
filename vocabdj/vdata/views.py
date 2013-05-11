@@ -70,7 +70,7 @@ def collection(request, collection_collection):
         raise Http404
     
     dlist = Document.objects.all().filter(status=5, collection=c)
-    
-    context = {'document_list' : dlist, 'collection': item}
+    dcount = dlist.count()
+    context = {'document_list' : dlist, 'collection': item, 'doc_count' : dcount}
     return render(request, 'collect_item.html', context)
 

@@ -3,36 +3,30 @@
 
 {% block content %}
 <h1>{{collection.longer_name}}</h1>
-        
-  <p><strong>Collection name</strong>: {{collection}}</p>
+  <ul>
+  <li><strong>Collection name</strong>: {{collection}}</li>
+  <li><strong>Number of items</strong>: {{doc_count}}</li>  
+  
   {% if collection.description %}
-    <p>{{collection.description|safe}}
+    </ul>{{collection.description|safe}}<ul>	  
   {% endif %}
     
-  {% if collection.url_about_collection %}
-    {% if not collection.description %}
-      <p>
-    {% endif %}
-    <a href="{{collection.url_about_collection}}">Website for {{collection}}</a></p>
-  {% endif %}
-
-  {% comment %}
-  The following works, but it is not that efficient.
-  It would work best if each collection had a subpage
-  with a filter on the document list. 
-  {% endcomment %}   
-    
+  	{% if collection.url_about_collection %}
+    	<li><strong>See also</strong>: <a href="{{collection.url_about_collection}}">Website about {{collection}}</a></li>
+  	{% endif %}
+  
+    <li>The documents below are available in this collection.</li>
+  	<li>Click the document name to see more information.</li>
+  </ul>
+  	
   {% if document_list %}
-  	<h2>This collection contains</h2>
-    <ul>
     {% for document in document_list %}
-      {% if document.collection.collection == collection.collection %}
-      <li><a href="/data/{{ document.id }}/">{{document.name}}</a> - {{document.brief_description }}</li>
-      {% endif %}         
+      <h2><a href="/data/{{ document.id }}/">{{document.name}}</a> - {{document.brief_description }}</h2>        
     {% endfor %}
-    </ul>
   {% else %}
-    <p>No items are available.</p>
+  <h2>Nothing available</h2>
+    <p>Items are currently being added to this collection and are
+    in the process being reviewed. <a href"/contact">Contact</a> us for more information.</p>
   {% endif %}
 
 
