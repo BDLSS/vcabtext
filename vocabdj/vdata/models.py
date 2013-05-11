@@ -40,13 +40,17 @@ class Collection(models.Model):
     h = 'A longer (friendly) name to refer to this collection. eg. Used by Oxford'
     longer_name = models.CharField(max_length=50, default='', help_text=h)
     
-    h = 'Description to use at the top of any pages used to show items in collections.'
+    h = 'Short description to use on the list of available collections.'
     description = models.TextField(blank=True, help_text=h)
     
     h = 'A link to more information about this collection if description is not enough.'
     url_about_collection = models.URLField(blank=True, help_text=h)
     
-    notes = models.TextField(blank=True)
+    h = 'You can keep brief notes about this collection for internal use.'
+    notes = models.TextField(blank=True, help_text=h)
+    
+    h = 'Extra description to use on the collection detail page.'
+    extra_description = models.TextField(blank=True, help_text=h)
     
     def __unicode__(self):
         return self.collection
