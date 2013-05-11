@@ -128,22 +128,26 @@ class DocumentAdmin(admin.ModelAdmin):
                                        )
                               }),
                                           
-                        ('Version linkage', {
+                        ('Version information', {
                             'classes': hide,
-                            'description': 'These fields let you make links between documents.',
+                            'description': 'These fields let you make links between versions.',
                             'fields': ('version_current',
-                                       'version_extends',
-                                       'version_parent',
-                                       'version_related',
+                                       'date_document',
                                        'version_previous',
                                        'version_next'),
+                              }),
+                        ('Other version info', {
+                            'classes': hide,
+                            'description': 'These fields let you make links with other documents.',
+                            'fields': ('version_extends',
+                                       'version_parent',
+                                       'version_related',),
                               }),
                      
                         ('Admin options', {
                             'classes': hide,
                             'description': 'These fields are for use by library staff mainly.',
                             'fields': ('status',
-                                       'date_document',
                                        'date_added',
                                        'date_modified',
                                        'date_last_auto',
