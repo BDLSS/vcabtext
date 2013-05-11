@@ -42,7 +42,7 @@ class DocumentAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'name')
     list_filter = ('date_modified', 'status', 'maintainer', 'collection')
     date_hierarchy = 'date_document'
-    readonly_fields = ('date_added', 'date_modified')
+    readonly_fields = ('date_added', 'date_modified', 'date_last_auto', 'auto_log')
     filter_horizontal = ('categories', 'tags')
     
     raw_id_fields = ('version_extends','version_parent', 'version_related', 'version_previous', 'version_next')
@@ -191,8 +191,8 @@ class DocumentAdmin(admin.ModelAdmin):
         '''Keep a record of what automatic tasks have been done.'''
         u = request.user
         now = datetime.now()
-        doc.auto_log += '\nuser=%s,when=%s'%(u, now)
-        doc.auto_log += '\n%s'%message
+        doc.auto_log += '\n>--->user=%s,when=%s'%(u, now)
+        doc.auto_log += '\n%s<---<'%message
         doc.date_last_auto = now
         
     # ---------------------------------------------------------------
