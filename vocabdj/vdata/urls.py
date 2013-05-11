@@ -9,4 +9,5 @@ urlpatterns = patterns('',
     url(r'^(?P<document_id>\d+)/web/$', views.web, name='web'),
     url(r'^(?P<document_id>\d+)/download/$', views.download, name='down'),
     url(r'^collects/$', views.collections, name='collects'),
+    url(r'^collects/(?P<collection_collection>.+)/$', views.collection, name='collect'),
 )

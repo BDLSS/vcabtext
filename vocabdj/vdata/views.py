@@ -60,3 +60,17 @@ def collections(request):
     clist = Collection.objects.all()
     context = {'document_list' : dlist, 'collection_list': clist}
     return render(request, 'collects.html', context)
+
+def collection(request, collection_collection):
+    '''Enable links to documents grouped by collection.'''
+    c = collection_collection
+    try:
+        item = Collection.objects.get(pk=c)
+    except Collection.DoesNotExist:
+        raise Http404
+    
+    dlist = Document.objects.all().filter(status=5, collection=c)
+    
+    context = {'document_list' : dlist, 'collection': item}
+    return render(request, 'collect_item.html', context)
+

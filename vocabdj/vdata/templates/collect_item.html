@@ -1,13 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Collections{% endblock%}
+{% block title %}Collections - {{collection.longer_name}}{% endblock%}
 
 {% block content %}
-<h1>Collections</h1>
-<p>The following collections are available.</p>
-
-{% for collection in collection_list %}
-  <h2><a name="{{collection}}"></a><a href="/data/collects/{{collection}}">{{collection.longer_name}}</a> ({{collection}})</h2> 
+<h1>{{collection.longer_name}}</h1>
         
+  <p><strong>Collection name</strong>: {{collection}}</p>
   {% if collection.description %}
     <p>{{collection.description|safe}}
   {% endif %}
@@ -26,6 +23,7 @@
   {% endcomment %}   
     
   {% if document_list %}
+  	<h2>This collection contains</h2>
     <ul>
     {% for document in document_list %}
       {% if document.collection.collection == collection.collection %}
@@ -36,14 +34,15 @@
   {% else %}
     <p>No items are available.</p>
   {% endif %}
-{% endfor %} {% comment %} This ends the collection loop. {% endcomment %}
+
 
 {% endblock%}
 
 {% block bread %}
   <a href="/">Vocab</a>
   &rsaquo; <a href="/browse/">Browse</a>
-  &rsaquo; Collections<a href="/admin/vdata/collection/">.</a>
+  &rsaquo; <a href="/data/collects/">Collections</a>
+  &rsaquo; {{collection|title}}<a href="/admin/vdata/collection/{{collection}}">.</a>
 
 {% endblock%}
  
