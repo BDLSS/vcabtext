@@ -110,7 +110,10 @@ class DocumentAdmin(admin.ModelAdmin):
                                        'auto_get_url',
                                        'compress_start_doc',
                                        'compress_includes_auto_add',
-                                       'compress_upload')
+                                       'compress_upload',
+                                       'auto_make_text',
+                                       'auto_make_source',
+                                       )
                               }),
                      
                         ('Version linkage', {
@@ -131,6 +134,8 @@ class DocumentAdmin(admin.ModelAdmin):
                                        'date_document',
                                        'date_added',
                                        'date_modified',
+                                       'date_last_auto',
+                                       'auto_log',
                                        ),
                               }),
                      

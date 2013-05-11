@@ -144,6 +144,9 @@ class Document(models.Model):
     persistent_url1 = models.URLField(blank=True, help_text=h)
     persistent_url2 = models.URLField(blank=True, help_text=h)
       
+    h = 'A running log detailing automatic updates.'
+    auto_log = models.TextField(blank=True, help_text=h)
+    
     # ---------------------------------------------------------------
     # Fields that hold the native documents, the 1st is V.IMPORTANT
     # ---------------------------------------------------------------   
@@ -226,10 +229,26 @@ class Document(models.Model):
     # ---------------------------------------------------------------
     date_added = models.DateTimeField(blank=True, null=True, auto_now_add=True)
     date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
-
+    
     h = 'A rough date (to year accuracy) when this document was first made public.'
     v = "Document's date"
     date_document = models.DateTimeField(blank=True, null=True, help_text=h, verbose_name=v)
+    
+    h = 'When was the automatic update of text last done?'
+    date_last_auto = models.DateTimeField(blank=True, null=True, help_text=h)
+
+    # ---------------------------------------------------------------
+    # Fields for creating derived documents
+    # ---------------------------------------------------------------
+    # Tanya mentioned about the ability to create SVG version from
+    # existing RDF might be useful. These fields provide a generalised
+    # method that can be used at some point to do this automatically
+    # and enable links between them.
+    h = 'Enable the reset of text from an existing model after converting it.'
+    v = 'Source document'
+    auto_make_text = models.BooleanField(default=False, help_text=h)
+    auto_make_source = models.ForeignKey('self', null=True, blank=True, help_text=h,
+                                        related_name='make', verbose_name=v)
     
     def __unicode__(self):
         return '%s - %s'%(self.id, self.name)
