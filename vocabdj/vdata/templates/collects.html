@@ -3,11 +3,20 @@
 
 {% block content %}
 <h1>Collections</h1>
-<p>The following collections are available.</p>
-
+<p>This store groups documents into a range of collections to make easier 
+to locate those that have some relationship.</p>
+<ul><li>Click the short name to see a collection's details and documents it contains.</li>
+<li>There are currently  
+ {% if doc_count %}
+    {{doc_count}}
+  {% else %}
+    0
+  {% endif %}
+ documents spead across the collections.</li>
+</ul>
 {% for collection in collection_list %}
-  <h2><a name="{{collection}}"></a><a href="/data/collects/{{collection}}">{{collection.longer_name}}</a> ({{collection}})</h2> 
-        
+  <h2><a href="/data/collects/{{collection}}">{{collection}}</a> - {{collection.longer_name}}</h2> 
+          
   {% if collection.description %}
     <p>{{collection.description|safe}}
   {% endif %}
@@ -19,23 +28,7 @@
     <a href="{{collection.url_about_collection}}">Website for {{collection}}</a></p>
   {% endif %}
 
-  {% comment %}
-  The following works, but it is not that efficient.
-  It would work best if each collection had a subpage
-  with a filter on the document list. 
-  {% endcomment %}   
-    
-  {% if document_list %}
-    <ul>
-    {% for document in document_list %}
-      {% if document.collection.collection == collection.collection %}
-      <li><a href="/data/{{ document.id }}/">{{document.name}}</a> - {{document.brief_description }}</li>
-      {% endif %}         
-    {% endfor %}
-    </ul>
-  {% else %}
-    <p>No items are available.</p>
-  {% endif %}
+  
 {% endfor %} {% comment %} This ends the collection loop. {% endcomment %}
 
 {% endblock%}
