@@ -1,6 +1,7 @@
 from django.contrib import admin, messages
 from vdata.models import Format, Collection, Document, Tag, Category
 from urllib2 import URLError
+from datetime import datetime
 
 try:
     from pygments import highlight
@@ -179,13 +180,22 @@ class DocumentAdmin(admin.ModelAdmin):
             doc.text = uploaded.read()
             messages.success(request, 'Text successfully loaded.')
             doc.text_fetch_enabled = False
+            self.log_auto(request, doc, 'file=%s'%'fa')
             doc.save()
     
+    def log_auto(self, request, doc, message):
+        '''Keep a record of what automatic tasks have been done.'''
+        u = request.user
+        now = datetime.now()
+        doc.auto_log += '\nuser=%s,when=%s'%(u, now)
+        doc.auto_log += '\n%s'%message
+        doc.date_last_auto = now
+        
     # ---------------------------------------------------------------
     # Set the text via a URL.
     # ---------------------------------------------------------------
     def auto_get_text(self, request, doc):
-        '''Load the text field from the uploaded filed.'''
+        '''Load the text field from a website.'''
         messages.warning(request, 'Trying to get text from a URL.') 
         
         if doc.auto_get_url:
@@ -203,6 +213,7 @@ class DocumentAdmin(admin.ModelAdmin):
                 doc.status = 7
                 m = 'Status changed from Public to Hidden, do a visual check.'
                 messages.warning(request, m)
+            self.log_auto(request, doc, 'autogeturl=%s'%doc.auto_get_url)
             doc.save() 
             messages.success(request, 'Text from url loaded and saved.')
     
