@@ -4,6 +4,8 @@ from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
+import vdata
+
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'vocabdj.views.home', name='home'),
@@ -16,4 +18,6 @@ urlpatterns = patterns('',
      url(r'^admin/', include(admin.site.urls)),
      url(r'^data/', include('vdata.urls')),
      url(r'^/', include('django.contrib.flatpages.urls')),
+     
+     url(r'^(?P<document_name>.+)/$', vdata.views.download_latest, name='docname'),
 )
