@@ -74,3 +74,14 @@ def collection(request, collection_collection):
     context = {'document_list' : dlist, 'collection': item, 'doc_count' : dcount}
     return render(request, 'collect_item.html', context)
 
+def download_latest(request, document_name):
+    dlist = Document.objects.all().filter(status=1, name=document_name)
+    latest = None
+    latest_id = None
+    for doc in dlist:
+        check = doc.version_current
+        if check > latest:
+            latest = check
+            latest_id = doc.id
+    return download(request, latest_id)   
+
