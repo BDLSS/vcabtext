@@ -195,7 +195,7 @@ class Document(models.Model):
     # Fields that link between different version.
     # ---------------------------------------------------------------
     h = 'If more than one version of this document exists, what version is this?'
-    v = 'Current version'
+    v = 'Version'
     version_current = models.CharField(max_length=20, blank=True, help_text=h, verbose_name=v)
     
     h = 'If exists, you can make a link to a PREVIOUS version of this document.'
