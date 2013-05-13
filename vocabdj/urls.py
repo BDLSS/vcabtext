@@ -4,7 +4,7 @@ from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-import vdata
+from vdata import views
 
 urlpatterns = patterns('',
     # Examples:
@@ -19,5 +19,5 @@ urlpatterns = patterns('',
      url(r'^data/', include('vdata.urls')),
      url(r'^/', include('django.contrib.flatpages.urls')),
      
-     url(r'^(?P<document_name>.+)/$', vdata.views.download_latest, name='docname'),
+     url(r'^(?P<document_name>.+)/$', views.download_latest, name='docname'),
 )
