@@ -43,12 +43,18 @@
 <a href="{{document.home_doc_url }}">{{document.home_doc_url }}</a></li>
 {% endif %}
 
-{% if document.creators %}
-<li><strong>Creators</strong>: {{document.creators}}</li>
+{% if creators %}
+<li><strong>Creators</strong>: 
+{% for creator in creators %}
+	{{ creator }}{% if not forloop.last %}},{% endif %}
+{% endfor %}</li>
 {% endif %}
 
-{% if document.contributors %}
-<li><strong>Contributors</strong>: {{document.contributors}}</li>
+{% if contrib %}
+<li><strong>Contributors</strong>: 
+{% for cont in contrib %}
+	{{ cont }}{% if not forloop.last %},{% endif %}
+{% endfor %}</li>
 {% endif %}
 
 {% if document.description %}

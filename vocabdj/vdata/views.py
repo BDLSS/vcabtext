@@ -13,10 +13,13 @@ def detail(request, document_id):
         doc = Document.objects.get(pk=document_id)
         cats = doc.categories.all()
         tags = doc.tags.all()
+        creators = doc.creators.all()
+        contribs = doc.contributors.all()
     except Document.DoesNotExist:
         raise Http404 
     return render(request, 'detail.html', {'document': doc,
-                        'cats': cats, 'tags':tags})
+                        'cats': cats, 'tags':tags,
+                        'creators': creators, 'contrib': contribs})
 
 def native(request, document_id):
     '''Enables the downloading of a particular document.'''

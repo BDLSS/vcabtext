@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from vdata.models import Format, Collection, Document, Tag, Category
+from vdata.models import Format, Collection, Document, Tag, Category, Agent
 from urllib2 import URLError
 from datetime import datetime
 
@@ -36,6 +36,11 @@ class CatAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CatAdmin)
 
+class AgentAdmin(admin.ModelAdmin):
+    list_display = ('last_name', 'first_name', 'is_person')
+    list_filter = ('is_person',)
+    
+admin.site.register(Agent, AgentAdmin)
 
 class DocumentAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'version_current', 'status', 'format', 'collection', 'maintainer')
@@ -43,7 +48,7 @@ class DocumentAdmin(admin.ModelAdmin):
     list_filter = ('date_modified', 'status', 'maintainer', 'collection')
     date_hierarchy = 'date_document'
     readonly_fields = ('date_added', 'date_modified', 'date_last_auto', 'auto_log')
-    filter_horizontal = ('categories', 'tags')
+    filter_horizontal = ('categories', 'tags', 'creators', 'contributors')
     
     raw_id_fields = ('version_extends','version_parent', 'version_related', 'version_previous', 'version_next')
     
@@ -65,8 +70,6 @@ class DocumentAdmin(admin.ModelAdmin):
                             'description': 'If general fields are used less often they can be moved here.',
                             'fields': ('source',
                                        'suggested_namespace',
-                                       'creators',
-                                       'contributors',
                                        'description',
                                        'notes',
                                        ),
@@ -79,6 +82,14 @@ class DocumentAdmin(admin.ModelAdmin):
                                        'home_doc_url',
                                        'persistent_url1',
                                        'persistent_url2',
+                                       ),
+                              }),
+                     
+                        ('Creators and contributors ', {
+                            'classes': hide,
+                            'description': 'You can assign creators and contributors if you wish.',
+                            'fields': ('creators',
+                                       'contributors',
                                        ),
                               }),
                      

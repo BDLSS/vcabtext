@@ -83,7 +83,22 @@ class Category(models.Model):
     class Meta():
         verbose_name_plural = 'Categories'
 
-
+class Agent(models.Model):
+    '''A document can have agents (ie. people/organisation)'''
+    h = 'Use this field for organisation name is this agent is NOT a person.'
+    last_name = models.CharField(max_length=250, blank=True, help_text=h)
+    
+    first_name = models.CharField(max_length=250, blank=True)
+    
+    h = 'Untick this box if the agent is NOT a person.'
+    is_person = models.BooleanField(default=True, help_text=h)
+    
+    def __unicode__(self):
+        return '%s %s'%(self.first_name, self.last_name)
+    
+    class Meta():
+        ordering = ['last_name']
+    
 # The main model used to hold documents and their meta information.
 # =======================================================================
 class Document(models.Model):
@@ -134,11 +149,13 @@ class Document(models.Model):
     h = 'Contact for this document within the system? Who might have modify rights.'
     maintainer = models.ForeignKey(User, null=True, blank=True, help_text=h, related_name='maintainer')
     
-    h = 'A comma separated list of people or organisations who created the document.'
-    creators = models.CharField(max_length=250, blank=True, help_text=h)
+    h = 'A list of people or organisations who created the document.'
+    #creators = models.CharField(max_length=250, blank=True, help_text=h)
+    creators = models.ManyToManyField(Agent, null=True, blank=True, help_text=h, related_name='creators')
     
-    h = 'A comma separated list of people or organisations who contributed to the document.'
-    contributors = models.CharField(max_length=250, blank=True, help_text=h)
+    h = 'A list of people or organisations who contributed to the document.'
+    #contributors = models.CharField(max_length=250, blank=True, help_text=h)
+    contributors = models.ManyToManyField(Agent, null=True, blank=True, help_text=h, related_name='contributors')
     
     h = 'Can this item be accessed via a persistent url?'
     persistent_url1 = models.URLField(blank=True, help_text=h)
