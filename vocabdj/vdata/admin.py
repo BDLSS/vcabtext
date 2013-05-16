@@ -177,6 +177,7 @@ class DocumentAdmin(admin.ModelAdmin):
         doc.save() # Save the model first to deal with any errors.
 
         dayadmin = self.is_day_admin(request) # is this a daily admin user
+        dayadmin = True
         
         # Enable the setting of the text field via file upload.
         if doc.text_fetch_enabled: # This has more priority
