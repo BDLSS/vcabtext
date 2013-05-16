@@ -1,3 +1,9 @@
+Code location
+=============
+The code for this project can be found at:
+
+https://github.com/BDLSS/vcabtext.git
+
 
 Setup
 =====
