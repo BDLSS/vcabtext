@@ -51,5 +51,13 @@ Stage A: pre-setup
 Stage B: setup opt and sync latest git master
 - - - - - - - - - - - - - - - - - - - - - - - -
 1. sudo ./djsetup -s
-2. do B3 and B4 from development setup
-3. if okay, do C5 to load data
+If you see message about non-django system folders ignore them.
+
+2. cd /opt/oxproject/current/vocabdj
+3. do B3 and B4 from development setup
+
+Stage C: get and load the fixtures
+----------------------------------
+1. SSH/SFTP into server so you can copy files from local machine
+into fixtures folders.
+2. If okay, do C5 to load data
