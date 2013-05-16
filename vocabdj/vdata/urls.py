@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import patterns, url
 
-from vocabdj.vdata import views
+from vdata import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
@@ -10,5 +10,5 @@ urlpatterns = patterns('',
     url(r'^(?P<document_id>\d+)/download/$', views.download, name='down'),
     url(r'^collects/$', views.collections, name='collects'),
     url(r'^collects/(?P<collection_collection>.+)/$', views.collection, name='collect'),
-    #url(r'^(?P<document_name>.+)/$', views.download_latest, name='docname'),
+    url(r'^(?P<document_name>.+)/$', views.download_latest, name='docname'),
 )
