@@ -301,6 +301,8 @@ class DocumentAdmin(admin.ModelAdmin):
         if not how: how = 'pygments' # enable a default option
         if how == 'pygments':
             content = self.do_pygments(request, doc, opts)
+        elif how == 'hdemo1':
+            content = self.do_hdemo1(request, doc, opts)
         else:
             m = 'hauto51: Format has invalid html convert method.' 
             messages.error(request, m)
@@ -340,6 +342,18 @@ class DocumentAdmin(admin.ModelAdmin):
         # Now we can do the task and save it.
         return highlight(doc.text, lexer(), HtmlFormatter(linenos=has_num))  
         
+    def do_hdemo1(self, request, doc, options):
+        if not options: options = 'xml, linenos' #defaults
+        
+        before = doc.text # how to access the text to be converted
+        content = str('<ht>'+before) # do your conversion method to create html 
+        
+        # A simple method of reporting if anything occurred
+        m = 'Size before=%s, Size after='%(len(before), len(content))
+        messages.info(request, m)
+        
+        return content # return the new content
+    
 admin.site.register(Document, DocumentAdmin)
 
     
