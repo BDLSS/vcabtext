@@ -272,13 +272,13 @@ class DocumentAdmin(admin.ModelAdmin):
     # ---------------------------------------------------------------
     def html_auto(self, request, doc):
         '''Use text field to make documents in html.'''
-        messages.warning(request, 'Trying to automatically create html.')
+        messages.warning(request, 'Please wait, trying to create html.')
         if doc.text:
             # Find out how the text will be converted and suboptions.
             try:
                 key = doc.format
                 if key == None:
-                    m = 'You forgot to set the format for this document.'
+                    m = 'hauto41: The format for the document has not been set.'
                     messages.error(request, m)
                     return False
                 f = Format.objects.get(pk=key)
@@ -286,8 +286,12 @@ class DocumentAdmin(admin.ModelAdmin):
                 how = f.html_convert_method
                 opts = f.html_convert_options
             except Format.DoesNotExist:
-                messages.error(request, 'Format information is missing, auto html not available.')
+                m = 'hauto42: The format picked is missing vital information.'
+                messages.error(request, m)
+                m = 'hauto43: Format missing: %s'%key
+                messages.info(request, m)
                 enabled = False
+                
             # Before doing the task.
             if enabled:
                 self.do_html(request, doc, how, opts)
@@ -298,17 +302,21 @@ class DocumentAdmin(admin.ModelAdmin):
         if how == 'pygments':
             content = self.do_pygments(request, doc, opts)
         else:
-            messages.error(request, 'Format has invalid html convert method.')
+            m = 'hauto51: Format has invalid html convert method.' 
+            messages.error(request, m)
         
         # Now we can save the content
         if content:
             doc.html_auto_doc = content
             doc.html_auto_enabled = False
             doc.save()
-            messages.success(request, 'HTML created and saved.')
+            m = 'Finished, the HTML was created and saved.' 
+            messages.success(request, m)
         else:
-            m = 'It was not possible to create HTML documentation.'
+            m = 'hauto52: Create HTML worked but produced nothing.'
             messages.error(request, m)
+            m = 'hauto53: Method tried (%s) with options(%s)'%(how, opts)
+            messages.warning(request, m)
 
     def do_pygments(self, request, doc, options):
         '''Use pygments to create and save the html text.'''
