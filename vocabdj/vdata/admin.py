@@ -176,8 +176,7 @@ class DocumentAdmin(admin.ModelAdmin):
         '''Add custom save options to admin.'''
         doc.save() # Save the model first to deal with any errors.
 
-        dayadmin = self.is_day_admin(request) # is this a daily admin user
-        dayadmin = True
+        dayadmin = self.is_day_admin(request) # is this a daily admin user pp
         
         # Enable the setting of the text field via file upload.
         if doc.text_fetch_enabled: # This has more priority
@@ -221,16 +220,13 @@ class DocumentAdmin(admin.ModelAdmin):
         doc.date_last_auto = now
        
     def is_day_admin(self, request):
-        who = request.user
-        #messages.info(request, who)
-        #TODO: check which group user is in rather hard code users
-        # user.has_perm(auth.user, 'dayadmingroup')
-        # https://docs.djangoproject.com/en/dev/topics/auth/default/#topic-authorization
-        if who in ('a',):
-            return True
-        else:
-            return False
-        
+        '''Return True if person logged on is a day admin.'''
+        who = auth.get_user(request)
+
+        # Only day admins can add new users so use this
+        # access right as a proxy will work.       
+        return who.has_perm('add', 'auth.user')
+                
     # ---------------------------------------------------------------
     # Set the text via a URL.
     # ---------------------------------------------------------------
