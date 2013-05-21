@@ -296,9 +296,19 @@ class DocumentAdmin(admin.ModelAdmin):
         '''Controls how the html is made and with which options.'''                        
         if not how: how = 'pygments' # enable a default option
         if how == 'pygments':
-            self.do_pygments(request, doc, opts)
+            content = self.do_pygments(request, doc, opts)
         else:
             messages.error(request, 'Format has invalid html convert method.')
+        
+        # Now we can save the content
+        if content:
+            doc.html_auto_doc = content
+            doc.html_auto_enabled = False
+            doc.save()
+            messages.success(request, 'HTML created and saved.')
+        else:
+            m = 'It was not possible to create HTML documentation.'
+            messages.error(request, m)
 
     def do_pygments(self, request, doc, options):
         '''Use pygments to create and save the html text.'''
@@ -320,11 +330,7 @@ class DocumentAdmin(admin.ModelAdmin):
             has_num = 'inline'
         
         # Now we can do the task and save it.
-        content = highlight(doc.text, lexer(), HtmlFormatter(linenos=has_num))  
-        doc.html_auto_doc = content
-        messages.success(request, 'HTML successfully created.')
-        doc.html_auto_enabled = False
-        doc.save()
+        return highlight(doc.text, lexer(), HtmlFormatter(linenos=has_num))  
         
 admin.site.register(Document, DocumentAdmin)
 
