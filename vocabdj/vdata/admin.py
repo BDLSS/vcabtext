@@ -344,7 +344,7 @@ class DocumentAdmin(admin.ModelAdmin):
         
     def do_hdemo1(self, request, doc, options):
         if not options: options = 'xml, linenos' #defaults
-        
+        ##
         before = doc.text # how to access the text to be converted
         content = str('<ht>'+before) # do your conversion method to create html 
         
