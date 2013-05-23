@@ -56,7 +56,7 @@ class DocumentAdmin(admin.ModelAdmin):
     if ENABLE_FIELDSETS:
         hide = ('collapse', 'wide', 'extrapretty')
         fieldsets = (
-                        (None, {'fields': ('name',  )}),
+                        (None, {'fields': ('name', 'status', )}),
                         
                         ('Important details', {
                               'classes': hide,
@@ -159,8 +159,7 @@ class DocumentAdmin(admin.ModelAdmin):
                         ('Admin options', {
                             'classes': hide,
                             'description': 'These fields are for use by library staff mainly.',
-                            'fields': ('status',
-                                       'date_added',
+                            'fields': ('date_added',
                                        'date_modified',
                                        'date_last_auto',
                                        'auto_log',
