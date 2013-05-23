@@ -88,3 +88,12 @@ def download_latest(request, document_name):
             latest_id = doc.id
     return download(request, latest_id)   
 
+def download_version(request, doc_name, doc_version):
+    '''Download a specific version of a document.'''
+    try:
+        found = Document.objects.get(name=doc_name, version_current=doc_version)
+    except Document.DoesNotExist:
+        raise Http404
+    return download(request, found.id)   
+
+

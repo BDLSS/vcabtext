@@ -10,5 +10,6 @@ urlpatterns = patterns('',
     url(r'^(?P<document_id>\d+)/download/$', views.download, name='down'),
     url(r'^collects/$', views.collections, name='collects'),
     url(r'^collects/(?P<collection_collection>.+)/$', views.collection, name='collect'),
-    url(r'^(?P<document_name>.+)/$', views.download_latest, name='docname'),
+    url(r'^(?P<doc_name>.+)/(?P<doc_version>.+)/$', views.download_version, name='docversion'),
+    url(r'^(?P<document_name>.+)/$', views.download_latest, name='docname'),    
 )
