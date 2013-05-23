@@ -206,7 +206,7 @@ class DocumentAdmin(admin.ModelAdmin):
         '''Update status if data is missing.'''
         # Report any missing items
         okay = True
-        if doc.description == '':
+        if doc.brief_description == '':
             messages.info(request, 'BRIEF DESCRIPTION will be needed.')
             okay = False
         if doc.format == None:
@@ -246,14 +246,6 @@ class DocumentAdmin(admin.ModelAdmin):
         doc.auto_log += '\n%s<---<'%message
         doc.date_last_auto = now
        
-    def is_day_admin(self, request):
-        '''Return True if person logged on is a day admin.'''
-        who = auth.get_user(request)
-
-        # Only day admins can add new users so use this
-        # access right as a proxy will work.       
-        return who.has_perm('add', 'auth.user')
-                
     # ---------------------------------------------------------------
     # Set the text via a URL.
     # ---------------------------------------------------------------
