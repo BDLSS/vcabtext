@@ -48,7 +48,8 @@ class DocumentAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'name')
     list_filter = ('date_modified', 'status', 'maintainer', 'collection')
     date_hierarchy = 'date_document'
-    readonly_fields = ('date_added', 'date_modified', 'date_last_auto', 'auto_log')
+    readonly_fields = ('date_added', 'date_modified', 'date_last_auto',
+                       'auto_log', 'maintainer')
     filter_horizontal = ('categories', 'tags', 'creators', 'contributors')
     
     raw_id_fields = ('version_extends','version_parent', 'version_related', 'version_previous', 'version_next')
@@ -63,7 +64,7 @@ class DocumentAdmin(admin.ModelAdmin):
                               'description': 'These fields are needed by many non-admin page.',
                               'fields':
                               ('brief_description', 'format', 'collection',
-                                    'maintainer', 'text')
+                                    'text')
                               }),
                       
                         ('More details', {
@@ -159,7 +160,8 @@ class DocumentAdmin(admin.ModelAdmin):
                         ('Admin options', {
                             'classes': hide,
                             'description': 'These fields are for use by library staff mainly.',
-                            'fields': ('date_added',
+                            'fields': ('maintainer',
+                                       'date_added',
                                        'date_modified',
                                        'date_last_auto',
                                        'auto_log',
