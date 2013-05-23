@@ -99,4 +99,10 @@ def download_version(request, doc_name, doc_version):
         raise Http404
     return download(request, found.id)   
 
-
+def version_info(request, doc_name, doc_version):
+    '''Goto the information page for a specific version of a document.'''
+    try:
+        found = Document.objects.get(name=doc_name, version_current=doc_version)
+    except Document.DoesNotExist:
+        raise Http404
+    return detail(request, found.id)
