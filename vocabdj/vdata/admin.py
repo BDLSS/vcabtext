@@ -184,7 +184,8 @@ class DocumentAdmin(admin.ModelAdmin):
         '''Add custom save options to admin.'''
         doc.save() # Save the model first to deal with any errors.
 
-        dayadmin = self.is_day_admin(request) # is this a daily admin user pp
+        #dayadmin = self.is_day_admin(request) # is this a daily admin user
+        dayadmin = request.user.is_superuser
         
         # Enable the setting of the text field via file upload.
         if doc.text_fetch_enabled: # This has more priority
@@ -197,17 +198,34 @@ class DocumentAdmin(admin.ModelAdmin):
         # Enable the setting of the html field via text.
         if ENABLE_AUTO_HTML and doc.html_auto_enabled:
             self.html_auto(request, doc)
+        
+        self.update_status(request, doc)
+        
+    def update_status(self, request, doc):  
+        '''Update status if data is missing.'''
+        # Report any missing items
+        okay = True
+        if doc.description == '':
+            messages.info(request, 'BRIEF DESCRIPTION will be needed.')
+            okay = False
+        if doc.format == None:
+            messages.info(request, 'FORMAT will be needed.')
+            okay = False
+        if doc.collection == None:
+            messages.info(request, 'COLLECTION will be needed.')
+            okay = False
+        if doc.text == '':
+            messages.info(request, 'TEXT is current empty.')
+            okay = False
+    
+        # Feedback and edit status if needed.
+        if not okay:
+            doc.status = 3
+            self.log_auto(request, doc, 'status2review%s')
+            doc.save()
+            m = 'Status changed to Review, see messages above for information needed.'
+            messages.warning(request, m)          
           
-        # Reset the status if the user is not a day to day admin.
-        current = doc.status # current will be a string
-        if False and current == '5':
-            if not dayadmin:
-                doc.status = 3
-                self.log_auto(request, doc, 'status2review%s')
-                doc.save()
-                msg = 'Status changed from Public to Review. Please contact admin staff.'
-                messages.error(request, msg)
-              
     def text_fetch(self, request, doc):
         '''Load the text field from the uploaded filed.'''
         messages.warning(request, 'Trying to set text from uploaded file.')
