@@ -57,16 +57,56 @@ class DocumentAdmin(admin.ModelAdmin):
     if ENABLE_FIELDSETS:
         hide = ('collapse', 'wide', 'extrapretty')
         fieldsets = (
-                        (None, {'fields': ('name', 'status', )}),
+                        (None, {'fields': ('name', )}),
                         
-                        ('Important details', {
+                        ('Minimum information needed', {
                               'classes': hide,
-                              'description': 'These fields are needed by many non-admin page.',
+                              'description': 'These fields are REQUIRED before this item can be public.',
                               'fields':
-                              ('brief_description', 'format', 'collection',
+                              ('status', 'brief_description', 'format', 'collection',
                                     'text')
                               }),
                       
+                        ('Creators and Contributors ', {
+                            'classes': hide,
+                            'description': 'You can assign creators and contributors if you wish.',
+                            'fields': ('creators',
+                                       'contributors',
+                                       ),
+                              }),
+                     
+                        ('Categories and Tags', {
+                            'classes': hide,
+                            'description': 'You can assign categories and tags if you wish.',
+                            'fields': ('categories',
+                                       'tags',
+                                       ),
+                              }),
+                     
+                        ('Auto text options', {
+                            'classes': hide,
+                            'description': """WARNING WARNING If enabled these
+                            fields automatically update the text field. Text
+                            upload has priority over get url if both are ticked.
+                             WARNING WARNING.""",
+                            'fields': ('text_fetch_enabled',
+                                       'text_upload',
+                                       'auto_get_enabled',
+                                       'auto_get_url',
+                                       )
+                              }),
+                     
+                        ('HTML contents', {
+                            'classes': hide,
+                            'description': 'A document has a landing page, the HTML to use.',
+                            'fields': (
+                                       'html_enabled',
+                                       'html_doc',
+                                       'html_auto_enabled',
+                                       'html_auto_doc'
+                                       ),
+                              }),
+                     
                         ('More details', {
                             'classes': hide,
                             'description': 'If general fields are used less often they can be moved here.',
@@ -87,47 +127,6 @@ class DocumentAdmin(admin.ModelAdmin):
                                        ),
                               }),
                      
-                        ('Creators and contributors ', {
-                            'classes': hide,
-                            'description': 'You can assign creators and contributors if you wish.',
-                            'fields': ('creators',
-                                       'contributors',
-                                       ),
-                              }),
-                     
-                        ('Categories and Tags', {
-                            'classes': hide,
-                            'description': 'You can assign categories and tags if you wish.',
-                            'fields': ('categories',
-                                       'tags',
-                                       ),
-                              }),
-                     
-                      
-                        ('HTML contents', {
-                            'classes': hide,
-                            'description': 'A document has a landing page, the HTML to use.',
-                            'fields': (
-                                       'html_enabled',
-                                       'html_doc',
-                                       'html_auto_enabled',
-                                       'html_auto_doc'
-                                       ),
-                              }),
-                     
-                        ('Auto text options', {
-                            'classes': hide,
-                            'description': """WARNING WARNING If enabled these
-                            fields automatically update the text field. Text
-                            upload has priority over get url if both are ticked.
-                             WARNING WARNING.""",
-                            'fields': ('text_fetch_enabled',
-                                       'text_upload',
-                                       'auto_get_enabled',
-                                       'auto_get_url',
-                                       )
-                              }),
-
                         ('Advanced auto text options', {
                             'classes': hide,
                             'description': """These advanced feature do not
@@ -157,7 +156,7 @@ class DocumentAdmin(admin.ModelAdmin):
                                        'version_related',),
                               }),
                      
-                        ('Admin options', {
+                        ('Read only', {
                             'classes': hide,
                             'description': 'These fields are for use by library staff mainly.',
                             'fields': ('maintainer',
@@ -228,7 +227,7 @@ class DocumentAdmin(admin.ModelAdmin):
             doc.status = 3
             self.log_auto(request, doc, 'status2review%s')
             doc.save()
-            m = 'Status changed to Review, see messages above for information needed.'
+            m = 'Review status enabled, see messages above for information needed.'
             messages.warning(request, m)          
           
     def text_fetch(self, request, doc):
