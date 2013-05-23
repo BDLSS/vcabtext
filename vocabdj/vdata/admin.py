@@ -182,6 +182,9 @@ class DocumentAdmin(admin.ModelAdmin):
     # ---------------------------------------------------------------
     def save_model(self, request, doc, form, change):
         '''Add custom save options to admin.'''
+        if doc.maintainer == None:
+            doc.maintainer = request.user
+            
         doc.save() # Save the model first to deal with any errors.
 
         #dayadmin = self.is_day_admin(request) # is this a daily admin user
