@@ -46,13 +46,15 @@ admin.site.register(Agent, AgentAdmin)
 class DocumentAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'version_current', 'status', 'format', 'collection', 'maintainer')
     list_display_links = ('id', 'name')
-    list_filter = ('date_modified', 'status', 'maintainer', 'collection')
+    list_filter = ('date_modified', 'status', 'collection', 'maintainer', )
     date_hierarchy = 'date_document'
     readonly_fields = ('date_added', 'date_modified', 'date_last_auto',
                        'auto_log', 'maintainer')
     filter_horizontal = ('categories', 'tags', 'creators', 'contributors')
     
     raw_id_fields = ('version_extends','version_parent', 'version_related', 'version_previous', 'version_next')
+    
+    actions = None # Disable the bulk delete option
     
     if ENABLE_FIELDSETS:
         hide = ('collapse', 'wide', 'extrapretty')
@@ -220,13 +222,13 @@ class DocumentAdmin(admin.ModelAdmin):
             okay = False
     
         # Feedback and edit status if needed.
-        if not okay:
+        if not okay:                   
             doc.status = 3
-            self.log_auto(request, doc, 'status2review%s')
+            self.log_auto(request, doc, 'public2review%s')
             doc.save()
             m = 'Review status enabled, see messages above for information needed.'
             messages.warning(request, m)          
-          
+      
     def text_fetch(self, request, doc):
         '''Load the text field from the uploaded filed.'''
         messages.warning(request, 'Trying to set text from uploaded file.')
