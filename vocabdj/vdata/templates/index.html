@@ -12,7 +12,10 @@
         <p><a href="/data/{{ document.id }}/">About {{document.name}}</a>
         | <strong>collection</strong>: <a href="/data/collects/{{document.collection}}">{{document.collection}}</a>
         | <strong>maintainer</strong>: <a href="/contact/">{{document.maintainer}}</a>
-		| <strong>see</strong>: <a href="/data/{{ document.id }}/native/">{{document.name}} in {{document.format}}</a>         
+		| <strong>see</strong>: <a href="/data/{{ document.id }}/native/">{{document.name}} in {{document.format}}</a>
+		{% if document.version_current %}
+        	| <strong>version</strong>: {{document.version_current }}
+        {% endif %}         
     {% endfor %}
 {% else %}
     <p>No docs are available.</p>
