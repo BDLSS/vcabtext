@@ -168,7 +168,16 @@ class DocumentAdmin(admin.ModelAdmin):
                               }),
                      
                       )
+        
 
+    def queryset(self, request):
+        '''Control what items get shown on the list display.'''
+        qs = super(DocumentAdmin, self).queryset(request)
+        if request.user.is_superuser:
+            return qs
+        else:
+            return qs.filter(maintainer=request.user)
+        
     # ---------------------------------------------------------------
     # Custom save handler and best method of fetching text.
     # ---------------------------------------------------------------
@@ -192,7 +201,7 @@ class DocumentAdmin(admin.ModelAdmin):
           
         # Reset the status if the user is not a day to day admin.
         current = doc.status # current will be a string
-        if current == '5':
+        if False and current == '5':
             if not dayadmin:
                 doc.status = 3
                 self.log_auto(request, doc, 'status2review%s')
