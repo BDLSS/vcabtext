@@ -187,16 +187,13 @@ class DocumentAdmin(admin.ModelAdmin):
             doc.maintainer = request.user
             
         doc.save() # Save the model first to deal with any errors.
-
-        #dayadmin = self.is_day_admin(request) # is this a daily admin user
-        dayadmin = request.user.is_superuser
         
         # Enable the setting of the text field via file upload.
         if doc.text_fetch_enabled: # This has more priority
             self.text_fetch(request, doc)
         else:
             # Enable the setting of the text field via a url.
-            if dayadmin and doc.auto_get_enabled: # This has less priority
+            if doc.auto_get_enabled: # This has less priority
                 self.auto_get_text(request, doc)
                 
         # Enable the setting of the html field via text.
