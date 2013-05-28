@@ -2,7 +2,7 @@ import os
 import sys
 import django.core.handlers.wsgi
 
-path = '/var/www/vocabdj'
+path = '/opt/oxproject/current/vocabdj/vocabdj'
 if path not in sys.path:
     sys.path.append(path)
     
