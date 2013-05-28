@@ -255,7 +255,7 @@ if __name__ == '__main__':
     else:
         logging.basicConfig(level=logging.INFO)
     ug = 'vocabadmin'
-    master='https://github.com/BDLSS/vcabtext.git'
+    master='git://github.com/BDLSS/vcabtext.git'
     a = DjAdmin(ug, ug, master)
     argv = sys.argv 
     
