@@ -28,7 +28,7 @@ links are enabled.</p>
 {% if document.version_current %}
 	<a href="/{{document.name}}/{{document.version_current }}/info/">/{{document.name}}/{{document.version_current }}/info/</a>
 {% else %}
-	/{{document.name}}/{{document.version_current |default:"vernumber" }}/info/
+	/{{document.name}}/{{document.version_current|default:"vernumber" }}/info/
 {% endif %}
 </li>
 
@@ -36,7 +36,7 @@ links are enabled.</p>
 {% if document.version_current %}
 	<a href="/{{document.name}}/{{document.version_current }}/">/{{document.name}}/{{document.version_current }}/</a>
 {% else %}
-	/{{document.name}}/{{ document.version_current |default:"vernumber" }}/
+	/{{document.name}}/{{ document.version_current|default:"vernumber" }}/
 {% endif %}
 </li>
 
