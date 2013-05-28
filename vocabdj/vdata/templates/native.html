@@ -19,11 +19,37 @@ can cut and paste into your favourite text editor.</p>
 <p>The <a href="/data/{{document.id}}/web/">automatic html</a> page might have
 the above file with syntax highlighting.</p>
 
-<h2>Latest version</h2>
-<p>If this store contains more than one version of this item the
-<a href="/{{document.name}}/">latest version of {{document.name}}</a> is
-also available for download.</p>
+<h2>Persistent links</h2>
+<p>If an item has been given a version number the following
+links are enabled.</p>
 
+<ul>
+<li><strong>Information page</strong>:
+{% if document.version_current %}
+	<a href="/{{document.name}}/{{document.version_current }}/info/">/{{document.name}}/{{document.version_current }}/info/</a>
+{% else %}
+	/{{document.name}}/{{document.version_current |default:"vernumber" }}/info/
+{% endif %}
+</li>
+
+<li><strong>Direct download</strong>:
+{% if document.version_current %}
+	<a href="/{{document.name}}/{{document.version_current }}/">/{{document.name}}/{{document.version_current }}/</a>
+{% else %}
+	/{{document.name}}/{{ document.version_current |default:"vernumber" }}/
+{% endif %}
+</li>
+
+</ul>
+
+<p>The latest version or only version of this item is available
+at the following location. </p>
+<ul>
+<li><strong>Latest version</strong>:
+<a href="/{{document.name}}/">/{{document.name}}/</a>
+</ul>
+
+                  
 {% endblock%}
 
 {% block bread %}
