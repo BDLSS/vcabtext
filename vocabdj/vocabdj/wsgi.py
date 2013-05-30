@@ -2,11 +2,11 @@ import os
 import sys
 import django.core.handlers.wsgi
 
-path = '/opt/oxproject/current/vocabdj/vocabdj'
+path = '/opt/oxproject/current/vocabdj'
 if path not in sys.path:
     sys.path.append(path)
     
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'vocabdj.settings'
 
 
 _application = django.core.handlers.wsgi.WSGIHandler()
