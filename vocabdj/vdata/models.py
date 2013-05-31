@@ -27,6 +27,9 @@ class Format(models.Model):
     h = 'Mime type to send to browser when sending none html files. (eg. application/rdf+xml)'
     native_mime_type = models.CharField(max_length=200, default='',  blank=True, help_text=h)
         
+    h = 'If a file of this format is downloaded, what file extension should be used.'
+    download_extension = models.CharField(max_length=20, default='txt',  blank=True, help_text=h)
+    
     notes = models.TextField(blank=True)
     
     def __unicode__(self):
