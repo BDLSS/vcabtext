@@ -137,8 +137,8 @@ class Document(models.Model):
     h = "The namespace commonly used or one you'd like users to use. e.g. 'dc' as in xmlns:dc="
     suggested_namespace = models.CharField(max_length=20, blank=True, help_text=h)
     
-    h = 'A short summary of this document. (50 chars, no HTML tags)'
-    brief_description = models.CharField(max_length=50, blank=True, help_text=h)
+    h = 'A short summary of this document. (250 chars, no HTML tags)'
+    brief_description = models.CharField(max_length=250, blank=True, help_text=h)
     
     h = 'An additional summary of this document, if required. '
     description = models.TextField(blank=True, help_text=h)
