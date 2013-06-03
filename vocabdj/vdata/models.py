@@ -104,9 +104,6 @@ class Agent(models.Model):
     
     first_name = models.CharField(max_length=250, blank=True)
     
-    h = 'Untick this box if the agent is NOT a person.'
-    is_person = models.BooleanField(default=True, help_text=h)
-    
     def __unicode__(self):
         return '%s %s'%(self.first_name, self.last_name)
     

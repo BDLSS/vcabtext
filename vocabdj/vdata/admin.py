@@ -38,8 +38,8 @@ class CatAdmin(admin.ModelAdmin):
 admin.site.register(Category, CatAdmin)
 
 class AgentAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name', 'is_person')
-    list_filter = ('is_person',)
+    list_display = ('last_name', 'first_name', 'atype')
+    list_filter = ('atype',)
     
 admin.site.register(Agent, AgentAdmin)
 
