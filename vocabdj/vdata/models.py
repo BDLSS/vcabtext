@@ -25,7 +25,7 @@ class Format(models.Model):
     native_enabled = models.BooleanField(default=True, verbose_name='Native enabled', help_text=h)
     
     h = 'Mime type to send to browser when sending none html files. (eg. application/rdf+xml)'
-    native_mime_type = models.CharField(max_length=200, default='',  blank=True, help_text=h)
+    native_mime_type = models.CharField(max_length=200, default='text/plain',  blank=True, help_text=h)
         
     h = 'If a file of this format is downloaded, what file extension should be used.'
     download_extension = models.CharField(max_length=20, default='txt',  blank=True, help_text=h)
