@@ -91,8 +91,16 @@ class Category(models.Model):
 
 class Agent(models.Model):
     '''A document can have agents (ie. people/organisation)'''
-    h = 'Use this field for organisation name is this agent is NOT a person.'
-    last_name = models.CharField(max_length=250, blank=True, help_text=h)
+    atypes = (('per', '1a. Person'), ('org', '1b. Organisation'), ('unk', '1c. Unknown'),
+                ('aso', '2a. Software'), ('aha', '2b. Hardware'),
+                ('dep', '3a. Department'), ('fun', '3b. Funder'), ('pub', '3c. Publisher'))
+    h = 'An agent can be a creator or contributor to an item.'
+    v = 'Type of agent'
+    atype = models.CharField(max_length=3, default='per', help_text=h,
+                             verbose_name=v, choices=atypes)
+    
+    h = 'Use this field for name is this agent is NOT a person.'
+    last_name = models.CharField(max_length=250, help_text=h)
     
     first_name = models.CharField(max_length=250, blank=True)
     
