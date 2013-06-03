@@ -30,6 +30,9 @@ class Format(models.Model):
     h = 'If a file of this format is downloaded, what file extension should be used.'
     download_extension = models.CharField(max_length=20, default='txt',  blank=True, help_text=h)
     
+    h = 'What formats, methods and options controls are available for the auto making system.'
+    auto_make_controls = models.CharField(max_length=250, default='', blank=True, help_text=h)
+    
     notes = models.TextField(blank=True)
     
     def __unicode__(self):
