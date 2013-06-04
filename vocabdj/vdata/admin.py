@@ -370,8 +370,10 @@ class DocumentAdmin(admin.ModelAdmin):
         if len(custom)> 1 and str(custom[1]).strip() == 'linenos':
             has_num = 'inline'
         
-        # Now we can do the task and save it.
-        return highlight(doc.text, lexer(), HtmlFormatter(linenos=has_num))     
+        try:   # Now we can do the task and save it.
+            return highlight(doc.text, lexer(), HtmlFormatter(linenos=has_num))
+        except: # TODO: what exceptions do lexer highlighter cause?
+            return ''
         
     def do_hdemo1(self, request, doc, options):
         if not options: options = 'xml, linenos' #defaults
