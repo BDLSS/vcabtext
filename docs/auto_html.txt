@@ -1,0 +1,45 @@
+This document explains automatic html options.
+
+A. Start process
+----------------
+1. Add a new format in the admin interface.
+2. The format is usually an acronym, so these are required fields.
+3. Save it.
+
+B. Html convert method
+----------------------
+You can add the method to use or leave it blank for
+the default. The following option are valid:
+1. pygments (default)
+2. rdftohtml (TO add)
+
+B1. Pygments convert options
+----------------------------
+You can define the following options or leave it
+blank for the default. Here are three examples:
+	a. lexer
+	b. lexer, linenos
+	c. guess, linenos, example.ext
+
+B1a. lexer
+Predefined valid lexers are: xml, xslt, json
+The default lexer is: xml
+An invalid lexer causes the TextLexer to be used.
+	xml
+
+B1b. linenos
+The word 'linenos' controls if output should have
+line numbers. Anything else stops them appearing.
+	xml, linenos
+	xml, False
+
+B1c. guess
+There are (in June 2013) a total 240 predefined lexers
+within pygments. This option will try and use them.
+* You must give an example filename where the extension used
+will be used to guess the lexer.
+* If it cannot guess it the TextLexer will be used.
+
+An example tested:
+	guess, linenos, example.xsd
+	
