@@ -33,7 +33,11 @@ class Format(models.Model):
     h = 'What formats, methods and options are available for the auto making system.'
     auto_make_controls = models.CharField(max_length=250, default='', blank=True, help_text=h)
     
-    notes = models.TextField(blank=True)
+    # Standard fields
+    date_added = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
+    h = 'You can keep brief notes about this format for internal use.'
+    notes = models.TextField(blank=True, help_text=h)
     
     def __unicode__(self):
         return self.format
@@ -52,11 +56,14 @@ class Collection(models.Model):
     h = 'A link to more information about this collection if description is not enough.'
     url_about_collection = models.URLField(blank=True, help_text=h)
     
-    h = 'You can keep brief notes about this collection for internal use.'
-    notes = models.TextField(blank=True, help_text=h)
-    
     h = 'Extra description to use on the collection detail page.'
     extra_description = models.TextField(blank=True, help_text=h)
+    
+    # Standard fields
+    date_added = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
+    h = 'You can keep brief notes about this collection for internal use.'
+    notes = models.TextField(blank=True, help_text=h)
     
     def __unicode__(self):
         return self.collection
@@ -69,6 +76,9 @@ class Tag(models.Model):
     h = 'A tag should ideally be a single word, (eg. keyword HTML meta tag)'
     tag = models.CharField(max_length=30, primary_key=True, help_text=h)
     
+    # Standard fields
+    date_added = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
     h = 'You can keep brief notes about this tag for internal use.'
     notes = models.CharField(max_length=250, blank=True, help_text=h)
     
@@ -80,6 +90,9 @@ class Category(models.Model):
     h = 'A category can be up to 50 chars long and can contain spaces.'
     category = models.CharField(max_length=50, primary_key=True, help_text=h)
     
+    # Standard fields
+    date_added = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
     h = 'You can keep brief notes about this category for internal use.'
     notes = models.CharField(max_length=250, blank=True, help_text=h)
     
@@ -103,6 +116,12 @@ class Agent(models.Model):
     last_name = models.CharField(max_length=250, help_text=h)
     
     first_name = models.CharField(max_length=250, blank=True)
+    
+    # Standard fields
+    date_added = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
+    h = 'You can keep brief notes about this agent for internal use.'
+    notes = models.CharField(max_length=250, blank=True, help_text=h)
     
     def __unicode__(self):
         return '%s %s'%(self.first_name, self.last_name)

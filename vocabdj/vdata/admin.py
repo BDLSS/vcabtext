@@ -18,28 +18,36 @@ import urllib2
 
 class FormatAdmin(admin.ModelAdmin):
     list_display = ('format', 'expanded_acronym', 'html_convert_enable', 'native_mime_type')
-    
-admin.site.register(Format, FormatAdmin)
+    list_filter = ('date_modified',)
+    readonly_fields = ('date_added', 'date_modified')
 
+admin.site.register(Format, FormatAdmin)
 
 class CollectionAdmin(admin.ModelAdmin):
     list_display = ('collection', 'longer_name')
+    list_filter = ('date_modified',)    
+    readonly_fields = ('date_added', 'date_modified')
 
 admin.site.register(Collection, CollectionAdmin)
 
 class TagAdmin(admin.ModelAdmin):
     list_display = ('tag', 'notes')
+    list_filter = ('date_modified',)    
+    readonly_fields = ('date_added', 'date_modified')
 
 admin.site.register(Tag, TagAdmin)
 
 class CatAdmin(admin.ModelAdmin):
     list_display = ('category', 'notes')
+    list_filter = ('date_modified',)    
+    readonly_fields = ('date_added', 'date_modified')
 
 admin.site.register(Category, CatAdmin)
 
 class AgentAdmin(admin.ModelAdmin):
     list_display = ('last_name', 'first_name', 'atype')
-    list_filter = ('atype',)
+    list_filter = ('date_modified', 'atype')
+    readonly_fields = ('date_added', 'date_modified')
     
 admin.site.register(Agent, AgentAdmin)
 
