@@ -6,7 +6,7 @@ from django.contrib import auth
 
 try:
     from pygments import highlight
-    from pygments.lexers import XmlLexer
+    from pygments.lexers import XmlLexer, JSONLexer, XsltLexer
     from pygments.formatters import HtmlFormatter
     ENABLE_AUTO_HTML = True
 except ImportError:
@@ -359,9 +359,9 @@ class DocumentAdmin(admin.ModelAdmin):
         if custom[0] == 'xml': 
             lexer = XmlLexer
         elif custom[0] == 'xslt': 
-            lexer = XmlLexer # TODO: get xslt to works
+            lexer = XsltLexer
         elif custom[0] == 'json': 
-            lexer = XmlLexer # TODO: get json to works.
+            lexer = JSONLexer    
         
         # The second controls if line number be shown on the output?
         has_num = False
@@ -369,7 +369,7 @@ class DocumentAdmin(admin.ModelAdmin):
             has_num = 'inline'
         
         # Now we can do the task and save it.
-        return highlight(doc.text, lexer(), HtmlFormatter(linenos=has_num))  
+        return highlight(doc.text, lexer(), HtmlFormatter(linenos=has_num))     
         
     def do_hdemo1(self, request, doc, options):
         if not options: options = 'xml, linenos' #defaults
