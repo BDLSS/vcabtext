@@ -9,10 +9,15 @@ try:
     from pygments.lexers import XmlLexer, JSONLexer, XsltLexer, TextLexer
     from pygments.lexers import get_lexer_for_filename
     from pygments.formatters import HtmlFormatter
+    
+    # The following are need by the rdfxslt convert method
+    from StringIO import StringIO
+    from lxml import etree
+    
     ENABLE_AUTO_HTML = True
 except ImportError:
     ENABLE_AUTO_HTML = False
-            
+                
 ENABLE_FIELDSETS = True
 
 import urllib2
@@ -333,6 +338,8 @@ class DocumentAdmin(admin.ModelAdmin):
             content = self.do_pygments(request, doc, opts)
         elif how == 'hdemo1':
             content = self.do_hdemo1(request, doc, opts)
+        elif how == 'rdfxslt':
+            content = self.do_rdfxslt(request, doc, opts)
         else:
             m = 'hauto51: Format has invalid html convert method.' 
             messages.error(request, m)
@@ -408,6 +415,68 @@ class DocumentAdmin(admin.ModelAdmin):
         
         return content # return the new content
     
+    # ---------------------------------------------------------------
+    # Set the html field automatically for an RDF file
+    # ---------------------------------------------------------------
+    def do_rdfxslt(self, request, doc, options):
+        '''Try to create an html version for an RDF file using an XSLT.'''
+        try:
+            docid = options[0]
+        except IndexError:
+            m = 'Rdfxslt21: The format is missing the xslt document id to look for.'
+            messages.error(request, m)
+            return ''
+                
+        before = doc.text
+        content = self.do_rd2xs_content(request, before, docid) 
+        if content == '':
+            m = 'Rdfxslt26: Nothing was produced, using the default method.'
+            messages.info(request, m)
+            content = self.do_pygments(request, doc, [])
+        
+        # A simple method of reporting if anything occurred
+        #m = 'Size before=%s, Size after=%s'%(len(before), len(content))
+        #messages.info(request, m)
+        
+        return content # return the new content
+    
+    def do_rd2xs_content(self, request, raw, xslt_id):
+        '''Return the rdf document as html source code.'''
+        rdf = StringIO(raw)
+        source = etree.parse(rdf)
+        xstree = self.rdf_xslt_tree(request, xslt_id)
+        try:
+            transform = etree.XSLT(xstree)
+            return str(transform(source))
+        except etree.Error, e:
+            m = 'Rdfxslt25: Unable to transform file, the hint might explain why.'
+            messages.warning(request, m)
+            m = 'Hint: %s'%e
+            messages.error(request, m)
+            return ''
+        
+    def rdf_xslt_tree(self, request, doc_id):
+        '''Return the XSLT tree to use to convert from RDF.'''
+        try:
+            doc = Document.objects.get(pk=doc_id)
+            #messages.warning(request, str(doc))
+        except Document.DoesNotExist:
+            m = 'Rdfxslt22: The document id containing the XSLT cannot be found.'
+            messages.error(request, m)
+        try:
+            return etree.XML(doc.text)
+        except ValueError:
+            m = 'Rdfxslt23: The XSLT raised a value error. (encodings)' 
+            messages.warning(request, m)
+            m = 'Rdfxslt24: The default is being used.' 
+            messages.info(request, m)
+            return etree.XML('''<xsl:stylesheet version="1.0"
+     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+     <xsl:template match="/">
+     <xsl:copy-of select="."/>
+     </xsl:template>
+ </xsl:stylesheet>''')
+          
 admin.site.register(Document, DocumentAdmin)
 
     
