@@ -407,10 +407,10 @@ class DocumentAdmin(admin.ModelAdmin):
         if not options: options = 'xml, linenos' #defaults
         
         before = doc.text # how to access the text to be converted
-        content = str('<ht>'+before) # do your conversion method to create html 
+        content = str('DEMODONE'+before) # do your conversion method to create html 
         
         # A simple method of reporting if anything occurred
-        m = 'Size before=%s, Size after='%(len(before), len(content))
+        m = 'Size before=%s, Size after=%s'%(len(before), len(content))
         messages.info(request, m)
         
         return content # return the new content
