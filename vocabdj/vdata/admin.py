@@ -6,7 +6,7 @@ from django.contrib import auth
 
 try:
     from pygments import highlight
-    from pygments.lexers import XmlLexer, JSONLexer, XsltLexer
+    from pygments.lexers import XmlLexer, JSONLexer, XsltLexer, TextLexer
     from pygments.formatters import HtmlFormatter
     ENABLE_AUTO_HTML = True
 except ImportError:
@@ -361,7 +361,9 @@ class DocumentAdmin(admin.ModelAdmin):
         elif custom[0] == 'xslt': 
             lexer = XsltLexer
         elif custom[0] == 'json': 
-            lexer = JSONLexer    
+            lexer = JSONLexer
+        else:
+            lexer = TextLexer # Have a save default if mistake made.  
         
         # The second controls if line number be shown on the output?
         has_num = False
