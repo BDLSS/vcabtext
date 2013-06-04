@@ -7,6 +7,7 @@ from django.contrib import auth
 try:
     from pygments import highlight
     from pygments.lexers import XmlLexer, JSONLexer, XsltLexer, TextLexer
+    from pygments.lexers import get_lexer_for_filename
     from pygments.formatters import HtmlFormatter
     ENABLE_AUTO_HTML = True
 except ImportError:
@@ -344,7 +345,7 @@ class DocumentAdmin(admin.ModelAdmin):
             m = 'Finished, the HTML was created and saved.' 
             messages.success(request, m)
         else:
-            m = 'hauto52: Create HTML worked but produced nothing.'
+            m = 'hauto52: Create HTML processed but produced nothing.'
             messages.error(request, m)
             m = 'hauto53: Method tried (%s) with options(%s)'%(how, opts)
             messages.warning(request, m)
@@ -362,19 +363,39 @@ class DocumentAdmin(admin.ModelAdmin):
             lexer = XsltLexer
         elif custom[0] == 'json': 
             lexer = JSONLexer
+        elif custom[0] == 'guess':
+            lexer, example = self.pyg_guess(custom)
+            m = 'hauto61: Lexer guessed:%s using example: %s'%(lexer, example)
+            messages.info(request, m)
         else:
-            lexer = TextLexer # Have a save default if mistake made.  
+            lexer = TextLexer # Have a safe default if mistake made.  
         
         # The second controls if line number be shown on the output?
         has_num = False
         if len(custom)> 1 and str(custom[1]).strip() == 'linenos':
             has_num = 'inline'
         
-        try:   # Now we can do the task and save it.
+        # Now we can do the task and save it.
+        try:
             return highlight(doc.text, lexer(), HtmlFormatter(linenos=has_num))
-        except: # TODO: what exceptions do lexer highlighter cause?
-            return ''
-        
+        except TypeError: # this is caused by the guess feature
+            try:
+                return highlight(doc.text, lexer, HtmlFormatter(linenos=has_num))
+            except: # TODO: what exceptions do lexer highlighter cause?
+                return ''
+
+    def pyg_guess(self, options):
+        '''Try to guess the lexer to use.'''
+        try:
+            example = str(options[2]).strip()
+        except IndexError:
+            example = 'guess.txt'
+        try:
+            lexer = get_lexer_for_filename(example)
+        except:
+            lexer = TextLexer
+        return lexer, example
+                
     def do_hdemo1(self, request, doc, options):
         if not options: options = 'xml, linenos' #defaults
         
