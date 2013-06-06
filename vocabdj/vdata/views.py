@@ -16,7 +16,7 @@ def index(request):
     except EmptyPage:
         docs = paginator.page(paginator.num_pages)
         
-    context = {'document_list' : dlist, 'docs': docs}
+    context = {'docs': docs}
     return render(request, 'index.html', context)
 
 def detail(request, document_id):
