@@ -81,6 +81,15 @@ http://www.rt-coding.com/blog/view/a-script-generate-pygments-styles.html  -->
 	{{document.html_doc|safe}}
 {% endif %}
 
+{% if document.format.format == "RDF" %}
+	<h2>Lode documentation</h2>
+	<p>The LODE service created by Silvio Peroni
+	can be used to document RDF files. You can try viewing  
+<a href="http://www.essepuntato.it/lode/http://vocab.ox.ac.uk/data/{{document.id}}/download/">{{document.name}} on LODE</a>
+	but note it can take 2-60 seconds to appear so please avoid refreshing.
+	</p>
+{% endif %}
+
 <h2>Auto documentation</h2>
 	{% if document.html_auto_doc %}
 	  <p>The following has been automatically created from
@@ -93,7 +102,6 @@ http://www.rt-coding.com/blog/view/a-script-generate-pygments-styles.html  -->
       <a href="/data/{{document.id}}/native/">{{document.name}} in {{document.format}}</a>
       </p>
 	{% endif %}
-
 
 {% endblock%}
 
