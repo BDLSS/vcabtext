@@ -332,17 +332,18 @@ class DocumentAdmin(admin.ModelAdmin):
                 self.do_html(request, doc, how, opts)
 
     def do_html(self, request, doc, how, opts):
-        '''Controls how the html is made and with which options.'''                        
+        '''Controls how the html is made and with which options.'''                       
         if not how: how = 'pygments' # enable a default option
         if how == 'pygments':
             content = self.do_pygments(request, doc, opts)
         elif how == 'hdemo1':
             content = self.do_hdemo1(request, doc, opts)
-        elif how == 'rdfxslt':
-            content = self.do_rdfxslt(request, doc, opts)
+        elif how == 'hxslt':
+            content = self.do_hxslt(request, doc, opts)
         else:
             m = 'hauto51: Format has invalid html convert method.' 
             messages.error(request, m)
+            content = '' #Make sure content is defined or it causes error.
         
         # Now we can save the content
         if content:
@@ -419,19 +420,19 @@ class DocumentAdmin(admin.ModelAdmin):
     # ---------------------------------------------------------------
     # Set the html field automatically for an RDF file
     # ---------------------------------------------------------------
-    def do_rdfxslt(self, request, doc, options):
+    def do_hxslt(self, request, doc, options):
         '''Try to create an html version for an RDF file using an XSLT.'''
         try:
             docid = options[0]
         except IndexError:
-            m = 'Rdfxslt21: The format is missing the xslt document id to look for.'
+            m = 'Hxslt21: The format is missing the xslt document id to look for.'
             messages.error(request, m)
             return ''
                 
         before = doc.text
-        content = self.do_rd2xs_content(request, before, docid) 
+        content = self.do_hxslt_content(request, before, docid) 
         if content == '':
-            m = 'Rdfxslt26: Nothing was produced, using the default method.'
+            m = 'Hxslt26: Nothing was produced, using the default method.'
             messages.info(request, m)
             content = self.do_pygments(request, doc, [])
         
@@ -441,35 +442,35 @@ class DocumentAdmin(admin.ModelAdmin):
         
         return content # return the new content
     
-    def do_rd2xs_content(self, request, raw, xslt_id):
+    def do_hxslt_content(self, request, raw, xslt_id):
         '''Return the rdf document as html source code.'''
         rdf = StringIO(raw)
         source = etree.parse(rdf)
-        xstree = self.rdf_xslt_tree(request, xslt_id)
+        xstree = self.get_xslt_tree(request, xslt_id)
         try:
             transform = etree.XSLT(xstree)
             return str(transform(source))
         except etree.Error, e:
-            m = 'Rdfxslt25: Unable to transform file, the hint might explain why.'
+            m = 'Hxslt25: Unable to transform file, the hint might explain why.'
             messages.warning(request, m)
             m = 'Hint: %s'%e
             messages.error(request, m)
             return ''
         
-    def rdf_xslt_tree(self, request, doc_id):
+    def get_xslt_tree(self, request, doc_id):
         '''Return the XSLT tree to use to convert from RDF.'''
         try:
             doc = Document.objects.get(pk=doc_id)
             #messages.warning(request, str(doc))
         except Document.DoesNotExist:
-            m = 'Rdfxslt22: The document id containing the XSLT cannot be found.'
+            m = 'Hxslt22: The document id containing the XSLT cannot be found.'
             messages.error(request, m)
         try:
             return etree.XML(doc.text)
         except ValueError:
-            m = 'Rdfxslt23: The XSLT raised a value error. (encodings)' 
+            m = 'Hxslt23: The XSLT raised a value error. (encodings)' 
             messages.warning(request, m)
-            m = 'Rdfxslt24: The default is being used.' 
+            m = 'Hxslt24: The default is being used.' 
             messages.info(request, m)
             return etree.XML('''<xsl:stylesheet version="1.0"
      xmlns:xsl="http://www.w3.org/1999/XSL/Transform">

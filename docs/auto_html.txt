@@ -11,7 +11,7 @@ B. Html convert method
 You can add the method to use or leave it blank for
 the default. The following option are valid:
 1. pygments (default)
-2. rdfxslt
+2. hxslt
 
 B1. Pygments convert options
 ----------------------------
@@ -43,13 +43,12 @@ will be used to guess the lexer.
 An example tested:
 	guess, linenos, example.xsd
 	
-B2. rdfxslt
+B2. hxslt
 -----------
-This method will try and create HTML documentation for an RDF file
-using an XSLT document. 
+This method will try and create HTML documentation using an XSLT document. 
 
 1. Add the XSL you wish to use to the document store and note the id number.
-2. Add rdfxslt to format html method
+2. Add hxslt to format html method
 3. Put the ID number in the html options.
 
 It will fallback to using B1.
