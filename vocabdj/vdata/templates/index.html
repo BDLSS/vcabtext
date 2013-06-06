@@ -4,9 +4,38 @@
 {% block content %}
 <h1>AZ list of items</h1>
 
+
+{% if docs %}
 <p>The following items sorted by name are available.</p>
-{% if document_list %}
-    {% for document in document_list %}
+<div class="pagination">
+	<p><strong>
+	<span class="current">
+            Page {{ docs.number }} of {{ docs.paginator.num_pages }}
+        </span>
+	</strong> 
+    <span class="step-links">
+    
+    {% if docs.has_previous or docs.has_next %}
+            
+        {% if docs.has_previous %}
+: <a href="?page={{ docs.previous_page_number }}">previous page</a> |
+        {% else %}
+        	: previous page |
+        {% endif %}
+
+    
+        {% if docs.has_next %} 
+            <a href="?page={{ docs.next_page_number }}">next page</a>
+        {% else %}
+        	next page
+        {% endif %}
+        
+    {% endif %}
+    </span>
+    </p>
+</div>
+
+    {% for document in docs %}
     
         <h2>{{document.name}} - {{document.brief_description }}</h2>
         <p><a href="/data/{{ document.id }}/">About {{document.name}}</a>
@@ -17,8 +46,37 @@
         	| <strong>version</strong>: {{document.version_current }}
         {% endif %}         
     {% endfor %}
+    
+<div class="pagination">
+	<p><strong>
+	<span class="current">
+            Page {{ docs.number }} of {{ docs.paginator.num_pages }}
+        </span>
+	</strong> 
+    <span class="step-links">
+    
+    {% if docs.has_previous or docs.has_next %}
+            
+        {% if docs.has_previous %}
+: <a href="?page={{ docs.previous_page_number }}">previous page</a> |
+        {% else %}
+        	: previous page |
+        {% endif %}
+
+    
+        {% if docs.has_next %} 
+            <a href="?page={{ docs.next_page_number }}">next page</a>
+        {% else %}
+        	next page
+        {% endif %}
+        
+    {% endif %}
+    </span>
+    </p>
+</div>
+
 {% else %}
-    <p>No docs are available.</p>
+    <p>There are currently no items available to show.</p>
 {% endif %}
 
 {% endblock%}

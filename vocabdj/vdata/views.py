@@ -1,11 +1,22 @@
 from django.http import Http404, HttpResponse
 from django.shortcuts import render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from models import Document, Collection, Format
 
 def index(request):
     dlist = Document.objects.all().filter(status=5)
-    context = {'document_list' : dlist}
+
+    paginator = Paginator(dlist, 10)
+    page = request.GET.get('page')
+    try:
+        docs = paginator.page(page)
+    except PageNotAnInteger:
+        docs = paginator.page(1)
+    except EmptyPage:
+        docs = paginator.page(paginator.num_pages)
+        
+    context = {'document_list' : dlist, 'docs': docs}
     return render(request, 'index.html', context)
 
 def detail(request, document_id):
