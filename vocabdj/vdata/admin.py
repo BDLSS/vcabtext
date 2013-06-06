@@ -348,7 +348,7 @@ class DocumentAdmin(admin.ModelAdmin):
         if content:
             doc.html_auto_doc = content
             doc.html_auto_enabled = False
-            self.log_auto(request, doc, 'HTML auto updated.')
+            self.log_auto(request, doc, 'autohtmlhow=%s'%how)
             doc.save()
             m = 'Finished, the HTML was created and saved.'
             messages.success(request, m)
