@@ -3,17 +3,21 @@
 
 {% block content %}
 <h1>Collections</h1>
-<p>This store groups documents into a range of collections to make easier 
-to locate those that have some relationship.</p>
-<ul><li>Click the short name to see a collection's details and documents it contains.</li>
-<li>There are currently  
+<p>This store groups 
  {% if doc_count %}
     {{doc_count}}
   {% else %}
     0
   {% endif %}
- documents spead across the collections.</li>
-</ul>
+vocabularies into  
+{% if col_count %}
+    {{col_count}}
+  {% else %}
+    0
+  {% endif %}
+  collections to make it easier to locate related items.</p>
+
+<p>Click a short name to view a collection.</p>
 {% for collection in collection_list %}
   <h2><a href="/data/collects/{{collection}}">{{collection}}</a> - {{collection.longer_name}}</h2> 
           
@@ -25,7 +29,7 @@ to locate those that have some relationship.</p>
     {% if not collection.description %}
       <p>
     {% endif %}
-    <a href="{{collection.url_about_collection}}">Website for {{collection}}</a></p>
+    <br/>See also: <a href="{{collection.url_about_collection}}">additional information about {{collection}}</a></p>
   {% endif %}
 
   

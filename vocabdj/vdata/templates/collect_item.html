@@ -3,25 +3,24 @@
 
 {% block content %}
 <h1>{{collection.longer_name}}</h1>
-  <ul>
-  <li><strong>Collection name</strong>: {{collection}}</li>
-  <li><strong>Number of items</strong>: {{doc_count}}</li>  
-  
   {% if collection.description %}
-    </ul>{{collection.description|safe}}<ul>	  
-  {% endif %}
+    <p>{{collection.description|safe}}
     
-  	{% if collection.url_about_collection %}
-    	<li><strong>See also</strong>: <a href="{{collection.url_about_collection}}">Website about {{collection}}</a></li>
+    {% if collection.url_about_collection %}
+    <br /><strong>See also</strong>: <a href="{{collection.url_about_collection}}">Website about {{collection}}</a></p>
   	{% endif %}
-  
-    <li>The documents below are available in this collection.</li>
-  	<li>Click the document name to see more information.</li>
+  </p>
+  	  
+  {% endif %}
+    <p>There are <strong>{{doc_count}}</strong> items in this collection.</p>
+
+  	
+
   </ul>
   	
   {% if document_list %}
     {% for document in document_list %}
-      <h2><a href="/data/{{ document.id }}/">{{document.name}}</a> - {{document.brief_description }}</h2>        
+      <h2><a href="/data/{{ document.id }}/">{{document.name}} - {{document.brief_description }}</a></h2>        
     {% endfor %}
   {% else %}
   <h2>Nothing available</h2>
@@ -30,6 +29,11 @@
   {% endif %}
 
 
+{% if collection.extra_description %}
+		<h2>More details</h2>
+		<p>{{ collection.extra_description }}</p>
+  	{% endif %}
+  	
 {% endblock%}
 
 {% block bread %}

@@ -7,7 +7,7 @@ from models import Document, Collection, Format
 def index(request):
     dlist = Document.objects.all().filter(status=5)
 
-    paginator = Paginator(dlist, 10)
+    paginator = Paginator(dlist, 5)
     page = request.GET.get('page')
     try:
         docs = paginator.page(page)
@@ -72,7 +72,8 @@ def collections(request):
     '''Enable links to documents grouped by collection.'''
     dcount = Document.objects.all().filter(status=5).count()
     clist = Collection.objects.all()
-    context = {'doc_count' : dcount, 'collection_list': clist}
+    ccount = clist.count()
+    context = {'doc_count' : dcount, 'collection_list': clist, 'col_count': ccount}
     return render(request, 'collects.html', context)
 
 def collection(request, collection_collection):
@@ -85,7 +86,9 @@ def collection(request, collection_collection):
     
     dlist = Document.objects.all().filter(status=5, collection=c)
     dcount = dlist.count()
+    
     context = {'document_list' : dlist, 'collection': item, 'doc_count' : dcount}
+    
     return render(request, 'collect_item.html', context)
 
 def download_latest(request, document_name):

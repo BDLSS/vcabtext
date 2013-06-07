@@ -13,7 +13,7 @@
 <li><a href="/data/{{document.id}}/native/">{{document.name}} in {{document.format}}</a> for downloading.</li>
 
 {% if document.html_enabled %}
-<li>Automatically created information <a href="/data/{{document.id}}/web/">in html</a></p>
+<li><a href="/data/{{document.id}}/web/">Automatically created information</a></p>
 {% endif %}
 
 </ul>
@@ -63,9 +63,16 @@
 
 </ul>
 
+{% if cats or tags %}
 <h2>Categories and Tags</h2>
-<p>If categories (controlled by the admin team) or tags (added by a larger
-group) exist they will be shown below.</p>
+<p>A list of {% if cats %} categories (controlled by the admin team){% endif %}
+{% if cats and tags %}
+and
+{% endif %}
+
+{% if tags %} tags (added by the
+maintainer of the item){%endif%}:
+
 <ul>
 {% if cats %}
 <li><strong>Categories</strong>: {% for cat in cats %}
@@ -79,10 +86,11 @@ group) exist they will be shown below.</p>
   {% endif %}
 </li>    	
 </ul>
+{% endif %}
+{% if document.version_current or document.version_previous or document.version_next %}
 
 <h2>Links between versions</h2>
-<p>If links between versions exist within <strong>vocab.ox.ac.uk</strong> they will appear
-below.</p>
+<p>Links within <strong>vocab.ox.ac.uk</strong>:</p>
 <ul>
 
 {% if document.version_current %}
@@ -97,9 +105,13 @@ below.</p>
 <li><strong>Next version</strong>: <a href="/data/{{document.version_next.id}}">{{document.version_next}}</a></li>
 {% endif %}
 </ul>
+{% endif %}
+
+{% if document.version_extends or document.version_related or document.version_parent %}
+
 
 <h2>Other links</h2>
-<p>If a document has other links within vocab they will be shown below.</p>
+<p>Other links within <strong>vocab.ox.ac.uk</strong>:</p>
 <ul>
 {% if document.version_extends %}
 <li><strong>This extends</strong>: <a href="/data/{{document.version_extends.id}}">{{document.version_extends}}</a></li>
@@ -114,6 +126,7 @@ below.</p>
 {% endif %}
 
 </ul>
+{% endif %}
 
 <h2>Date</h2>
 <ul>

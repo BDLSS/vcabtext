@@ -2,11 +2,10 @@
 {% block title %}AZ list of items{% endblock%}
 
 {% block content %}
-<h1>AZ list of items</h1>
-
+<h1>Alphabetical list of items</h1>
 
 {% if docs %}
-<p>The following items sorted by name are available.</p>
+<p>The following vocabularies and associated files are available.</p>
 <div class="pagination">
 	<p><strong>
 	<span class="current">
@@ -18,16 +17,16 @@
     {% if docs.has_previous or docs.has_next %}
             
         {% if docs.has_previous %}
-: <a href="?page={{ docs.previous_page_number }}">previous page</a> |
+ <a href="?page={{ docs.previous_page_number }}">&laquo; previous page</a>
         {% else %}
-        	: previous page |
+        	 &laquo; previous page
         {% endif %}
 
     
         {% if docs.has_next %} 
-            <a href="?page={{ docs.next_page_number }}">next page</a>
+            <a href="?page={{ docs.next_page_number }}">next page &raquo;</a>
         {% else %}
-        	next page
+        	next page &raquo;
         {% endif %}
         
     {% endif %}
@@ -58,16 +57,16 @@
     {% if docs.has_previous or docs.has_next %}
             
         {% if docs.has_previous %}
-: <a href="?page={{ docs.previous_page_number }}">previous page</a> |
+ <a href="?page={{ docs.previous_page_number }}">&laquo; previous page</a>
         {% else %}
-        	: previous page |
+        	 &laquo; previous page
         {% endif %}
 
     
         {% if docs.has_next %} 
-            <a href="?page={{ docs.next_page_number }}">next page</a>
+            <a href="?page={{ docs.next_page_number }}">next page &raquo;</a>
         {% else %}
-        	next page
+        	next page &raquo;
         {% endif %}
         
     {% endif %}
