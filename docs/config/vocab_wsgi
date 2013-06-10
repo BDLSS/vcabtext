@@ -1,0 +1,31 @@
+<VirtualHost *:80>
+        ServerName vocab-dev.bodleian.ox.ac.uk
+        ServerAlias vocab-dev.bodleian.ox.ac.uk 
+
+	WSGIScriptAlias / /opt/oxproject/current/vocabdj/vocabdj/wsgi.py
+	WSGIDaemonProcess wsgifordjango
+        WSGIProcessGroup wsgifordjango
+
+
+	#Setup the media folder and enable access.
+        ProxyPass /media !
+        Alias /media /opt/oxproject/current/static
+
+        <Directory /opt/oxproject/current/static/*>
+                Order deny,allow
+                Allow from all
+                Options -Indexes
+        </Directory>
+
+	#Setup the admin link  and enable access.
+        ProxyPass /static/admin !
+        Alias /static/admin /opt/oxstore/ln_contrib_admin_media
+
+        <Directory /opt/oxstore/ln_contrib_admin_media/*>
+                Order deny,allow
+                Allow from all
+                Options -Indexes
+        </Directory>
+
+</VirtualHost>
+
