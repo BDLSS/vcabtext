@@ -301,5 +301,5 @@ class Document(models.Model):
         return '%s - %s'%(self.id, self.name)
     
     class Meta:
-        ordering = ['name']
+        ordering = ['name', '-version_current']
     
