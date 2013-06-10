@@ -3,7 +3,6 @@
 
 {% block content %}
 <h1>Alphabetical list of items</h1>
-
 {% if docs %}
 <p>The following vocabularies and associated files are available.</p>
 <div class="pagination">
@@ -17,9 +16,9 @@
     {% if docs.has_previous or docs.has_next %}
             
         {% if docs.has_previous %}
- <a href="?page={{ docs.previous_page_number }}">&laquo; previous page</a>
+ | <a href="?page={{ docs.previous_page_number }}">&laquo; previous page</a> | 
         {% else %}
-        	 &laquo; previous page
+ |        	 &laquo; previous page | 
         {% endif %}
 
     
@@ -57,9 +56,9 @@
     {% if docs.has_previous or docs.has_next %}
             
         {% if docs.has_previous %}
- <a href="?page={{ docs.previous_page_number }}">&laquo; previous page</a>
+ |  <a href="?page={{ docs.previous_page_number }}">&laquo; previous page</a> |
         {% else %}
-        	 &laquo; previous page
+ |         	 &laquo; previous page |
         {% endif %}
 
     
@@ -72,6 +71,14 @@
     {% endif %}
     </span>
     </p>
+<p>
+<strong>Items per page</strong>:
+<a href="/data/">Default (5)</a> |
+<a href="/data/perpage/10">10</a> |
+<a href="/data/perpage/20">20</a> |
+<a href="/data/perpage/50">50</a> |
+<a href="/data/perpage/100">100</a>
+</p>
 </div>
 
 {% else %}

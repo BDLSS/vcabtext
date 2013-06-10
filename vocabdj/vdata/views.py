@@ -4,10 +4,16 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from models import Document, Collection, Format
 
-def index(request):
+def index(request, pag_count=5):
     dlist = Document.objects.all().filter(status=5)
-
-    paginator = Paginator(dlist, 5)
+    try:
+        pag_count = int(pag_count)
+        if pag_count >= 100:
+            pag_count = 100
+    except ValueError:
+        pag_count = 100
+    
+    paginator = Paginator(dlist, pag_count)
     page = request.GET.get('page')
     try:
         docs = paginator.page(page)
