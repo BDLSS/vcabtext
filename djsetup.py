@@ -252,8 +252,10 @@ class DjAdmin(object):
             self.do_chown(False)
     
     def do_get(self):
-        logging.critical('Attempting to get the latest script.'
+        logging.critical('Attempting to get the latest script.')
+        shutil.move('djsetup.py', 'before%s_djsetup.py'%self.when())
         self.do_command(['wget', 'https://github.com/bdlss/vcabtext/raw/master/djsetup.py'])
+        self.do_command(['chmod', 'u+x', 'djsetup.py'])
         
 if __name__ == '__main__':
     if DEBUG:
