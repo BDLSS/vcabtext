@@ -29,7 +29,7 @@ class DjAdmin(object):
         
         usr_share_pyshared_dj = "ln_contrib_admin_media"
         self.DIR_LINKS = os.path.join(self.DIR_OUTSIDE, usr_share_pyshared_dj)
-        self.DIR_CONTRIB = '/usr/share/pyshared/django/contrib/admin'
+        self.DIR_CONTRIB = '/usr/share/pyshared/django/contrib/admin/media/'
         
         self.OPTIONS = optparse.OptionParser()
         self.setup_options()
