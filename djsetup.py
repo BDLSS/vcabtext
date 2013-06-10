@@ -52,7 +52,7 @@ class DjAdmin(object):
         'setup':('s','Setup up the server (Does m, c and p in sequence.)'),
         'reset':('N','Resets the server (Does w then m, c and p)'),
         'fdesk':('f', 'Fixes ownership rights on development desktops.'),
-        'Get': ('g', 'Get the latest version of this script.'),
+        'get': ('g', 'Get the latest version of this script.'),
                  }
                  
         for item in items:
