@@ -52,7 +52,7 @@ class DjAdmin(object):
         'setup':('s','Setup up the server (Does m, c and p in sequence.)'),
         'reset':('N','Resets the server (Does w then m, c and p)'),
         'fdesk':('f', 'Fixes ownership rights on development desktops.'),
-        'wget': ('w', 'Wget the latest version of this script.'),
+        'Get': ('g', 'Get the latest version of this script.'),
                  }
                  
         for item in items:
@@ -77,7 +77,7 @@ class DjAdmin(object):
         if opts.setup: self.do_setup()
         if opts.reset: self.do_reset()
         if opts.fdesk: self.do_desktop()
-        if opts.wget: self.do_wget()
+        if opts.get: self.do_get()
     
     def do_command(self, command):
         '''Run the command tuple on the OS command line.'''
@@ -251,8 +251,8 @@ class DjAdmin(object):
             self.DEFAULT_GROUP = name
             self.do_chown(False)
     
-    def do_wget(self):
-        logging.critical('Attempting to get the latest script.')
+    def do_get(self):
+        logging.critical('Attempting to get the latest script.'
         self.do_command(['wget', 'https://github.com/bdlss/vcabtext/raw/master/djsetup.py'])
         
 if __name__ == '__main__':
