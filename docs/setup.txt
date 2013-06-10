@@ -9,6 +9,8 @@ Setup
 =====
 The python script djsetup.py automates some of the setting up in the /opt folder.
 
+This script can be updated by calling it with the -g option.
+
 Development setup
 -----------------
 There are three stages.
@@ -51,7 +53,7 @@ Stage A: pre-setup
 - - - - - - - - - -
 1. sudo apt-get install python-django
 2. sudo apt-get install python-pygments
-3. wget https://github.com/mc7/vcabtext/raw/master/djsetup.py
+3. wget https://github.com/bdlss/vcabtext/raw/master/djsetup.py
 4. chmod u+x djsetup.py
 
 Stage B: setup opt and sync latest git master
