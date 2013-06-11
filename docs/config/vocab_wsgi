@@ -27,5 +27,10 @@
                 Options -Indexes
         </Directory>
 
+	# Make it so redirect to https
+        RewriteEngine on
+        ReWriteCond %{SERVER_PORT} !^443$
+        RewriteRule ^/admin/(.*) https://%{HTTP_HOST}/admin/$1 [NC,R,L]
+        
 </VirtualHost>
 
