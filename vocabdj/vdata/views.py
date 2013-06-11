@@ -12,7 +12,7 @@ def index(request, pag_count=5):
             pag_count = 100
     except (ValueError, TypeError): #A typeerror occurs if dlist is empty
         pag_count = 100
-    
+        
     paginator = Paginator(dlist, pag_count)
     page = request.GET.get('page')
     try:
@@ -21,7 +21,8 @@ def index(request, pag_count=5):
         docs = paginator.page(1)
     except EmptyPage:
         docs = paginator.page(paginator.num_pages)
-        
+    except TypeError: # This will occur if there are no pages
+        docs = {}
     context = {'docs': docs}
     return render(request, 'index.html', context)
 
