@@ -10,9 +10,9 @@ try:
     from pygments.lexers import get_lexer_for_filename
     from pygments.formatters import HtmlFormatter
         
-    ENABLE_AUTO_HTML = True
+    ENABLE_PYGMENTS = True
 except ImportError:
-    ENABLE_AUTO_HTML = False
+    ENABLE_PYGMENTS = False
                 
 ENABLE_FIELDSETS = True
 
@@ -217,7 +217,7 @@ class DocumentAdmin(admin.ModelAdmin):
                 self.auto_get_text(request, doc)
                 
         # Enable the setting of the html field via text.
-        if ENABLE_AUTO_HTML and doc.html_auto_enabled:
+        if doc.html_auto_enabled:
             self.html_auto(request, doc)
         
         self.update_status(request, doc)
@@ -370,6 +370,10 @@ class DocumentAdmin(admin.ModelAdmin):
 
     def do_pygments(self, request, doc, options):
         '''Use pygments to create and save the html text.'''
+        if not ENABLE_PYGMENTS:
+            m = 'hauto60: Library needed for pygments is not available.'
+            messages.warning(request, m)
+            return ''
         if not options: options = 'xml, linenos' #defaults
         custom = options.split(',')
         
