@@ -10,7 +10,7 @@ def index(request, pag_count=5):
         pag_count = int(pag_count)
         if pag_count >= 100:
             pag_count = 100
-    except ValueError:
+    except (ValueError, TypeError): #A typeerror occurs if dlist is empty
         pag_count = 100
     
     paginator = Paginator(dlist, pag_count)
