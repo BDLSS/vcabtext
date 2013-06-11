@@ -9,11 +9,7 @@ try:
     from pygments.lexers import XmlLexer, JSONLexer, XsltLexer, TextLexer
     from pygments.lexers import get_lexer_for_filename
     from pygments.formatters import HtmlFormatter
-    
-    # The following are need by the rdfxslt convert method
-    from StringIO import StringIO
-    from lxml import etree
-    
+        
     ENABLE_AUTO_HTML = True
 except ImportError:
     ENABLE_AUTO_HTML = False
@@ -21,6 +17,14 @@ except ImportError:
 ENABLE_FIELDSETS = True
 
 import urllib2
+
+# The following are need by the hxslt convert method
+try:
+    from StringIO import StringIO
+    from lxml import etree
+    ENABLE_HXSLT = True
+except ImportError:
+    ENABLE_HXSLT = False
 
 class FormatAdmin(admin.ModelAdmin):
     list_display = ('format', 'expanded_acronym', 'html_convert_enable', 'native_mime_type')
@@ -339,7 +343,12 @@ class DocumentAdmin(admin.ModelAdmin):
         elif how == 'hdemo1':
             content = self.do_hdemo1(request, doc, opts)
         elif how == 'hxslt':
-            content = self.do_hxslt(request, doc, opts)
+            if ENABLE_HXSLT:
+                content = self.do_hxslt(request, doc, opts)
+            else:
+                m = 'hauto51: The library needed for hxslt is not available.' 
+                messages.error(request, m)
+                content = ''
         else:
             m = 'hauto51: Format has invalid html convert method.' 
             messages.error(request, m)
