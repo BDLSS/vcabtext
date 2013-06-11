@@ -272,6 +272,7 @@ class DjAdmin(object):
         logging.critical('Attempting to apt-get required libraries.')
         self.do_command(['apt-get', 'install', 'python-django'])
         self.do_command(['apt-get', 'install', 'python-pygments'])
+        self.do_command(['apt-get', 'install', 'python-lxml'])
         
 if __name__ == '__main__':
     if DEBUG:
