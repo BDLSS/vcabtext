@@ -54,6 +54,7 @@ class DjAdmin(object):
         'fdesk':('f', 'Fixes ownership rights on development desktops.'),
         'get': ('g', 'Get the latest version of this script.'),
         'dbwrite': ('d', 'Enable the database file for production.'),
+        'apt': ('a', 'Apt-get the needed items to make it run.')
                  }
                  
         for item in items:
@@ -80,6 +81,7 @@ class DjAdmin(object):
         if opts.fdesk: self.do_desktop()
         if opts.get: self.do_get()
         if opts.dbwrite: self.do_dbwrite()
+        if opts.apt: self.do_aptget()
     
     def do_command(self, command):
         '''Run the command tuple on the OS command line.'''
@@ -265,6 +267,11 @@ class DjAdmin(object):
         ug = "%s:%s"%(self.DEFAULT_USER, self.DEFAULT_GROUP)
         self.do_command(['chown', ug, '/opt/oxstore/data.sq3' ])
         self.do_command(['chmod', 'g+w', '/opt/oxstore/data.sq3'])
+    
+    def do_aptget(self):
+        logging.critical('Attempting to apt-get required libraries.')
+        self.do_command(['apt-get', 'install', 'python-django'])
+        self.do_command(['apt-get', 'install', 'python-pygments'])
         
 if __name__ == '__main__':
     if DEBUG:
