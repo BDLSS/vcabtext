@@ -33,7 +33,7 @@
     </p>
 </div>
 
-    {% for document in docs %}
+    {% for document in docs.object_list %}
     
         <h2>{{document.name}} - {{document.brief_description }}</h2>
         <p><a href="/data/{{ document.id }}/">About {{document.name}}</a>
