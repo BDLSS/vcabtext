@@ -262,9 +262,10 @@ if __name__ == '__main__':
         logging.basicConfig(level=logging.DEBUG)
     else:
         logging.basicConfig(level=logging.INFO)
-    ug = 'vocabadmin'
+    user = 'vocabadmin'
+    group = 'www-data'
     master='git://github.com/BDLSS/vcabtext.git'
-    a = DjAdmin(ug, ug, master)
+    a = DjAdmin(user, group, master)
     argv = sys.argv 
     
     #argv.append('-f') # this will let you fake a command line option
