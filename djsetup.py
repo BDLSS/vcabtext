@@ -53,6 +53,7 @@ class DjAdmin(object):
         'reset':('N','Resets the server (Does w then m, c and p)'),
         'fdesk':('f', 'Fixes ownership rights on development desktops.'),
         'get': ('g', 'Get the latest version of this script.'),
+        'dbwrite': ('d', 'Enable the database file for production.'),
                  }
                  
         for item in items:
@@ -78,6 +79,7 @@ class DjAdmin(object):
         if opts.reset: self.do_reset()
         if opts.fdesk: self.do_desktop()
         if opts.get: self.do_get()
+        if opts.dbwrite: self.do_dbwrite()
     
     def do_command(self, command):
         '''Run the command tuple on the OS command line.'''
@@ -256,6 +258,13 @@ class DjAdmin(object):
         shutil.move('djsetup.py', 'before%s_djsetup.py'%self.when())
         self.do_command(['wget', 'https://github.com/bdlss/vcabtext/raw/master/djsetup.py'])
         self.do_command(['chmod', 'u+x', 'djsetup.py'])
+        
+    def do_dbwrite(self):
+        logging.critical('Attempting to enable write access to db.')
+        self.do_command(['chmod', 'g+wx', '/opt/oxstore'])
+        ug = "%s:%s"%(self.DEFAULT_USER, self.DEFAULT_GROUP)
+        self.do_command(['chown', ug, '/opt/oxstore/data.sq3' ])
+        self.do_command(['chmod', 'g+w', '/opt/oxstore/data.sq3'])
         
 if __name__ == '__main__':
     if DEBUG:
