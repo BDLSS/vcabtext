@@ -17,12 +17,10 @@ def index(request, pag_count=5):
     page = request.GET.get('page')
     try:
         docs = paginator.page(page)
-    except PageNotAnInteger:
+    except (PageNotAnInteger, TypeError):
         docs = paginator.page(1)
     except EmptyPage:
         docs = paginator.page(paginator.num_pages)
-    except TypeError: # This will occur if there are no pages
-        docs = {}
     context = {'docs': docs}
     return render(request, 'index.html', context)
 
