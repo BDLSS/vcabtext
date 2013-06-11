@@ -42,6 +42,9 @@ class Format(models.Model):
     def __unicode__(self):
         return self.format
     
+    class Meta:
+        ordering = ['format']
+        
 class Collection(models.Model):
     '''A document can be part of a broad collection.'''
     h = 'A short name for this collection. eg. usedox'
@@ -85,6 +88,9 @@ class Tag(models.Model):
     def __unicode__(self):
         return self.tag
     
+    class Meta:
+        ordering = ['tag']
+    
 class Category(models.Model):
     '''A document can have user defined tags.'''
     h = 'A category can be up to 50 chars long and can contain spaces.'
@@ -101,6 +107,7 @@ class Category(models.Model):
     
     class Meta():
         verbose_name_plural = 'Categories'
+        ordering = ['category']
 
 class Agent(models.Model):
     '''A document can have agents (ie. people/organisation)'''
