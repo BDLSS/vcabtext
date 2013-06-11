@@ -76,7 +76,7 @@ maintainer of the item){%endif%}:
 <ul>
 {% if cats %}
 <li><strong>Categories</strong>: {% for cat in cats %}
-	{{cat.category}}{% if not forloop.last %}},{% endif %}
+	{{cat.category}}{% if not forloop.last %},{% endif %}
  {% endfor %}</li>
  {% endif %}
  {% if tags %}
