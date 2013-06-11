@@ -6,7 +6,7 @@ from django.contrib import auth
 
 try:
     from pygments import highlight
-    from pygments.lexers import XmlLexer, JSONLexer, XsltLexer, TextLexer
+    from pygments.lexers import XmlLexer, XsltLexer, TextLexer
     from pygments.lexers import get_lexer_for_filename
     from pygments.formatters import HtmlFormatter
         
@@ -372,7 +372,7 @@ class DocumentAdmin(admin.ModelAdmin):
         '''Use pygments to create and save the html text.'''
         if not ENABLE_PYGMENTS:
             m = 'hauto60: Library needed for pygments is not available.'
-            messages.warning(request, m)
+            messages.error(request, m)
             return ''
         if not options: options = 'xml, linenos' #defaults
         custom = options.split(',')
@@ -383,8 +383,6 @@ class DocumentAdmin(admin.ModelAdmin):
             lexer = XmlLexer
         elif custom[0] == 'xslt': 
             lexer = XsltLexer
-        elif custom[0] == 'json': 
-            lexer = JSONLexer
         elif custom[0] == 'guess':
             lexer, example = self.pyg_guess(custom)
             m = 'hauto61: Lexer guessed:%s using example: %s'%(lexer, example)
