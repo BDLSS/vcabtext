@@ -20,10 +20,10 @@ can cut and paste into your favourite text editor.</p>
 further documentation, including syntax highlighting when available.</p>
 
 <h2>Links</h2>
-
+<p>The following persistent links are based upon the name and/or version:</p>
+<ul>
 {% if document.version_current %}
 
-<ul>
 <li>
 {% if document.version_current %}
 	<a href="/{{document.name}}/{{document.version_current }}/">Download {{document.name}} version {{document.version_current }}</a>
@@ -42,7 +42,6 @@ further documentation, including syntax highlighting when available.</p>
 </li>
 
 
-
 {% endif %}
  
 <li>
@@ -50,10 +49,6 @@ further documentation, including syntax highlighting when available.</p>
 </li>
 
 </ul>
-
-
-
-
 
                   
 {% endblock%}
