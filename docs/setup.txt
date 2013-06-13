@@ -9,7 +9,13 @@ Setup
 =====
 The python script djsetup.py automates some of the setting up in the /opt folder.
 
-This script can be updated by calling it with the -g option.
+It also does other things. Calling with no options will show you help.
+  ./djsetup
+
+The -g option will download the new latest version and prefix the old
+one with a time stamp.
+  ./djsetup -g
+
 
 Development setup
 -----------------
@@ -51,10 +57,11 @@ There is are two stages. But the webserver still needs setting up.
 
 Stage A: pre-setup
 - - - - - - - - - -
-1. sudo apt-get install python-django
-2. sudo apt-get install python-pygments
-3. wget https://github.com/bdlss/vcabtext/raw/master/djsetup.py
-4. chmod u+x djsetup.py
+1. wget https://github.com/bdlss/vcabtext/raw/master/djsetup.py
+2. chmod u+x djsetup.py
+3. sudo ./djsetup -a
+The third option will apt-get the required libraries.
+
 
 Stage B: setup opt and sync latest git master
 - - - - - - - - - - - - - - - - - - - - - - - -
@@ -62,10 +69,16 @@ Stage B: setup opt and sync latest git master
 If you see message about non-django system folders ignore them.
 
 2. cd /opt/oxproject/current/vocabdj
-3. do B3 and B4 from development setup
+3. ./manage.py syncdb
+
+This will create the database, but YOU must enable write access to it.
+4. sudo ~/djsetup -d
 
 Stage C: get and load the fixtures
 ----------------------------------
 1. SSH/SFTP into server so you can copy files from local machine
 into fixtures folders.
-2. If okay, do C5 to load data
+2. Copy the page.json
+3. cd /opt/oxproject/current/vocabdj
+4. ./manage.py loaddata vadmin/fixtures/page.json
+5. Goto website.
