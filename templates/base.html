@@ -64,8 +64,21 @@ border-bottom: thin; border-bottom-style: dotted;}
     	{% else %}<li>{% endif %}<a href="/publish/">publish</a></li>
     </ul></nav>
     
-        <welcome> 
-        <div class="rt"><a href="/admin/">Login</a> </div>
+        <welcome>
+        <div class="rt">
+        {% if user.is_authenticated %}
+        	<a href="/admin/">Logged in</a> -  
+            {% if user.first_name or user.last_name %}
+            	{{ user.first_name }} {{ user.last_name }}
+            {% else %}
+            	{{ user }}
+            {% endif %}
+            </a>
+             - <a href="/admin/logout/">Logout</a>
+        {% else %}
+        	<a href="/admin/">Login</a>
+        {% endif %}
+        </div>       
       </welcome>
     
   </header><!-- /#banner -->
