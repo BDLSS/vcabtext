@@ -45,12 +45,23 @@ border-bottom: thin; border-bottom-style: dotted;}
     <h1><a href="http://ox.ac.uk" target="_blank"><img src="/media/oxford_logo.gif" alt="University of Oxford [opens new window]" title="University of Oxford [opens new window]" class="imgLeft"></a><a href="/">University of Oxford Vocabularies <strong>vocab.ox.ac.uk</strong></a></h1>
     
     <nav><ul>
-        <li><a href="/">home</a></li>
-        <li><a href="/about/">about</a></li>
-        <li><a href="/browse/">browse</a></li>
-        <li><a href="/contact/">contact</a></li>
-		<li><a href="/help/">help</a></li>
-        <li><a href="/publish/">publish</a></li>
+		{% if  flatpage.title == 'Vocab' %}<li class="active">
+		{% else %}<li>{% endif %}<a href="/">home</a></li>
+    	
+		{% if  flatpage.title == 'About this project' %}<li class="active">
+    	{% else %}<li>{% endif %}<a href="/about/">about</a></li>
+    	
+    	{% if  flatpage.title == 'Browse' %}<li class="active">
+    	{% else %}<li>{% endif %}<a href="/browse/">browse</a></li>
+        
+        {% if  flatpage.title == 'Contact' %}<li class="active">
+    	{% else %}<li>{% endif %}<a href="/contact/">contact</a></li>
+    	
+		{% if  flatpage.title == 'Help' %}<li class="active">
+    	{% else %}<li>{% endif %}<a href="/help/">help</a></li>
+    	
+        {% if  flatpage.title == 'Publish' %}<li class="active">
+    	{% else %}<li>{% endif %}<a href="/publish/">publish</a></li>
     </ul></nav>
     
         <welcome> 
