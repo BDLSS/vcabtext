@@ -4,6 +4,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from models import Document, Collection, Format
 
+ACT_TAB = 'browse' # what tab on the UI should be shown active 
+
 def index(request, pag_count=5):
     dlist = Document.objects.all().filter(status=5)
     try:
@@ -21,7 +23,8 @@ def index(request, pag_count=5):
         docs = paginator.page(1)
     except EmptyPage:
         docs = paginator.page(paginator.num_pages)
-    context = {'docs': docs}
+        
+    context = {'docs': docs, 'active_tab': ACT_TAB}
     return render(request, 'index.html', context)
 
 def detail(request, document_id):
@@ -32,10 +35,11 @@ def detail(request, document_id):
         creators = doc.creators.all()
         contribs = doc.contributors.all()
     except Document.DoesNotExist:
-        raise Http404 
-    return render(request, 'detail.html', {'document': doc,
-                        'cats': cats, 'tags':tags,
-                        'creators': creators, 'contrib': contribs})
+        raise Http404
+    context = {'document': doc, 'cats': cats, 'tags':tags,
+                'creators': creators, 'contrib': contribs,
+               'active_tab': ACT_TAB}
+    return render(request, 'detail.html', context)
 
 def native(request, document_id):
     '''Enables the downloading of a particular document.'''
@@ -43,7 +47,7 @@ def native(request, document_id):
         doc = Document.objects.get(pk=document_id)
     except Document.DoesNotExist:
         raise Http404 
-    return render(request, 'native.html', {'document': doc})
+    return render(request, 'native.html', {'document': doc, 'active_tab': ACT_TAB})
 
 def web(request, document_id):
     '''Enables the downloading of a particular document.'''
@@ -51,7 +55,7 @@ def web(request, document_id):
         doc = Document.objects.get(pk=document_id)
     except Document.DoesNotExist:
         raise Http404 
-    return render(request, 'web.html', {'document': doc})
+    return render(request, 'web.html', {'document': doc, 'active_tab': ACT_TAB})
 
 def download(request, document_id):
     '''Enable direct downloads of the text.'''
@@ -78,7 +82,8 @@ def collections(request):
     dcount = Document.objects.all().filter(status=5).count()
     clist = Collection.objects.all()
     ccount = clist.count()
-    context = {'doc_count' : dcount, 'collection_list': clist, 'col_count': ccount}
+    context = {'doc_count' : dcount, 'collection_list': clist,
+               'col_count': ccount, 'active_tab': ACT_TAB}
     return render(request, 'collects.html', context)
 
 def collection(request, collection_collection):
@@ -91,8 +96,8 @@ def collection(request, collection_collection):
     
     dlist = Document.objects.all().filter(status=5, collection=c)
     dcount = dlist.count()
-    
-    context = {'document_list' : dlist, 'collection': item, 'doc_count' : dcount}
+    context = {'document_list' : dlist, 'collection': item,
+               'doc_count' : dcount, 'active_tab': ACT_TAB}
     
     return render(request, 'collect_item.html', context)
 

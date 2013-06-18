@@ -51,8 +51,10 @@ border-bottom: thin; border-bottom-style: dotted;}
 		{% if  flatpage.title == 'About this project' %}<li class="active">
     	{% else %}<li>{% endif %}<a href="/about/">about</a></li>
     	
-    	{% if  flatpage.title == 'Browse' %}<li class="active">
-    	{% else %}<li>{% endif %}<a href="/browse/">browse</a></li>
+    	{% if  flatpage.title == 'Browse' or active_tab == 'browse' %}
+    		<li class="active">
+    	{% else %}
+    		<li>{% endif %}<a href="/browse/">browse</a></li>
         
         {% if  flatpage.title == 'Contact' %}<li class="active">
     	{% else %}<li>{% endif %}<a href="/contact/">contact</a></li>
