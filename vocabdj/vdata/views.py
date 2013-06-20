@@ -1,5 +1,5 @@
 from django.http import Http404, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from models import Document, Collection, Format
@@ -131,3 +131,79 @@ def version_info(request, doc_name, doc_version):
     except Document.DoesNotExist:
         raise Http404
     return detail(request, found.id)
+
+def find_latest(document_name):
+    '''Returns the item id for the latest version of document name.'''
+    try:
+        dlist = Document.objects.all().filter(name=document_name)
+    except Document.DoesNotExist:
+        raise Http404
+    latest = None
+    latest_id = None
+    for doc in dlist:
+        check = doc.version_current
+        if check > latest:
+            latest = check
+            latest_id = doc.id
+    return latest_id
+
+def find_version(doc_name, doc_version):
+    '''Returns the item id for particular version of document name.'''
+    try:
+        found = Document.objects.get(name=doc_name, version_current=doc_version)
+        answer = found.id
+    except Document.DoesNotExist:
+        answer = ''
+    return answer
+
+def find_id(doc_name, doc_version=''):
+    '''Returns an item id based up document name and id.'''
+    if doc_version:
+        found_id = find_version(doc_name, doc_version)
+        if not found_id:
+            found_id = find_latest(doc_name)
+    else:
+        found_id = find_latest(doc_name)
+    
+    return found_id
+
+def get_mime(docid, default='text/plain', ext='txt'):
+    '''Returns the mime type and its extension for item with docid or returns default.'''
+    try:
+        doc = Document.objects.get(pk=docid)
+    except Document.DoesNotExist:
+        return default, ext
+    
+    try:
+        f = Format.objects.get(pk=doc.format)
+        return f.native_mime_type, f.download_extension 
+    except Format.DoesNotExist:
+        return default, ext
+        
+def content_neg(request, doc_name, doc_version=''):
+    '''Enable content negotiation for doc with name.'''
+    wanted_type = request.META['CONTENT_TYPE']
+    found_id = find_id(doc_name, doc_version)
+    default_type, unused = get_mime(found_id) # Type depends on item format
+    #wanted_type = request.META
+    #return HttpResponse('%s, %s'%(doc_name, wanted_type))
+    #wanted_type = "text/html" #fake it to try options
+    
+    downurl = '/data/%s/download'%found_id
+    if wanted_type == "text/plain": # Default, if request has no content type
+        return redirect(downurl)
+        return download(request, found_id)
+    elif wanted_type == "text/html":
+        return redirect('/data/%s/'%found_id)
+        return detail(request, found_id)
+    elif wanted_type == "text/xml":
+        return redirect(downurl)
+        return download(request, found_id)
+    elif wanted_type == default_type: # This will work for any format
+        return redirect(downurl)
+        return download(request, found_id)
+    else:
+        return redirect(downurl)
+        return download(request, found_id)
+    
+    
