@@ -182,14 +182,16 @@ def get_mime(docid, default='text/plain', ext='txt'):
         
 def content_neg(request, doc_name, doc_version=''):
     '''Enable content negotiation for doc with name.'''
-    try:
-        wanted_type = request.META['CONTENT_TYPE']
-    except  KeyError:
-        raise Http404
     found_id = find_id(doc_name, doc_version)
     default_type, unused = get_mime(found_id) # Type depends on item format
-    #wanted_type = request.META
+
+    #wanted_type = request.META['HTTP_ACCEPT']
     #return HttpResponse('%s, %s'%(doc_name, wanted_type))
+    
+    try:
+        wanted_type = request.META['HTTP_ACCEPT']
+    except  KeyError:
+        wanted_type = default_type
     #wanted_type = "text/html" #fake it to try options
     
     downurl = '/data/%s/download'%found_id
