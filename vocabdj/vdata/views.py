@@ -185,7 +185,7 @@ def content_neg(request, doc_name, doc_version=''):
     try:
         wanted_type = request.META['CONTENT_TYPE']
     except  KeyError:
-        return Http404
+        raise Http404
     found_id = find_id(doc_name, doc_version)
     default_type, unused = get_mime(found_id) # Type depends on item format
     #wanted_type = request.META
