@@ -112,19 +112,19 @@ def download_latest(request, document_name):
 
 def download_version(request, doc_name, doc_version):
     '''Download a specific version of a document.'''
-    try:
-        found = Document.objects.get(name=doc_name, version_current=doc_version)
-    except Document.DoesNotExist:
+    found_id = find_version(doc_name, doc_version)
+    if found_id:
+        return download(request, found_id)
+    else:
         raise Http404
-    return download(request, found.id)   
 
 def version_info(request, doc_name, doc_version):
     '''Goto the information page for a specific version of a document.'''
-    try:
-        found = Document.objects.get(name=doc_name, version_current=doc_version)
-    except Document.DoesNotExist:
+    found_id = find_version(doc_name, doc_version)
+    if found_id:
+        return detail(request, found_id)
+    else:
         raise Http404
-    return detail(request, found.id)
 
 def current_info(request, document_name):
     '''Returns the information page of the current version.'''
