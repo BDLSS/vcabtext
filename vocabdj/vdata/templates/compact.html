@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Compact list of links{% endblock%}
+
+{% block content %}
+<h1>Compact list of links</h1>
+<p>This page provides a concise list of links that exist for every item.</p>
+
+{% for collection in collection_list %}
+  <h2>{{collection}} - {{collection.longer_name}}</h2> 
+          
+  {% if collection.description %}
+    <p>{{collection.description|safe}}</p>
+  {% endif %}
+  
+  <table width="95%" cellpadding="0" cellspacing="0" class="stripy">
+  <tbody>
+
+{% for doc in doc_list %}
+	{% if doc.collection == collection %}
+		<tr>
+		<td width="100%">
+		<a href="/data/{{doc.id}}/">{{doc.name}}: {{doc.brief_description }}</a>
+		<!-- <div class="tabbed">
+            <strong>Version : </strong>{{ doc.version_current }}<br/>
+        </div>
+         -->
+		<div class="tabbed">
+            <ul>
+                <li><strong>Download</strong>: <a href="/data/{{doc.id}}">{{doc.name}}.{{doc.format|lower}}</a></li>
+                <li><strong>Automatic documentation</strong>: <a href="/data/{{doc.id}}/web/">{{doc.name}}.html</a>
+                {% if doc.format.format == "RDF" %}
+                or view <a href="http://www.essepuntato.it/lode/http://vocab.ox.ac.uk/data/{{doc.id}}/download/">{{doc.name}} on LODE</a>
+                {% endif %}
+                </li>
+                <li><strong>Latest version</strong>: <a href="/{{doc.name}}/current/">download {{doc.name}}</a>
+                or see information <a href="/{{doc.name}}/current/info/">page for {{doc.name}}</a>.</li>
+                
+                {% if doc.version_current %}
+                <li><strong>Specific version</strong>:
+                <a href="/{{doc.name}}/{{doc.version_current}}/">version {{doc.version_current}} of {{doc.name}}</a>
+                or see <a href="/{{doc.name}}/{{doc.version_current}}/info/">version {{doc.version_current}} information page</a>.</li>
+                {% endif %}                
+                
+            </ul>
+            <ul>
+            </ul>
+        </div>
+        </td>
+        </tr>
+		
+	{% endif %}
+{% endfor %}
+</table>
+
+  
+{% endfor %} {% comment %} This ends the collection loop. {% endcomment %}
+
+{% endblock%}
+
+{% block bread %}
+  <a href="/">Vocab</a>
+  &rsaquo; <a href="/browse/">Browse</a>
+  &rsaquo; Compact list <a href="/admin/vdata/collection/" class="hidelink">Edit collections</a>
+
+{% endblock%}
+ 

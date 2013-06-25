@@ -109,6 +109,16 @@ def collection(request, collection_collection):
     
     return render(request, 'collect_item.html', context)
 
+def compact(request):
+    dcount = Document.objects.all().filter(status=5).count()
+    dlist = Document.objects.all().filter(status=5)
+    clist = Collection.objects.all()
+    ccount = clist.count()
+    context = {'doc_count' : dcount, 'doc_list': dlist, 
+               'collection_list': clist,
+               'col_count': ccount, 'active_tab': ACT_TAB}
+    return render(request, 'compact.html', context)
+    
 def download_latest(request, document_name):
     '''Download the latest version of document name.'''
     found_id = find_latest(document_name)
