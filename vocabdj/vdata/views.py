@@ -57,7 +57,7 @@ def web(request, document_id):
         raise Http404 
     return render(request, 'web.html', {'document': doc, 'active_tab': ACT_TAB})
 
-def download(request, document_id):
+def download(request, document_id, ext_plus='', alt_mime=''):
     '''Enable direct downloads of the text.'''
     try:
         doc = Document.objects.get(pk=document_id)
@@ -68,12 +68,19 @@ def download(request, document_id):
     try:
         f = Format.objects.get(pk=doc.format)
         ext = f.download_extension
-        response = HttpResponse(mimetype=f.native_mime_type)
+        mtype = f.native_mime_type
     except Format.DoesNotExist:
-        response = HttpResponse(mimetype='text/plain')
         ext = 'txt'
-        
+        mtype= 'text/plain'
+    
+    # Deal with content negotiation which might alter download
+    if ext_plus:
+        ext = '%s.%s'%(ext, ext_plus)
+    if alt_mime:
+        mtype = alt_mime
+            
     # Dispatch the download.
+    response = HttpResponse(mimetype=mtype)
     response['Content-Disposition']='attachment; filename=%s.%s'%(doc.name, ext)
     response.write(doc.text)
     return response
@@ -189,30 +196,31 @@ def content_neg(request, doc_name, doc_version=''):
         raise Http404
     default_type, unused = get_mime(found_id) # Type depends on item format
 
-    #wanted_type = request.META['HTTP_ACCEPT']
-    #return HttpResponse('%s, %s'%(doc_name, wanted_type))
-    
     try:
-        wanted_type = request.META['HTTP_ACCEPT']
+        accept = request.META['HTTP_ACCEPT']
+        okay_types = accept.split(',')
     except KeyError:
-        wanted_type = default_type
-    #wanted_type = "text/html" #fake it to try options
+        okay_types = ['text/html',] # tuple, needs comma
+    #return HttpResponse('%s, %s'%(accept, okay_types))
+    #okay_types = ['text/plagin','text/xmhl', 'text/htfml', 'appflication/rdf+xml'] # Test it
     
     downurl = '/data/%s/download'%found_id
-    if wanted_type == "text/plain": # Default, if request has no content type
+    txt = 'text/plain'
+    xml = 'text/xml'
+    if default_type in okay_types: # This will work for any format
         return redirect(downurl)
-        return download(request, found_id)
-    elif wanted_type == "text/html":
+        #return download(request, found_id)
+    elif txt in okay_types: # Default, if request has no content type
+        #return redirect(downurl)
+        return download(request, found_id, 'txt', txt)
+    elif xml in okay_types:
+        #return redirect(downurl)
+        return download(request, found_id, 'xml', xml)
+    elif 'text/html' in okay_types:
         return redirect('/data/%s/'%found_id)
         return detail(request, found_id)
-    elif wanted_type == "text/xml":
-        return redirect(downurl)
-        return download(request, found_id)
-    elif wanted_type == default_type: # This will work for any format
-        return redirect(downurl)
-        return download(request, found_id)
     else:
         return redirect(downurl)
-        return download(request, found_id)
+        #return download(request, found_id)
     
     
