@@ -132,6 +132,14 @@ def version_info(request, doc_name, doc_version):
         raise Http404
     return detail(request, found.id)
 
+def current_info(request, document_name):
+    '''Returns the information page of the current version.'''
+    found_id = find_latest(document_name)
+    if found_id:
+        return detail(request, found_id)
+    else:
+        raise Http404
+    
 def find_latest(document_name):
     '''Returns the item id for the latest version of document name.'''
     try:
