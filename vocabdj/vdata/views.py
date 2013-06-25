@@ -103,18 +103,12 @@ def collection(request, collection_collection):
     return render(request, 'collect_item.html', context)
 
 def download_latest(request, document_name):
-    try:
-        dlist = Document.objects.all().filter(name=document_name)
-    except Document.DoesNotExist:
-        raise Http404
-    latest = None
-    latest_id = None
-    for doc in dlist:
-        check = doc.version_current
-        if check > latest:
-            latest = check
-            latest_id = doc.id
-    return download(request, latest_id)   
+    '''Download the latest version of document name.'''
+    found_id = find_latest(document_name)
+    if found_id:
+        return download(request, found_id)
+    else:
+        raise Http404 
 
 def download_version(request, doc_name, doc_version):
     '''Download a specific version of a document.'''
