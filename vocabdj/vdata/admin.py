@@ -187,7 +187,8 @@ class DocumentAdmin(admin.ModelAdmin):
         '''Add custom save options to admin.'''
         if doc.maintainer == None:
             doc.maintainer = request.user
-            
+
+        doc.name = str(doc.name).lower().replace(' ', '') #lower+remove spaces
         doc.save() # Save the model first to deal with any errors.
         
         # Enable the setting of the text field via file upload.

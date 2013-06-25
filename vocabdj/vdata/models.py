@@ -140,7 +140,7 @@ class Agent(models.Model):
 # =======================================================================
 class Document(models.Model):
     '''A representation of vocab document.'''
-    h = 'A short name commonly used to refer to this document. e.g. "Dublin Core"'
+    h = 'A short name used to refer to this document. (lower case, no spaces).'
     name = models.CharField(max_length=50, help_text=h)
     
     statuses = (('1', 'New'), ('3', 'Review'),
