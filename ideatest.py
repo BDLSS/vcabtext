@@ -1,5 +1,11 @@
 # This file is used to test ideas.
-
+#
+# 1. Checking how pygments works and what lexers are available.
+# 2. Checking how lxml transforms documents.
+#
+# To use this on servers you need to install both. It is possible that
+# the pygments library is already installed on some linux desktops.
+#
 from pygments.formatters import HtmlFormatter
 from pygments.styles import get_all_styles
 
