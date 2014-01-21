@@ -118,6 +118,7 @@ class DjAdmin(object):
     # Methods that get run depending on the commmand line options.
     # ------------------------------------------------------------                
     def do_mkdirs(self):
+        '''Make the standard folder needed for Django projects.'''
         logging.warn('Making folders needed.')
         before = self.list('before')
         
@@ -173,6 +174,7 @@ class DjAdmin(object):
         return using
         
     def do_chown(self, ask_admin=True):
+        '''Change the ownership of the standard folders.'''
         logging.warn('Changing user and group ownership')
         usergroup = self.get_usergroup(ask_admin)
         self.list_long('chown-before')
@@ -182,7 +184,8 @@ class DjAdmin(object):
         self.list_long('chown-after')
         
     def do_rmdb(self):
-        logging.warn('Removing development database')
+        '''Remove the local SQL3 database.'''
+        logging.warn('Removing local database')
         try:
             os.remove(self.DB_FILE)
         except OSError, e:
@@ -191,6 +194,7 @@ class DjAdmin(object):
             logging.critical('Unable to remove the development database file.')
             
     def do_wipe(self):
+        '''Delete the standard folders.'''
         logging.critical('Wiping the vocab server.')
         before = self.list('before')     
         self.list_long('wipe-before')
@@ -204,6 +208,7 @@ class DjAdmin(object):
     # Methods that sync local system to git items.
     # ------------------------------------------------------------           
     def _sync(self, internal_dir, git_path):
+        '''Backing up existing system an get a new clone.'''
         os.chdir(internal_dir)
         current = os.path.join(internal_dir, 'current')
         backup = os.path.join(internal_dir, 'zbefore-%s'%self.when())
@@ -213,6 +218,7 @@ class DjAdmin(object):
         self.do_command(['git', 'clone', git_path, 'current'])
     
     def do_pull(self):
+        '''Install the current master branch of the code.'''
         logging.warn('Pulling the current master branch.')
         self._sync(self.DIR_DJANGO, self.GIT_DJANGO)
             
