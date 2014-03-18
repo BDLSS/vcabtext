@@ -9,7 +9,7 @@
 #
 VDATA='./vdata/fixtures'
 VADMIN='./vadmin/fixtures'
-DUMP='./manage.py dumpdata '
+DUMP='./manage.py dumpdata --indent 4'
 #WHEN=$(date +%F)
 WHEN=$(date "+on%F.at%T") #include time
 
