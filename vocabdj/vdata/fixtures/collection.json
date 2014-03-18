@@ -1,1 +1,41 @@
-[{"pk": "oxford", "model": "vdata.collection", "fields": {"longer_name": "Vocabularies created at Oxford", "notes": "", "url_about_collection": "", "description": ""}}, {"pk": "reference", "model": "vdata.collection", "fields": {"longer_name": "Referenced vocabularies", "notes": "", "url_about_collection": "", "description": "Vocabularies referenced by University of Oxford."}}, {"pk": "spar", "model": "vdata.collection", "fields": {"longer_name": "Semantic Publishing and Referencing Ontologies", "notes": "", "url_about_collection": "http://purl.org/spar/", "description": "A suite of orthogonal and complementary ontology modules for creating comprehensive machine-readable RDF metadata for all aspects of semantic publishing and referencing."}}]
+[
+{
+    "pk": "oxford", 
+    "model": "vdata.collection", 
+    "fields": {
+        "extra_description": "", 
+        "description": "A collection of items created at the University of Oxford.", 
+        "date_modified": "2014-03-18T11:40:56.361", 
+        "longer_name": "Vocabularies created at Oxford", 
+        "notes": "", 
+        "date_added": null, 
+        "url_about_collection": ""
+    }
+},
+{
+    "pk": "reference", 
+    "model": "vdata.collection", 
+    "fields": {
+        "extra_description": "", 
+        "description": "Vocabularies referenced by University of Oxford.", 
+        "date_modified": null, 
+        "longer_name": "Referenced vocabularies", 
+        "notes": "", 
+        "date_added": null, 
+        "url_about_collection": ""
+    }
+},
+{
+    "pk": "spar", 
+    "model": "vdata.collection", 
+    "fields": {
+        "extra_description": "", 
+        "description": "A suite of orthogonal and complementary ontology modules for creating comprehensive machine-readable RDF metadata for all aspects of semantic publishing and referencing.", 
+        "date_modified": null, 
+        "longer_name": "Semantic Publishing and Referencing Ontologies", 
+        "notes": "", 
+        "date_added": null, 
+        "url_about_collection": "http://purl.org/spar/"
+    }
+}
+]

@@ -1,0 +1,152 @@
+[
+{
+    "pk": 1, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "About this project", 
+        "url": "/about/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "<h1>About Vocab\r\n<a href=\"http://www.bodleian.ox.ac.uk/\" target=\"_blank\"><img src=\"http://vocab.ox.ac.uk/images/bodleian_logo.jpg\" alt=\"Bodleian Libraries [opens new window]\" title=\"University of Oxford [opens new window]\" class=\"imgRight imgBorder\"></a> \r\n</h1>\r\n<p>Vocab.ox.ac.uk is a store of controlled vocabularies, ontologies, classifications, taxonomies and thesauri in use by the University of Oxford\u2019s semantic web community. It is hosted and maintained by BDLSS (<a href=\"http://www.bodleian.ox.ac.uk/sers\" title=\"Bodleian Digital \r\nLibrary Systems and Services (BDLSS) [opens new window]\" target=\"_blank\">Bodleian Digital Library Systems and Services</a>), a department of The Bodleian Libraries.</p>\r\n\r\n<h2>What it contains?</h2>\r\n<p>It comprises vocabularies, referenced versions of vocabularies hosted elsewhere that are in use at Oxford and links to other vocabularies. For brevity the broad term \u2018vocabularies\u2019 has been adopted to encompass ontologies, classifications, taxonomies, controlled vocabularies and thesauri created or amended by developers at Oxford.</p>\r\n<p>The vocabularies on this site are published as open linked data and are available for re-use in compliance with attached terms and conditions. Members of the University of Oxford are invited to submit semantic vocabularies to this site.</p>\r\n<h2>Funding</h2>\r\n<p> OAO (<a href=\"http://openaccess.ox.ac.uk/\" title=\"ORA [opens new window]\" target=\"_blank\">Open Access Oxford</a> enabled the site to be updated in 2013.</p>\r\n<p>Project funding from PICT  (<a href=\"http://www.admin.ox.ac.uk/pict/\" title=\"PICT [opens new window]\" target=\"_blank\">PRAC ICT committee</a>) in 2010 enabled the development of vocab.ox into a fully developed central  service so that members of the University can deposit and disseminate controlled  vocabularies produced at the University of Oxford.</p>\r\n\r\n<h2>Project team</h2>\r\n<ul>\r\n<li><strong>Sally</strong> is project manager.</li>\r\n<li><strong>Neil</strong> is release manager.</li>\r\n<li><strong>Martin Comina</strong> is an ORA funded developer who updated the site 2013.</li>\r\n</ul>\r\n<p>The <strong>Vocab.ox.ac.uk</strong> administrators Yvonne Aburrow (XML)  and Tanya Grey (RDF) were also involved during the 2013 update.</p>\r\n\r\n<p>Anusha Ranganathan was a Pict funded developer who created the original system this update is inspired by. It is based upon a design by Monica Messaggi Kaya who was also funded by PIct.</p>", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 2, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Vocab", 
+        "url": "/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "<h1>Introduction<a href=\"http://www.bodleian.ox.ac.uk/\" target=\"_blank\"><img src=\"http://vocab.ox.ac.uk/images/bodleian_logo.jpg\" alt=\"Bodleian Libraries [opens new window]\" title=\"University of Oxford [opens new window]\" class=\"imgRight imgBorder\"></a></h1>\r\n<p><strong>Vocab.ox.ac.uk</strong>&nbsp;is a store of controlled vocabularies, ontologies,  classifications, taxonomies and thesauri in use by the University of Oxford\u2019s  semantic web community. More <a href=\"/about/\">about vocab</a>.</p>\r\n\r\n<h2>Browsing</h2>\r\n<p>This store is available for <a href=\"/browse/\">browsing</a> in two ways.</p>\r\n\r\n<h2>Queries</h2>\r\n<p>Please <a href=\"/contact/\">contact</a> us if you have any queries or visit our <a href=\"/help/\">help</a> page.</p>\r\n\r\n<h2>Publish</h2>\r\n<p>You can also request access to <a href=\"/publish/\">publish</a> items.</p>", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 3, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Contact", 
+        "url": "/contact/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "<h1>Contact</h1>\r\n<p> If you need additional information please <a href=\"mailto:sally.rumsey@bodleian.ox.ac.uk\">contact us via email</a> and we'll address your enquiries. </p>\r\n", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 4, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Help", 
+        "url": "/help/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "<h2>Finding items</h2>\r\n<p>The <a href=\"/browse/\">Browse</a> page is the main place to find useful items.</p>\r\n\r\n<h2>Latest version</h2>\r\n<ul>\r\n<li>A link exist for each item where you can always get the latest version.</li>\r\n<li>For items, where there multiple versions, a link will also appear so you can get an exact version.</li>\r\n<li>These are most visible on the compact list available via Browse.</li>\r\n</ul>\r\n\r\n<h2>For editors</h2>\r\n<p>The following video introduces this website. Further, <a href=\"/help/editors/\">videos for editors</a> are available.</p>\r\n\r\n<iframe width=\"420\" height=\"315\" src=\"//www.youtube.com/embed/3eU0MrHDUZc\" frameborder=\"0\" allowfullscreen></iframe>\r\n", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 5, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Privacy", 
+        "url": "/privacy/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "<h1>Privacy Policy</h1>\r\n<table width=\"95%\" border=\"0\">\r\n  <tr>\r\n    <td width=\"20%\" align=\"right\" valign=\"middle\" class=\"hasrightborder\"><strong>Understanding this privacy policy</strong></td>\r\n    <td width=\"10\" align=\"center\" valign=\"middle\" class=\"bg-red hasborder\"><strong class=\"white-font-2em\">YES</strong></td>\r\n    <td width=\"25%\" align=\"left\" valign=\"middle\" class=\"hasborder\">We will use your information in this way</td>\r\n    <td width=\"1%\" align=\"left\" valign=\"middle\" class=\"hasrightborder\">&nbsp;</td>\r\n    <td width=\"10\" align=\"center\" valign=\"middle\" class=\"bg-light-blue hasborder\"><strong class=\"white-font-2em\">NO</strong></td>\r\n    <td width=\"30%\" align=\"left\" valign=\"middle\" class=\"hasborder\">We will <strong>not collect</strong> or we <strong>will not use</strong> your information in this way</td>\r\n  </tr>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n<table width=\"100%\" border=\"0\" id=\"privacy\">\r\n  <tr align=\"center\" valign=\"middle\">\r\n    <td width=\"15%\" align=\"right\" valign=\"middle\"><p class=\"nobg\">&nbsp;</p></td>\r\n    <td colspan=\"5\" align=\"left\" valign=\"middle\"><p class=\"nobg\"><span class=\"nobg\"><strong>How we use your information</strong></span></p></td>\r\n    <td width=\"1%\" rowspan=\"4\" align=\"left\" valign=\"middle\" class=\"nobg\">\r\n      <p><span class=\"nobg\"><img src=\"images/spacer.GIF\" width=\"1\" height=\"1\" alt=\"\"></span></p>        \r\n      <p>&nbsp;</p>\r\n      <p>&nbsp;</p>\r\n      <p>&nbsp;</p>\r\n    </td>\r\n    <td colspan=\"2\" align=\"left\" valign=\"middle\"><p class=\"nobg\"><span class=\"nobg\"><strong>Who we share your information with</strong></span></p></td>\r\n  </tr>\r\n  <tr align=\"center\" valign=\"middle\">\r\n    <td width=\"15%\" align=\"right\" valign=\"middle\" class=\"types\"><p class=\"line-height-1em\"><span class=\"nobg\"><strong>Types of information</strong></span></p></td>\r\n    <td width=\"20%\" align=\"left\" valign=\"middle\" class=\"use\"><p class=\"use\"><strong>Provide service &amp; maintain site</strong></p></td>\r\n    <td width=\"12%\" align=\"left\" valign=\"middle\" class=\"use\"><p class=\"use\">Research &amp; development</p></td>\r\n    <td width=\"10%\" align=\"left\" valign=\"middle\" class=\"use\"><p class=\"use\">Marketing</p></td>\r\n    <td width=\"10%\" align=\"left\" valign=\"middle\" class=\"use\"><p class=\"use\">Telemarketing</p></td>\r\n    <td width=\"10%\" align=\"left\" valign=\"middle\" class=\"use\"><p class=\"use\">Profiling</p></td>\r\n    <td width=\"12%\" align=\"left\" valign=\"middle\" class=\"use\"><p class=\"use\">Other companies</p></td>\r\n    <td width=\"12%\" align=\"left\" valign=\"middle\" class=\"use\"><p class=\"use\">Public forums</p></td>\r\n  </tr>\r\n  <tr align=\"center\" valign=\"middle\">\r\n    <td width=\"15%\" align=\"right\" valign=\"middle\" class=\"types\"><p class=\"line-height-1em\"><strong>Contact Information</strong></p></td>\r\n    <td width=\"20%\" valign=\"middle\" class=\"bg-red\"><p class=\"white-font-2em\"><strong>YES</strong></p></td>\r\n    <td width=\"12%\" valign=\"middle\" class=\"bg-light-blue\" ><p class=\"white-font-2em\">NO</p></td>\r\n    <td width=\"10%\" valign=\"middle\" class=\"bg-light-blue\" ><p class=\"white-font-2em\">NO</p></td>\r\n    <td width=\"10%\" valign=\"middle\" class=\"bg-light-blue\" ><p class=\"white-font-2em\">NO</p></td>\r\n    <td width=\"10%\" valign=\"middle\" class=\"bg-light-blue\" ><p class=\"white-font-2em\">NO</p></td>\r\n    <td width=\"12%\" valign=\"middle\" class=\"bg-light-blue\"><p class=\"white-font-2em\">NO</p></td>\r\n    <td width=\"12%\" valign=\"middle\" class=\"bg-light-blue\"><p class=\"white-font-2em\">NO</p></td>\r\n  </tr>\r\n  <tr align=\"center\" valign=\"middle\">\r\n    <td width=\"15%\" align=\"right\" valign=\"middle\" class=\"types\"><p class=\"line-height-1em\"><strong>Your activity on this site</strong></p></td>\r\n    <td width=\"20%\" valign=\"middle\" class=\"bg-red\"><p class=\"white-font-2em\">YES</p></td>\r\n    <td width=\"12%\" valign=\"middle\" class=\"bg-light-blue\"><p class=\"white-font-2em\">NO</p></td>\r\n    <td width=\"10%\" valign=\"middle\" class=\"bg-light-blue\"><p class=\"white-font-2em\">NO</p></td>\r\n    <td width=\"10%\" valign=\"middle\" class=\"bg-light-blue\"><p class=\"white-font-2em\">NO</p></td>\r\n    <td width=\"10%\" valign=\"middle\" class=\"bg-light-blue\"><p class=\"white-font-2em\">NO</p></td>\r\n    <td width=\"12%\" valign=\"middle\" class=\"bg-light-blue\"><p class=\"white-font-2em\">NO</p></td>\r\n    <td width=\"12%\" valign=\"middle\" class=\"bg-light-blue\"><p class=\"white-font-2em\">NO</p></td>\r\n  </tr>\r\n</table>\r\n<p>&nbsp;</p>\r\n\r\n<h2>Acknowledgement</h2>\r\n<p>The model for this privacy information table was presented by Patrick Gage Kelley, Joanna Bresee, Lorrie Faith Cranor, Robert W. Reeder. <strong>A &quot;Nutrition Label&quot; for Privacy.</strong> SOUPS '09 Proceedings of the 5th Symposium on Usable Privacy and Security. July 15-\u00ad\u201017, 2009 Mountain View, CA. ACM Digital Library. ISBN: 978-\u00ad\u20101-\u00ad\u201060558-\u00ad\u2010736-\u00ad\u20103 doi 10.1145/1572532.1572538 Available at <a href=\"http://portal.acm.org/citation.cfm?id=1572538\" title=\"A Nutrition Label for Privacy - in the ACM Digital Library\" target=\"_blank\">http://portal.acm.org/citation.cfm?id=1572538</a></p>", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 6, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Cookies", 
+        "url": "/cookies/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "<h1>Cookies</h1>\r\n                  <div class=\"part\">\r\n                      <h2>What are cookies</h2>\r\n                        <p>Cookies are small text files that can be written and read by websites and stored by the browser on your computer, tablet or smartphone. They do a number of things including allowing access to some types of content and functionality to users, and collecting anonymous user information so that site owners can monitor the performance of their sites. They are a kind of .memory. for a website that can help it respond appropriately to users and user behaviour.</p>\r\n                 </div>\r\n                   <div class=\"part\">\r\n                      <h2>Cookies on this website</h2>\r\n                        <p>This website stores cookies for use in Google Analytics. This anonymously tracks individual visitor behaviour on the website so that we can see how the site is being used. We only use this information for monitoring and improving our website and content for the benefit of our users (you).</p>\r\n                        <p>More information about controlling these cookies can be found at <a href=\"http://www.bodleian.ox.ac.uk/cookies\">http://www.bodleian.ox.ac.uk/cookies</a>.</p>\r\n                   </div>\r\n", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 7, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Contribute", 
+        "url": "/contribute/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 8, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Publish", 
+        "url": "/publish/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "<h1>Publish</h1>\r\n<p>To publish to this website you need to <a href=\"/contact/\">contact</a> a member of the Vocab team. They will consider your request and if successful will grant you access with either of these levels.</p>\r\n<h2>1. Edit</h2>\r\n<p>If you are member of this group you can <a href=\"/admin/vdata/document/\">edit documents</a>.</p>\r\n<h2>2. Add and edit</h2>\r\n<p>In addition to document editing members of this group can also <a href=\"/admin/vdata/tag/\">edit tags</a> available for assignment to documents.</p>\r\n<h2>Further information </h2>\r\n<ul>\r\n<li>Your University of Oxford SSO (single sign on) username will be used to <a href=\"/admin/vdata\">login</a>.</li>\r\n<li>The system keeps a history of editing so remember to <a href=\"/admin/logout/\">log out<a/> on shared computers.</li>\r\n</ul>\r\n<h2>Other levels</h2>\r\n<p>Vocab admins mainly deal with <a href=\"/admin/auth/user/\">users</a>, <a href=\"http://192.168.1.5:9000/admin/flatpages/flatpage/\">pages</a> and other <a href=\"/admin/vdata/\">other data</a>.</p>\r\n", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 9, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Browse", 
+        "url": "/browse/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "<h1>Browse</h1>\r\n<p>The following ways are available for browsing this store of controlled vocabularies, ontologies, classifications, taxonomies and thesauri:</p>\r\n<h2>Collections</h2>\r\n<p>You can see items grouped into <a href=\"/data/collects/\">collections</a>.</p>\r\n<h2>AZ listing by name</h2>\r\n<p>A complete list of items available can be found on the <a href=\"/data/\">A - Z listing</a>.</p>\r\n<h2>Compact list</h2>\r\n<p>Finally, you can see every item on a single page via the <a href=\"/data/compact/\">compact listing</a>.</p>", 
+        "enable_comments": false
+    }
+},
+{
+    "pk": 10, 
+    "model": "flatpages.flatpage", 
+    "fields": {
+        "registration_required": false, 
+        "title": "Help for Editors", 
+        "url": "/help/editors/", 
+        "template_name": "", 
+        "sites": [
+            1
+        ], 
+        "content": "<p>The following videos are for editors of content on this website.</p>\r\n\r\n<p>You might need to turn the volume up while watching the following videos because the audio is more feint.</p>\r\n\r\n<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/tJsd87FGwbE\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/-k3BxTK6zlM\" frameborder=\"0\" allowfullscreen></iframe>\r\n\r\n<p>If you notice any changes from these videos to the current website the reason is that these videos were made towards the end of the system development. Changes based upon additional user feedback have occurred.</p>\r\n", 
+        "enable_comments": false
+    }
+}
+]
