@@ -29,7 +29,7 @@ then
 		./manage.py loaddata "$VADMIN/group.json" #must go before user
 		./manage.py loaddata "$VADMIN/user.json"
 		./manage.py loaddata "$VADMIN/page.json"
-		#./manage.py loaddata "$VDATA/document.json" #REPLACE MAIN DOCUMENTS
+		./manage.py loaddata "$VDATA/document.json" #REPLACE MAIN DOCUMENTS
 		echo 'Finished loading, check the admin site is as expected.'
 	else
 		echo 'Loading cancelled.'
