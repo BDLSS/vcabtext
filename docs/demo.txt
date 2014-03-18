@@ -1,0 +1,44 @@
+This is a quick guide to setting up a demo system. It assumes
+you have a Linux system and was tested with Ubuntu 12.04.
+
+1. Setup libraries need on the server
+
+sudo apt-get install python-pip
+sudo pip install --upgrade django==1.6
+sudo apt-get install git-core
+sudo apt-get install python-pygments
+
+
+2. Download and run the setup script:
+
+wget https://github.com/BDLSS/vcabtext/raw/master/djsetup.py
+chmod u+x djsetup.py
+sudo ./djsetup.py -s
+
+This will setup the folders needed and includes git pulling the
+latest version and trying to configure certain settings.
+
+
+3. Since we are using the Django dev server rather
+than Apache we need to fix file permissions.
+(enter the username of who will be running the server when prompted) 
+
+sudo ./djsetup.py -f
+
+
+4. Setup and load the database with test data
+
+cd /opt/oxproject/current/vocabdj
+./manage.py syncdb
+./restore.sh load
+
+If you see message about "No fixture data" don't worry about it.
+
+5. To make it available to remote clients, find your IP and pass it when
+starting up the Django development server. If installed on a
+desktop you can just run it without the IP and it will
+use 127.0.0.1:8000 by default.
+
+ifconfig
+./manage.py runserver 123.456.78.9:8000
+
