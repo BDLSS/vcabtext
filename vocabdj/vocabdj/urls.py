@@ -1,4 +1,9 @@
-from django.conf.urls import patterns, include, url
+try:
+    # Maintain backward compatibility with Django 1.5
+    from django.conf.urls.defaults import patterns, url
+except ImportError:
+    from django.conf.urls import patterns, url # Django 1.6 
+    
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
