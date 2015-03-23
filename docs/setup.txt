@@ -4,6 +4,7 @@ The code for this project can be found at:
 
 https://github.com/BDLSS/vcabtext.git
 
+Pre-setup
 
 Setup
 =====
@@ -62,6 +63,19 @@ Stage A: pre-setup
 3. sudo ./djsetup -a
 The third option will apt-get the required libraries.
 
+If using Virtual Envs
+
+1. When in the folder you keep your Python virtualenvs: virturalenv vocab_dj1.5
+2. Activate it.
+3. pip install django==1.5
+4. pip install pygments
+5. pip install lxml
+
+Step 5 will compile so needs build tools. Also, since the Python is just
+a wrapper that use the installed C versions of lxml. You will need to
+install this first. See dependencies for the system package: python-lxml
+which at time of writing is: (libc6, libxml2, libxslt1.1)
+
 
 Stage B: setup opt and sync latest git master
 - - - - - - - - - - - - - - - - - - - - - - - -
@@ -71,8 +85,14 @@ If you see message about non-django system folders ignore them.
 2. cd /opt/oxproject/current/vocabdj
 3. ./manage.py syncdb
 
+If 3 fails with "OperationalError: unable to open database file" check the file permissions of where DB is kept: /opt/oxstore
+
 This will create the database, but YOU must enable write access to it.
 4. sudo ~/djsetup -d
+
+5. Use the restore.sh script to load configuration into the database: ./restore.sh load
+
+6. Use manage.py to run server. You should get home page, also three items get restored so the browse works. Edit via admin interface.
 
 Stage C: get and load the fixtures
 ----------------------------------
