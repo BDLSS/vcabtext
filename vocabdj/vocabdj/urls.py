@@ -1,8 +1,8 @@
 try:
     # Maintain backward compatibility with Django 1.5
-    from django.conf.urls.defaults import patterns, url
+    from django.conf.urls.defaults import patterns, url, include
 except ImportError:
-    from django.conf.urls import patterns, url # Django 1.6 
+    from django.conf.urls import patterns, url, include # Django 1.6 
     
 
 # Uncomment the next two lines to enable the admin:
